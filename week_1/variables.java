@@ -29,7 +29,7 @@ public class variables {
  * short: like an int, but smaller number range
  * byte: 8 bits of data
  * char: a single character - 'a' 'B' 'A' 'b'
- * boolean - True or False 
+ * boolean - true or false 
  * 
  * Objects
  * String: Textual data, a string of characters.
