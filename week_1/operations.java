@@ -25,4 +25,6 @@ public class operations {
 }
 
 // An operator performs actions on operands
+// An operand is a piece of data
+// Most operations take TWO operands
 // + - * /
