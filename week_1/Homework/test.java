@@ -1,4 +1,4 @@
-package promineo_tech_bootcamp.week_1;
+package promineo_tech_bootcamp.week_1.Homework;
 
 public class test {
     public static void main(String[] args) {
