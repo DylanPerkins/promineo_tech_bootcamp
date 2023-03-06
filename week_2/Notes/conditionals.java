@@ -1,4 +1,4 @@
-package promineo_tech_bootcamp.week_2.Notes;
+package week_2.Notes;
 
 public class conditionals {
     public static void main(String[] args) {

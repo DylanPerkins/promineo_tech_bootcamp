@@ -1,4 +1,4 @@
-package promineo_tech_bootcamp.week_2.Lab;
+package week_2.Lab;
 
 public class lab2 {
     public static void main(String[] args) {

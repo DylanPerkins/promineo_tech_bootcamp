@@ -1,4 +1,4 @@
-package promineo_tech_bootcamp.week_1.Notes;
+package week_1.Notes;
 
 public class operations {
     public static void main(String[] args) {
