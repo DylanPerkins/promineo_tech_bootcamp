@@ -34,3 +34,16 @@ public class booleanOps {
     }
     
 }
+
+// Java Comparison Operators
+// Comparison operators are used to compare two values (or variables). This is important in programming, because it helps us to find answers and make decisions.
+
+// The return value of a comparison is either true or false.
+
+
+// ==	Equal to	                x == y	
+// !=	Not equal	                x != y	
+// >	Greater than	            x > y	
+// <	Less than	                x < y	
+// >=	Greater than or equal to	x >= y	
+// <=	Less than or equal to	    x <= y
