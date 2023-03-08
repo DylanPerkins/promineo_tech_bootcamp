@@ -11,15 +11,13 @@ public class casting {
 
     }
 
-    public static void main2(String[] args) {
+    private static void main2(String[] args) {
         
         double myDouble = 9.78d;
         int myInt = (int) myDouble;     // Manual casting: double to int
 
         System.out.println(myDouble);   // Outputs 9.78
         System.out.println(myInt);      // Outputs 9
-
-
 
     }
 }
