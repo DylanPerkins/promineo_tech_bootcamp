@@ -11,7 +11,7 @@ public class casting {
 
     }
 
-    private static void main2(String[] args) {
+    public static void main2 (String[] args) {
         
         double myDouble = 9.78d;
         int myInt = (int) myDouble;     // Manual casting: double to int

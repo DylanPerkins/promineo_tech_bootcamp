@@ -17,5 +17,7 @@ public class nestedIf {
         }
 
         System.out.println("program ended");
+
+        in.close();
     }
 }

@@ -26,5 +26,6 @@ public class whichQuadrant {
             number = 4;
             System.out.println("You are in quadrant " + number + ".");            
         }
+        in.close();
     }
 }

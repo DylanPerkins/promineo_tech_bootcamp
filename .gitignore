@@ -2,6 +2,7 @@
 #########
 /.metadata/
 /.sonarlint/
+/bin/
 
 # Log file #
 ############

@@ -17,5 +17,6 @@ public class whoIsOlder {
         } else {
             System.out.println("Person three is older.");
         }
+        in.close();
     }
 }

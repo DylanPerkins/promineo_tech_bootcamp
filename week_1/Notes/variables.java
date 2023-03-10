@@ -8,7 +8,7 @@ public class variables {
         boolean isHotOutside = false;
         String firstName = "Dylan";
 
-        int numberOfFriends;
+        // int numberOfFriends;
         // You can create an empty variable for use later.
 
         System.out.println(ageOfUser);

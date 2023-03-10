@@ -17,6 +17,7 @@ public class doWhilePractice {
 		    counter--;
 		} while ( counter > 0 );
 
+		in.close();
         /*
          * Check the length of userWord
          * If word is less than 5 char, print userWord

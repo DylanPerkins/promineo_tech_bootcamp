@@ -8,7 +8,7 @@ public class loginInput {
         boolean loggedIn = false;
         Scanner sc = new Scanner(System.in);
         int failedLogin = 0;
-
+        
         while (!loggedIn) {
             System.out.println("Enter username: ");
             String username = sc.nextLine();
@@ -26,6 +26,7 @@ public class loginInput {
                 failedLogin ++;
                 System.out.println("Inaccurate credentials. Please try again");
             }
+            sc.close();
         }
     }
 }

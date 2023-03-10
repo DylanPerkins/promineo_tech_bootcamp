@@ -12,6 +12,8 @@ public class largerOrSmaller {
             System.out.println("Larger");
         } else {
             System.out.println("Smaller");
-        }        
+        } 
+        
+        in.close();
     }
 }

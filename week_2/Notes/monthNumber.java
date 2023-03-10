@@ -49,8 +49,7 @@ public class monthNumber {
                 System.out.println("Invalid Month");
                 break;
         }
-
-
+        in.close();
 
     }
 }

@@ -47,7 +47,7 @@ public class userInput {
         }
         System.out.println("Your current total is: " + total);
 
-
+        sc.close();
 
     }
 }

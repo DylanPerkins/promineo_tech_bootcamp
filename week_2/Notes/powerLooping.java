@@ -20,6 +20,7 @@ public class powerLooping {
         
         // Do not change this code
         System.out.println("Result: "+ result);
-    }
-    
+
+        in.close();
+    }    
 }
