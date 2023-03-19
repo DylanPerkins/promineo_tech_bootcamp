@@ -6,7 +6,7 @@ public class conditionals {
         String name = "Mike";
 
         // Will only run if the condition is 'true'
-        if (name == "Sam") {
+        if ("Sam".equals(name)) {
             System.out.println("Hello Sam!");            
         } 
         
