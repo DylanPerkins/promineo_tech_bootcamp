@@ -8,10 +8,9 @@ public class whichQuadrant {
         int x = in.nextInt();
         int y = in.nextInt();
 
-        int number;
+        int number = 0;
 
         if ((x == 0 || y == 0)) {
-            number = 0;
             System.out.println("You are not in a quadrant!");
         } else if (x > 0 && y > 0) {
             number = 1;

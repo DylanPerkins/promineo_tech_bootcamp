@@ -141,9 +141,8 @@ public class HomeworkOne {
         }
         if (sum > 100) {
             return true;
-        } else {
-            return false;
-        }
+        } 
+        return false;
     }
 
     public static void methodTenQuestion(double[] arrayDoubleX) {
@@ -171,17 +170,15 @@ public class HomeworkOne {
         averageY = sumY / arrayDoubleY.length;
         if (averageX > averageY) {
             return true;
-        } else {
-            return false;
-        }
+        } 
+        return false;
     }
 
     public static boolean willBuyDrink(boolean isHotOutside, double moneyInPocket) {
-        if (isHotOutside == true && moneyInPocket > 10.50) {
+        if (isHotOutside && moneyInPocket > 10.50) {
             return true;
-        } else {
-            return false;
-        }
+        } 
+        return false;
     }
 
     public static void calculateStandardDeviation(int[] arrayIntX) {

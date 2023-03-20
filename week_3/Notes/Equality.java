@@ -1,14 +1,16 @@
 package week_3.Notes;
 
+import java.util.Objects;
+
 public class Equality {
     public static void main(String[] args) {
         
-        String a = new String("Hello");
-        String b = new String("Hello");
+        String a = "Hello";
+        String b = "Hello";
 
         System.out.println("a equals: " + a);
         System.out.println("b equals: " + b);
-        System.out.println("a == b: " + (a == b));
+        System.out.println("a == b: " + (Objects.equals(a, b)));
         System.out.println("equals() method: " + a.equals(b));
 
         int x = 5;

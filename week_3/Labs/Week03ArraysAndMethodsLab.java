@@ -183,9 +183,8 @@ public class Week03ArraysAndMethodsLab {
 		stringSum = x.length();
 		if (stringSum > y) {
 			return true;
-		} else {
-			return false;
-		}
+		} 
+		return false;
 	}
 
 	// Method 16:
@@ -251,9 +250,8 @@ public class Week03ArraysAndMethodsLab {
 
 		if (sumOfEven > sumOfOdd) {
 			return true;
-		} else {
-			return false;
-		}
+		} 
+		return false;
 	}
 
 	// Method 21:
@@ -270,9 +268,8 @@ public class Week03ArraysAndMethodsLab {
 		
 		if (word1.equalsIgnoreCase(word2)) {
 			return true;
-		} else {
-			return false;
-		}
+		} 
+		return false;
 
 	}
 
