@@ -21,3 +21,5 @@ public class AverageNameLength {
         System.out.println("The average name length is " + avgLength + ".");
     }
 }
+
+
