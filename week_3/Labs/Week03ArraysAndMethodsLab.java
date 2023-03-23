@@ -151,8 +151,7 @@ public class Week03ArraysAndMethodsLab {
 
 		// 20. Write and test a method that takes an array of strings and
 		// returns true if the sum of letters for all strings with an even amount of
-		// letters
-		// is greater than the sum of those with an odd amount of letters.
+		// letters is greater than the sum of those with an odd amount of letters.
 
 		String[] array20 = { "Hello", "Goodbye", "Heyo", "Good", "Test", "Word" };
 		System.out.println(evenSumVersusOddSum(array20));
@@ -183,7 +182,7 @@ public class Week03ArraysAndMethodsLab {
 		stringSum = x.length();
 		if (stringSum > y) {
 			return true;
-		} 
+		}
 		return false;
 	}
 
@@ -250,7 +249,7 @@ public class Week03ArraysAndMethodsLab {
 
 		if (sumOfEven > sumOfOdd) {
 			return true;
-		} 
+		}
 		return false;
 	}
 
@@ -265,10 +264,10 @@ public class Week03ArraysAndMethodsLab {
 
 		System.out.println(word1);
 		System.out.println(word2);
-		
+
 		if (word1.equalsIgnoreCase(word2)) {
 			return true;
-		} 
+		}
 		return false;
 
 	}
