@@ -23,12 +23,14 @@ public class BuildANewArray {
         for (int i = 0; i < arr.length; i++) {
             newArr[i] = arr[i];
         }
+
+        // Could also be a for loop
         newArr[arr.length] = word1;
         newArr[arr.length + 1] = word2;
         newArr[arr.length + 2] = word3;
 
-        for (int i = 0; i < newArr.length; i++) {
-            System.out.println(newArr[i]);
+        for (String string : newArr) {
+            System.out.println(string);
         }
     }
 }
