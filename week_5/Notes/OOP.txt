@@ -1,0 +1,121 @@
+Object Oriented Programming (OOP)
+
+Object-Oriented Programming is an Imperative Programming Paradigm.
+
+- A paradigm is a way, or a method that can be used to solve a problem. 
+- A programming paradigm is the way that one solves a given problem (or task), by programming.  
+  Also described as a framework that defines how problems can be solved.
+- A programming language (e.g. Java, Pascal, C#, etc.) is separate from a programming paradigm. 
+  A programming language is a tool that is used to write code to solve problems.
+
+
+Object: DVD Player
+- Properties:
+   - Height 
+   - Width
+   - Weight
+   - Color
+- Functionality:
+   - Play
+   - Pause
+   - Stop
+   - Fast Forward
+
+A DVD Player can't do too much on it's own, so we can use another object (DVD) to give it uses
+
+Object: DVD
+- Properties:
+   - Movie Length
+   - Image Quality
+   - Size (GB)
+- Functionality:
+   - Store data
+
+Four Pillars of OOP
+1. Abstraction
+   - Present a simplified view, hide the complexity from the user (show only what is necessary).
+   - Example: A DVD Player can play a DVD, but we don't need to know how it does it
+   - Example: A Triangle has 3 sides, but we don't need to know the lengths, or area, or angles. 
+
+2. Encapsulation
+   -  Data Security, Binding related data and methods together into objects, data hiding (hide the unnecessary).
+   - Example: A DVD Player has a DVD inside of it, and the DVD Player can play the DVD
+   - Example: A Triangle has 3 sides, and we can use the sides to calculate the area and angles 
+
+3. Inheritance
+   - Code reusability, The ability to create new classes from existing classes
+   - Example: A DVD Player is a type of Player, so we can create a DVD Player class that extends the Player class
+   - Example: A Triangle is a type of Polygon, so we can create a Triangle class that extends the Polygon class
+
+4. Polymorphism
+   - Many Forms, A single object can have multiple behaviors, or respond in different ways to the same function.  
+   - Example: A DVD Player can play a DVD, but it can also play a CD, so we can create a CD Player class that extends the Player class
+   - Example: A Triangle is a type of Polygon, but a Square is also a type of Polygon, so we can create a Polygon class that has a method that calculates their areas
+
+How do we structure our code?
+
+We'd like to have a class for each object, and we'd like to have a class for each type of object
+A class is like a blueprint for an object
+An object is the actual product developed from the blueprint(class)
+An object is an instance of a class
+
+When we create an object from a class, that object will have all of the properties and functionality of the class it's made in.
+
+Examples:
+
+ Class: Animal
+     Properties:
+        - Name
+        - Weight
+        - Type
+        - Location
+    Functionality:
+        - describe()
+        - eat()
+        - sleep()
+
+Object: Dog
+A dog will be instantiated from the Animal class.
+
+Animal dog = new Animal();
+
+
+
+
+
+
+Brief overview of a few Programming Paradigms:
+   Imperative:  These types of paradigms are command driven. 
+      Details: Support of an imperative programming paradigm looks like this:
+         - The program code directs the program execution as sequence of statements executed one by one.
+         - The statements will direct the computer to perform a tasks.
+         - The programmer designs and programs each statement in detail, and each of those 
+         statements will direct what is to be accomplished, by specifying how it is to be done.
+         - A program, in an imperative programming paradigm, is simply a set of statements, run 
+         in order, that execute to completion.
+
+      Types: Two common imperative programming paradigms are as follow:
+         - Procedural Programming, Based on a set of procedures (also referred to as functions, methods 
+         or subroutines).  Each procedure, function, method or subroutine performs a specific operation.  
+         C, FORTRAN, and Pascal support this paradigm.
+         - Object-Oriented Programming, All program components are objects. The unique feature here is that 
+         an object contains properties and functions.  All data and associated methods are combined into a 
+         single object.  Some would say that this is an extension of procedural programming concepts. 
+         Java supports this paradigm.
+   
+   Declarative:  These types of paradigms are data driven.
+      Details: Support of a declarative programming paradigm looks like this:
+         - The control flow is not the important part of this program, the logic of a computation is expressed, 
+         without describing the control flow of the computation.
+         - Focused on achieving the end result.
+         - This approach describes to what is to be done, instead of how it should be achieved.
+      
+      Types: 
+         - Functional Programming (based on mathematical functions), Attempts to solve problems with composing 
+         functions as program components.  functions can be passed as arguments, and can also be returned as 
+         a value.  Pure functional languages, (e.g. Haskell) allow only pure functional programs.  However, 
+         some languages allow both functional and procedural programs, and Java is one of these 
+         programming languages,
+         - Logic Programming (based on logic and control), Control is defined as an order of rules.
+         In this type, logic defines what needs to be solved whereas the control defines how it should 
+         be solved. Prolog is an example of this paradigm.  
