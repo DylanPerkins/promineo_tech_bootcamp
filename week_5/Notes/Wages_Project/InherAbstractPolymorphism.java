@@ -1,4 +1,4 @@
-package week_5.Notes.Folder;
+package week_5.Notes.Wages_Project;
 
 public class InherAbstractPolymorphism {
     public static void main(String[] args) {

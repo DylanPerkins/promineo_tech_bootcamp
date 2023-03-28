@@ -1,4 +1,4 @@
-package week_5.Notes.Folder;
+package week_5.Notes.Wages_Project;
 
 // This class can not be instantiated
 
