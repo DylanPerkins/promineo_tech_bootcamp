@@ -1,0 +1,4 @@
+INFO: This is an info message at Tue Mar 28 13:07:45 EDT 2023
+WARNING: This is a warning message at Tue Mar 28 13:07:45 EDT 2023
+ERROR: This is an error message at Tue Mar 28 13:07:45 EDT 2023
+FATAL: This is a fatal message at Tue Mar 28 13:07:45 EDT 2023
