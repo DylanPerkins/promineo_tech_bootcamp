@@ -1,0 +1,20 @@
+What is Debugging?
+
+Debugging is the process of finding and resolving defects or problems within a computer program 
+that prevent correct operation of computer software or a system. 
+
+Vocabulary:
+
+ - Debugger: A program that allows you to step through a program one line at a time, 
+   and examine the values of variables and the state of the program at any point in time.
+ - Breakpoint: A point in a program where the debugger will stop the program and allow you to 
+   examine the state of the program.
+ - Stack trace: A list of the functions that are currently active in the program.
+ - Traceback: A list of the functions that were active when an exception occurred.
+ - Exception: An error that is detected while a program is running.
+ - Error: An error that is detected while a program is being compiled.
+ - Syntax error: An error in a program that makes it impossible to parse (and therefore impossible to interpret).
+ - Semantic error: An error in a program that makes it do something other than what the programmer intended.
+ - Runtime error: An error that does not occur until after the program has started running.
+ - Logic error: An error in a program that makes it do something other than what the programmer intended.
+

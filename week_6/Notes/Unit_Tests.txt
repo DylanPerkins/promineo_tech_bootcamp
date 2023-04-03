@@ -1,0 +1,6 @@
+Unit Testing is one of the most effective ways to test code.
+
+During Unit Testing, the code is broken into Units, smaller pieces of functionality, and those 
+units are tested extensively. This is one way that a software developer can find issues in 
+their initial implementation, and then as the code is modified, to ensure that nothing has 
+broken a previously correct implementation.
