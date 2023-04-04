@@ -29,9 +29,9 @@ public class TicTacToe {
 
 			// Grab the row and column from the user
 			System.out.println("Player " + currentPlayer + ", please enter a row: ");
-			row = input.nextInt();
+			row = input.nextInt() - 1;
 			System.out.println("Player " + currentPlayer + ", please enter a column: ");
-			column = input.nextInt();
+			column = input.nextInt() -1;
 
 			// Check to see if the row and column are valid
 			if (row < 0 || row > 2 || column < 0 || column > 2) {
