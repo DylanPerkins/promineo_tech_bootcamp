@@ -15,6 +15,8 @@ public class TicTacToe {
 		int turn = 0;
 		Scanner input = new Scanner(System.in);
 
+		// Initialize the gameboard
+		// Loops from index [0][0] to [0][1] to [0][2] to [1][0] and so on...
 		for (int i = 0; i < gameboard.length; i++) {
 			for (int j = 0; j < gameboard[i].length; j++) {
 				gameboard[i][j] = " ";
@@ -83,14 +85,14 @@ public class TicTacToe {
 	}
 
 	public static void displayGameboard(String[][] gameboard) {
-		System.out.println("+---+---+---+");
+		System.out.println("+---+---+---+"); 						// Defines the top horizontal line of the gameboard
 		for (int i = 0; i < gameboard.length; i++) {
-			System.out.print("| ");
+			System.out.print("- "); 								// Indent the gameboard (Left side)
 			for (int j = 0; j < gameboard[i].length; j++) {
-				System.out.print(gameboard[i][j] + " | ");
+				System.out.print(gameboard[i][j] + " | "); 			// Defines the other three vertical lines of the gameboard
 			}
-			System.out.println();
-			System.out.println("+---+---+---+");
+			System.out.println();									// Moves to the next line(adds spaces between each horizontal line and the start of the cell)
+			System.out.println("+---+---+---+"); 					// Defines the middle and bottom horizontal lines of the gameboard
 		}
 	}
 
