@@ -53,10 +53,10 @@ public class App {
 
             // Check if the game is over
             if (player1.getScore() > player2.getScore()) {
-                System.out.println(player1.getName() + " wins the game!");
+                System.out.println("    | " + player1.getName() + " wins the game! |    ");
                 break;
             } else if (player2.getScore() > player1.getScore()) {
-                System.out.println(player2.getName() + " wins the game!");
+                System.out.println("    | " + player2.getName() + " wins the game! |    ");
                 break;
             } else {
                 System.out.println("It's a tie!");
@@ -71,14 +71,14 @@ public class App {
         if (player1Card.getValue() > player2Card.getValue()) {
             // Player 1 wins
             player1.incrementScore();
-            System.out.println(player1.getName() + "'s " + player1Card.getNameOfCard() + " beats " + player2Card.getNameOfCard());
+            System.out.println(player1.getName() + "'s " + player1Card.getNameOfCard() + " beats " + player2.getName() + "'s " + player2Card.getNameOfCard());
             System.out.println("So, " + player1.getName() + " wins the round!");
             System.out.println(player1.getName() + " now has " + player1.getScore() + " points.");
             System.out.println(divider);
         } else if (player1Card.getValue() < player2Card.getValue()) {
             // Player 2 wins
             player2.incrementScore();
-            System.out.println(player2.getName() + "'s " + player2Card.getNameOfCard() + " beats " + player1Card.getNameOfCard());
+            System.out.println(player2.getName() + "'s " + player2Card.getNameOfCard() + " beats " + player1.getName() + "'s " + player1Card.getNameOfCard());
             System.out.println("So, " + player2.getName() + " wins the round!");
             System.out.println(player2.getName() + " now has " + player2.getScore() + " points.");
             System.out.println(divider);
