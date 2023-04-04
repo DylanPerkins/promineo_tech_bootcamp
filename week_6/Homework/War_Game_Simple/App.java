@@ -31,7 +31,7 @@ public class App {
         int round = 1;
 
         // Play the game
-        while (player1.getHand().size() > 0 && player2.getHand().size() > 0) {
+        while (!player1.getHand().isEmpty() && !player2.getHand().isEmpty()) {
             
             for (int i = 1; i <= 26; i++) {
                 System.out.println("         | Round " + round + " of 26 |         \n");
@@ -66,23 +66,25 @@ public class App {
     }
 
     public static void compareCards(Player player1, Player player2, Card player1Card, Card player2Card) {
+        String divider = "\n+------------------------------------+\n";
+
         if (player1Card.getValue() > player2Card.getValue()) {
             // Player 1 wins
             player1.incrementScore();
             System.out.println(player1.getName() + "'s " + player1Card.getNameOfCard() + " beats " + player2Card.getNameOfCard());
             System.out.println("So, " + player1.getName() + " wins the round!");
             System.out.println(player1.getName() + " now has " + player1.getScore() + " points.");
-            System.out.println("\n+------------------------------------+\n");
+            System.out.println(divider);
         } else if (player1Card.getValue() < player2Card.getValue()) {
             // Player 2 wins
             player2.incrementScore();
             System.out.println(player2.getName() + "'s " + player2Card.getNameOfCard() + " beats " + player1Card.getNameOfCard());
             System.out.println("So, " + player2.getName() + " wins the round!");
             System.out.println(player2.getName() + " now has " + player2.getScore() + " points.");
-            System.out.println("\n+------------------------------------+\n");
+            System.out.println(divider);
         } else {
             System.out.println("It's a tie!");
-            System.out.println("\n+------------------------------------+\n");
+            System.out.println(divider);
         }
 
     }
