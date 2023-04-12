@@ -38,7 +38,7 @@ Four Pillars of OOP
    - Example: A Triangle has 3 sides, but we don't need to know the lengths, or area, or angles. 
 
 2. Encapsulation
-   -  Data Security, Binding related data and methods together into objects, data hiding (hide the unnecessary).
+   - Data Security, Binding related data and methods together into objects, data hiding (hide the unnecessary).
    - Example: A DVD Player has a DVD inside of it, and the DVD Player can play the DVD
    - Example: A Triangle has 3 sides, and we can use the sides to calculate the area and angles 
 
