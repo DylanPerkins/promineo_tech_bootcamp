@@ -1,0 +1,45 @@
+Connections Needed
+
+Browser to Website:
+ - The Scheme (http/https)
+ - The Hostname (www.example.com)
+ - The Port (80/443)
+ - The Locator Name (/index.html)
+Example: http://www.example.com:80/index.html
+
+Client to Database:
+ - The Database Type (MySQL, Oracle, etc.)
+ - The Hostname (db.example.com)
+ - The Port (3306)
+ - The Schema Name (mydb)
+Example: jdbc:mysql://localhost:3306/mydb
+
+
+What is a Schema?
+ - A named collection of data within a database
+ - A schema is a collection of database objects (tables, views, indexes, etc.)
+ - Tables are like spreadsheets
+    - Tables define columns of data
+    - Tables contain rows of data organized by columns
+ - A row and a column is like a spreadsheet cell
+    - Spreadsheet cells can have any data type
+    - Table rows contain data specified by the column type
+
+Databases can have multiple schemas
+ - Each schema can have multiple tables
+ - Each table can have multiple rows
+ - Each row can have multiple columns
+ - Each column can have multiple cells
+
+A DATABASE IS NOT A CLIENT
+
+Database:
+ - MySQL
+ - Oracle
+ - SQL Server
+
+Clients:
+ - MySQL Workbench
+ - MySQL Command Line Interface (CLI)
+ - DBeaver
+ - Java Application

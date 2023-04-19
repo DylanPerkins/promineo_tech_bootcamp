@@ -1,0 +1,54 @@
+What is Apache Maven?
+
+ - Apache Maven is a build automation tool used primarily for Java projects.
+ - Maven addresses two aspects of building software: first, it describes
+   how software is built, and second, it describes its dependencies.
+
+How will we be using Maven?
+ - We will use Maven to add project dependencies
+ - A dependency is a Java library that contains code that we want to use
+  in our project.
+ - Java libraries are packaged as Java Archive (JAR) files.
+ - JAR files are ZIP files with a specific directory structure.
+ - The Java Runtime knows how to read JAR files and find code and resources within them.
+
+What dependencies will we need?
+ - MySQL Connector/J (This is a database driver)
+
+What is a database driver?
+ - A database driver supports the Java Database Connectivity (JDBC) API.
+ - A driver is used to;
+    - Connect to a database
+    - Execute SQL statements
+    - Process the results
+ - A driver is specific to a particular database.
+ - Connect the database and the client
+
+Project Object Model (POM)
+ - The POM controls the build process.
+ - The POM is a single XML file that contains all the information needed to build a project.
+ - Any changes to the POM will require a rebuild of the project.
+ - Any dependencies added in the POM are added to the application runtime.
+
+How do we add a project dependency? (Example)
+ - Add the following to the POM file 
+ <dependencies>
+  <dependency>
+    <groupId>mysql</groupId>
+    <artifactId>mysql-connector-java</artifactId>
+    <version>8.0.27</version>
+  </dependency>
+ </dependencies>
+
+How do we find a dependency?
+ - Go to https://mvnrepository.com/
+ - Search for the dependency
+ - Copy the dependency information
+ - Paste the dependency information into the POM file
+
+Important directories
+ - Source Code: src/main/java
+ - Resources: src/main/resources
+ - Test Code: src/test/java
+ - Test Resources: src/test/resources
+ - Compiled Code: target/classes
