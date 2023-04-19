@@ -40,11 +40,11 @@ public class App {
             Card player2Card = player2.flipCard();
 
             // Describe the cards
-            // System.out.println(player1.getName() + " flips: ");
-            // player1Card.describeCard(player1Card.getValue(), player1Card.getNameOfCard());
-            // System.out.println(player2.getName() + " flips: ");
-            // player2Card.describeCard(player2Card.getValue(), player2Card.getNameOfCard());
-            // System.out.println(" ");
+            System.out.println(player1.getName() + " flips: ");
+            player1Card.describeCard(player1Card.getValue(), player1Card.getNameOfCard());
+            System.out.println(player2.getName() + " flips: ");
+            player2Card.describeCard(player2Card.getValue(), player2Card.getNameOfCard());
+            System.out.println(" ");
 
             // Compare the cards
             compareCards(player1, player2, player1Card, player2Card);
@@ -60,10 +60,10 @@ public class App {
 
         if (player1Card.getValue() > player2Card.getValue()) {
             // Player 1 wins the round
-            // System.out.println(player1.getName() + "'s " + player1Card.getNameOfCard() + " beats " + player2.getName()
-            //         + "'s " + player2Card.getNameOfCard());
-            // System.out.println("So, " + player1.getName() + " wins the round!");
-            // System.out.println(divider);
+            System.out.println(player1.getName() + "'s " + player1Card.getNameOfCard() + " beats " + player2.getName()
+                    + "'s " + player2Card.getNameOfCard());
+            System.out.println("So, " + player1.getName() + " wins the round!");
+            System.out.println(divider);
 
             // Set the winner as Player 1
             winner = player1.getName();
@@ -75,10 +75,10 @@ public class App {
 
         } else if (player1Card.getValue() < player2Card.getValue()) {
             // Player 2 wins the round
-            // System.out.println(player2.getName() + "'s " + player2Card.getNameOfCard() + " beats " + player1.getName()
-            //         + "'s " + player1Card.getNameOfCard());
-            // System.out.println("So, " + player2.getName() + " wins the round!");
-            // System.out.println(divider);
+            System.out.println(player2.getName() + "'s " + player2Card.getNameOfCard() + " beats " + player1.getName()
+                    + "'s " + player1Card.getNameOfCard());
+            System.out.println("So, " + player2.getName() + " wins the round!");
+            System.out.println(divider);
 
             // Set the winner as Player 2
             winner = player2.getName();
@@ -89,8 +89,8 @@ public class App {
             }
 
         } else {
-            // System.out.println("It's a tie! This means WAR!");
-            // System.out.println(divider);
+            System.out.println("It's a tie! This means WAR!");
+            System.out.println(divider);
             war = true;
             war(player1, player2, player1Card, player2Card);
         }
