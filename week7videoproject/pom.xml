@@ -5,10 +5,10 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>com.example</groupId>
-  <artifactId>demo</artifactId>
+  <artifactId>week7videoproject</artifactId>
   <version>0.0.1</version>
 
-  <name>demo</name>
+  <name>week7videoproject</name>
   <url>http://www.example.com</url>
 
   <properties>
