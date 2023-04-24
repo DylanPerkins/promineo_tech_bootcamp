@@ -1,0 +1,33 @@
+Transmisson Control Protocol (TCP)
+----------------------------------
+A connection to MySQL is done with TCP
+
+- Connects two computers together, like a circuit or a phone calls
+- Is reliable, the data is guaranteed to arrive in the same order it was sent
+- Is bidirectional, data can be sent in both directions
+- Can have multiple connections between two computers open at the same time
+- The connection remains open until it is explicitly closed
+- When the connection is established, data is exchanged so that both sides agree on the 
+data format, compression, encryption, etc.
+- Establishing a connection is slow, but once established, data can be sent with very little overhead
+- Connections can be reused and pooled (but not is they're closed)
+- TCP is managed by computer hardware
+
+Database Language:
+------------------
+Example: SQL (Structured Query Language)
+
+- Each database has its own language (protocol) that it uses to communicate with clients
+- The Java Database Connectivity (JDBC) classes do not know the language of the database
+
+Database Driver:
+----------------
+- The database driver works with the computer hardware to establish a reliable connection 
+with the database server
+- The MySQL driver "translates" the JDBC calls into the MySQL protocol
+
+Driver Selection:
+-----------------
+- The driver is selected by the URL
+- JDBC finds all the database drivers on the classpath
+MySQL connection string format --> jdbc:mysql://hostname:port/schema

@@ -1,0 +1,38 @@
+Applications deal with (these are the concerns of an application):
+ - User input and output
+ - Business rules
+ - Data acquisition and persistence
+
+If you don't seperate these concerns, you will end up with a mess of code that is hard 
+to maintain and extend.
+
+Single Responsibility Principle (SRP)
+-------------------------------------
+ - Part of SOLID principles of OOP
+ - Each module, package, class or method is responsible for a single aspect of 
+ the application's functionality.
+ - Example: 
+    - Method: Creates a connection to the database
+    - Class: Obtains and pools connections
+    - Package: Contains classes that deal with database inputs and outputs
+
+There are two ways to seperate concerns in Java:
+ 1. Ultra-large applications may seperate the different concerns into libraries
+ 2. Smaller applications may seperate the concerns into packages
+
+What is a package?
+ - A package is a way of organizing your Java source code into different directories
+ - If all your source is in one file, packages may not make sense
+ - If you have 30 files, packages make sense:
+    - The complier can handle the complexity, people cannot
+
+We'll want to design with layers in mind:
+ - Input/Ouput Layer --> Interacts with User
+ - Service Layer --> Applies Business Rules
+ - Data Access Object (DAO) Layer --> Read/Write Tables
+
+Packaging the layers: 
+ - Input/Output Layer --> "main" package (recipes)
+ - Service Layer --> "service" package (recipes.service)
+    - Between the two --> "entities" package (recipes.entity)
+ - Data Access Object (DAO) Layer --> "dao" package (recipes.dao)
