@@ -4,6 +4,7 @@
 /.sonarlint/
 /bin/
 /.META-INF/
+target/
 
 # Log file #
 ############
