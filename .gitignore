@@ -3,11 +3,13 @@
 /.metadata/
 /.sonarlint/
 /bin/
+/.META-INF/
 
 # Log file #
 ############
 *.log
 *.iml
+*.settings
 
 # BlueJ files #
 ###############
