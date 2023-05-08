@@ -1,0 +1,84 @@
+MySQL supports all SQL data types
+
+Whole number types:
+ - TINYINT
+    - 1 byte
+    - 8 bits
+    - Java Type: byte
+ - SMALLINT
+    - 2 bytes
+    - 16 bits
+    - Java Type: short
+ - MEDIUMINT
+    - 3 bytes
+    - 24 bits
+ - INT
+    - 4 bytes
+    - 32 bits
+    - Java Type: int
+ - BIGINT
+    - 8 bytes
+    - 64 bits
+    - Java Type: long
+Unlike Java, INT's can be signed or unsigned.
+
+Fixed precision type (DECIMAL):
+ - DECIMALs are defined with precision and scale
+ - Precision is the total number of digits stored (including the decimal point)
+ - Scale is the number of digits after the decimal point
+ - Example: DECIMAL(5,2) stores values from -999.99 to 999.99
+ - DECIMAL numbers are exact and can be used for money
+ - The Java class that corresponds to DECIMAL is java.math.BigDecimal, not double or float
+ - DECIMALs may have round off errors, but they do not accumulate
+
+Date and Time types:
+ - DATETIME
+    - YYYY-MM-DD HH:MM:SS
+ - TIMESTAMP
+    - Converted to and stored as UTC
+    - YYYY-MM-DD HH:MM:SS
+ - DATE
+    - YYYY-MM-DD
+ - TIME
+    - HH:MM:SS
+ - YEAR
+    - YYYY or YY
+
+Character types:
+ - CHAR
+    - Fixed length
+    - Up to 255 characters
+ - VARCHAR
+    - Variable length
+    - Up to 255 characters
+ - TINYTEXT
+    - Up to 255 (2^8) characters
+ - TEXT
+    - Up to 65,535 (2^16) characters
+ - MEDIUMTEXT
+    - Up to 16,777,215 (2^24) characters
+ - LONGTEXT
+    - Up to 4,294,967,295 (2^32) characters
+
+Enumerated types:
+ - ENUM
+    - A list of up to 65,535 values
+    - Each value is assigned a number from 1 to n
+    - The number is stored in the database
+    - Example: ENUM('one', 'two', 'three'), the column must contain one of these three values
+
+Boolean type:
+ - BOOLEAN
+    - Synonym for TINYINT(1)
+    - 0 is false, 1 is true
+    - Equivalent to TINYINT(1) 
+        - Note that the (1) is a disaply width
+        - Does not affect the storage size
+
+Data:
+ - When a table is created, columns can be declared NOT NULL, so the row must have 
+ a value for that column.  
+ - Columns can also be declared as NULL, so the row may have no value in that column. (nullable)
+ - If a column is not declared with NULL or NOT NULL, the column is nullable. 
+ - DEFAULT supplies a vlaue if the inserted value is NULL
+    - Often used in TIMESTAMP or DATETIME columns

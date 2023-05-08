@@ -1,0 +1,123 @@
+CREATE TABLE statement:
+
+CREATE TABLE table_name (
+    column_def_1,
+    column_def_2,
+    ...
+    column_def_n
+);
+
+Column definitions:
+(name type modifiers [comma])
+ - In general, it's a good idea to add a unique identifier to each row in 
+ a table. (int)
+ - If a column has the AUTO_INCREMENT keyword, MySQL will automatically
+ increment the value
+ - Example:
+    recipe_id INT AUTO_INCREMENT NOT NULL,
+    name VARCHAR(128) NOT NULL
+
+    1 - Kitty Litter Cake
+    2 - Apple Monsters
+    3 - Ice Cubes
+    4 - Chocolate Moose
+
+
+
+Recipe Table:
+
+Name                Type            Modifiers
+recipe_id           INT             AUTO_INCREMENT NOT NULL
+recipe_name         VARCHAR(128)    NOT NULL
+notes               TEXT
+num_servings        INT
+prep_time           TIME
+cook_time           TIME
+created_at          TIMESTAMP       NOT NULL DEFAULT CURRENT_TIMESTAMP
+
+CREATE TABLE recipe (
+    recipe_id INT AUTO_INCREMENT NOT NULL,
+    recipe_name VARCHAR(128) NOT NULL,
+    notes TEXT,
+    num_servings INT,
+    prep_time TIME,
+    cook_time TIME,
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+
+
+Category Table:
+
+Name                Type            Modifiers
+category_id         INT             AUTO_INCREMENT NOT NULL
+category_name       VARCHAR(64)    NOT NULL
+
+CREATE TABLE category (
+    category_id INT AUTO_INCREMENT NOT NULL,
+    category_name VARCHAR(64) NOT NULL
+);
+
+
+
+Unit Table:
+
+Name                Type            Modifiers
+unit_id             INT             AUTO_INCREMENT NOT NULL
+unit_name_singular  VARCHAR(32)     NOT NULL           
+unit_name_plural    VARCHAR(32)     NOT NULL
+
+CREATE TABLE unit (
+    unit_id INT AUTO_INCREMENT NOT NULL,
+    unit_name_singular VARCHAR(32) NOT NULL,
+    unit_name_plural VARCHAR(32) NOT NULL
+);
+
+
+
+Step Table:
+
+Name                Type            Modifiers
+step_id             INT             AUTO_INCREMENT NOT NULL
+recipe_id           INT             NOT NULL
+step_order          INT             NOT NULL
+step_text           TEXT            NOT NULL
+
+CREATE TABLE step (
+    step_id INT AUTO_INCREMENT NOT NULL,
+    recipe_id INT NOT NULL,
+    step_order INT NOT NULL,
+    step_text TEXT NOT NULL
+);
+
+
+
+Ingredient Table:
+
+Name                Type            Modifiers
+ingredient_id       INT             AUTO_INCREMENT NOT NULL
+recipe_id           INT             NOT NULL
+unit_id             INT             NOT NULL
+ingredient_name     VARCHAR(128)    NOT NULL
+instruction         VARCHAR(128)
+Ingredient_order    INT             NOT NULL
+amount              DECIMAL(10,2)   NOT NULL
+
+CREATE TABLE ingredient (
+    ingredient_id INT AUTO_INCREMENT NOT NULL,
+    recipe_id INT NOT NULL,
+    unit_id INT NOT NULL,
+    ingredient_name VARCHAR(64) NOT NULL,
+    instruction VARCHAR(64),
+    ingredient_order INT NOT NULL,
+    amount DECIMAL(7,2) NOT NULL
+);
+
+
+Primary tables must be created first, then related tables after.
+
+Delete a table: 
+ - DROP TABLE table_name;
+ - Tables must be dropped in the opposite order in which they were created.
+ - The related table is dropped first.
+
