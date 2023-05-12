@@ -78,7 +78,7 @@ Boolean type:
 Data:
  - When a table is created, columns can be declared NOT NULL, so the row must have 
  a value for that column.  
- - Columns can also be declared as NULL, so the row may have no value in that column. (nullable)
+ - Columns can also be declared as NULL, so the row may have no value in that column. (un-nullable)
  - If a column is not declared with NULL or NOT NULL, the column is nullable. 
  - DEFAULT supplies a vlaue if the inserted value is NULL
     - Often used in TIMESTAMP or DATETIME columns
