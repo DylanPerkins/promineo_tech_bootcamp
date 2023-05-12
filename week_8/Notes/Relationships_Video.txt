@@ -1,0 +1,145 @@
+Relationships in Java:
+ - Has-A Relationship
+ - Is-A Relationship
+ - Uses-A Relationship
+
+Has-A Relationship:
+ - Generally expressed through instanced variables
+ - An object has another object as a member variable
+ - Example: class Car {private Engine engine;}
+
+Is-A Relationship:
+ - Expressed through inheritance
+ - An object is a type of another object
+ - Example: 
+    class Animal {private String name;}
+    class Cow extends Animal {String cowTag;}
+
+Uses-A Relationship:
+ - Expressed through method variables
+ - One object uses another object
+ - Example: 
+    class Formatter {
+        String format(Thing thing) {
+            Util util = new Util();
+            return util.format(thing);
+        }
+    }
+
+Database Types:
+- Relation Database Management System (RDBMS)
+  - Can maintain relations among Database
+  - Scale vertically (add more RAM and cores)
+  - Speed up to thousands of transactions per second
+  - Good when you need relationships between data
+- NoSQL (distributed) databases
+  - Difficult to maintain relationships between data
+  - Scale horizontally (add more servers)
+  - Speed up to millions of transactions per second
+  - Good when you want data without relationships
+
+Going to be using Recipe Data
+Recipes have relationships
+ - Recipes have steps (has a)
+ - Recipes have ingredients (has a)
+ - Recipes have categories (has a)
+ - Categories have recipes (has a)
+
+RDBMS relationships:
+ - One to one
+   - A Car has one and only one Engine
+ - One to many
+    - A recipe may have many steps
+    - Each step links to only one recipe
+ - Many to many
+    - A recipe may have many categories (Mexican, Italian, etc.)
+    - A category may have many recipes (Tacos, Burritos, etc.)
+ - One-to-many, and many-to-one and generally one-to-one are all 
+   "has a" relationships.
+ - RDBMSs do not naturally implement "is a" or "uses a" relationships.
+
+ RDBMS Relationship: Is a
+ - You can simulate inheritance with a one-to-one relationship
+
+ Animal Table
+
+ Column             Value
+ animal_id          1
+ animal_name        Cow
+
+ Cow Table
+
+ Column              Value
+ animal_id           1
+ cow_tag             1234
+
+ - These two tables represent a one-to-one relationship via the animal_id
+   column. The animal_id column is a foreign key in the Cow table.
+
+How are relationships formed?
+ - Can use AUTO_INCREMENT to generate unique IDs
+ - This ID will be unique within the table
+ - This unique ID is called the primary key
+
+Primary Key relationships:
+ - A relationship is formed when one tables has a primary key and another
+   tables references that value as a foreign key.
+
+One-to-One Relationship:
+ - A one-to-one relationship requires a primary key on the main table and a 
+   foreign key + unique key on the related table
+
+ Animal Table
+
+ Column              Value            Key Type
+ animal_id           1                Primary Key
+ animal_name         Cow
+
+
+ Cow Table
+
+ Column              Value            Key Type
+ animal_id           1                Foreign Key, Unique Key
+ cow_tag             1234
+
+One-to-Many Relationship:
+ - A one-to-many relationship requires a primary key on the main table
+   and a foreign key on the related table (no unique key)
+
+ Recipe Table
+
+ recipe_id           recipe
+ 1                   Ice Cubes
+ 2                   Chocolate Moose
+
+ Step Table
+
+ step_id             recipe_id          step
+ 1                   1                  Add water to tray
+ 2                   1                  Place tray in freezer
+
+Many-to-Many Relationship:
+ - A many-to-many relationship requires a join table. Each main table 
+   has a primary key. The join table has two foreign keys.
+
+ Recipe Table
+
+ recipe_id           recipe
+ 1                   Ice Cubes
+ 2                   Vegan Tacos
+
+ Category Table
+
+ category_id         name
+ 1                   Mexican
+ 2                   Vegan
+
+ Recipe_Category Table
+
+ recipe_id           category_id
+ 2                   1
+ 2                   2
+
+ - This is consider a many-to-many relationship because the Mexican
+   category can have many recipes associated with it as well as the
+   Vegan category.

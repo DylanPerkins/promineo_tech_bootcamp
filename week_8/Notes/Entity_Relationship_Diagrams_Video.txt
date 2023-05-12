@@ -1,0 +1,51 @@
+Mapping Tables
+
+Definitions:
+ - Cardinality: the maximum number of entities allowed in a relationship
+    - One or Many
+ - Modality: the minimum number of entities allowed in a relationship
+    - Zero or One (optional or mandatory)
+
+Crow's foot notation
+ - Relationships are diagramed using the following notation
+ - Relationships are bidirectional
+ - A relationship line must have the crow's foot notation on both ends
+   of the line
+ - Each end must express cardinality and modality
+ - Cardinality is shown at the end of the line
+ - Modality is shown only within the line
+
+ Cardinality             Modality             Notation
+ One                     Mandatory            --|-|-
+ One                     Optional             --o-|-
+ Many                    Mandatory            ---|<-
+ Many                    Optional             ---o<-
+
+ERD Conventions:
+ - Primary key columns are above the line and are designated with PK
+ - Foreign key columns are below the line and are designated with FK
+ Example: 
+           Step
+    PK   | step_id
+    ------------------------
+    FK   | recipe_id
+    FK   | step_order
+    FK   | step_text
+
+Join tables are shown with dashes off of the main relationship line.
+
+Naming Conventions - Columns:
+ - Tables names and column names are lowercase with words separated by
+   underscores
+ - Common names should have the table name as a prefix
+   - Example: Table = recipe, Column = recipe_name
+
+Naming Conventions - Relationships:
+ - Primary key columns are formed by adding "_id" on to the table name
+   - Table recipe: recipe_id
+   - Table ingredient: ingredient_id
+   
+ - Foreign key columns are named the same as the primary key column in the
+   related table
+   - Table recipe (primary key): recipe_id
+   - Table step (foreign key): recipe_id

@@ -1,0 +1,110 @@
+What are Indexes?
+ - Indexes provide;
+   - Faster lookup speeds
+   - Uniqueness
+   - They define relationships between tables (PKs and FKs)
+
+Faster Lookups:
+ - Adding an index will speed up lookups but slow down inserts and updates
+ - Indexes may allow duplicate values, but they are usually unique
+ Example: 
+
+ CREATE TABLE syntax
+ INDEX (name)
+ INDEX (color, style)
+ KEY (name)
+ KEY (color, style)
+
+Unique Indexes:
+ - Indexes can require uniqueness on one or more columns
+ - A duplicate value across all columns of a unique index will throw an error
+ - A unique index is a like a Java Set
+ Example: 
+
+ CREATE TABLE syntax
+ UNIQUE KEY (name)
+ UNIQUE KEY (color, style)
+ UNIQUE INDEX (license_number)
+ UNIQUE (size)
+
+Compound (or composite) Unique Indexes:
+ - A compound index is indexed on more than one column
+ Example: 
+
+ CREATE TABLE recipe_category (
+    FOREIGN KEY (recipe_id)
+    FOREIGN KEY (category_id)
+    UNIQUE KEY (recipe_id, category_id)
+ );
+
+ - The UNIQUE KEY means that only one category of each type can be set for any given recipe
+ - You can have a Vegan category and a Mexican category but not two Vegan categories
+
+Relationships Defined:
+ - A PK in one table is referenced by a FK in another table
+ - Two rows are related if the PK value and FK value are the same
+ - PKs are normally integers (INTs) and FKs are normally INTs or BIGINTs
+
+Relationship CREATE TABLE synax:
+
+ Recipe Table
+ recipe_id INT NOT NULL AUTO_INCREMENT,
+ PRIMARY KEY (recipe_id)
+ 
+ Step Table
+ step_id INT NOT NULL AUTO_INCREMENT,
+ recipe_id INT NOT NULL,
+ PRIMARY KEY (step_id),
+ FOREIGN KEY (recipe_id) REFERENCES recipe(recipe_id)
+
+Compound Primary Key:
+ - It is possible to declare a compound PK using more than one column
+ - If the table is referenced by another table (FK) it is best to use an auto-incrementing INT PK
+ - Otherwise, it is harder to keep the key values aligned on their related tables
+ - ORM tools like Hibernate may require integer PK fields on all tables
+
+Many-to-Many Relationships:
+ - Requires a join table
+ - Recipes and categories have a many-to-many relationship
+ - The join table's name is the name of the PK tables separated by an underscore
+ - The join table's name for this example is recipe_category
+
+Many-to-Many CREATE TABLE statement:
+
+ CREATE TABLE recipe (
+     recipe_id INT NOT NULL AUTO_INCREMENT,
+     PRIMARY KEY (recipe_id)
+ );
+
+ CREATE TABLE category (
+     category_id INT NOT NULL AUTO_INCREMENT,
+     PRIMARY KEY (category_id)
+ );
+
+ CREATE TABLE recipe_category (
+     recipe_id INT NOT NULL,
+     category_id INT NOT NULL,
+     UNIQUE KEY (recipe_id, category_id),
+     FOREIGN KEY (recipe_id) REFERENCES recipe(recipe_id),
+     FOREIGN KEY (category_id) REFERENCES category(category_id)
+ );
+
+Deleting Child Rows:
+ - When a parent row (recipe) is deleted, child rows (steps, ingredient, recipe_category) also need to be deleted
+ - Otherwise, the child rows will be orphaned with the FK referencing a value that does not exist in the parent
+ - MySQL will automaticall delete the child rows when ON DELETE CASCADE is added to the FOREIGN KEY contraint
+
+ON DELETE CASCADE synax:
+ - The corresponding child rows will be deleted when the parent row is deleted
+
+ CREATE TABLE recipe (
+    recipe_id INT NOT NULL AUTO_INCREMENT,
+    PRIMARY KEY (recipe_id)
+ );
+
+ CREATE TABLE step (
+    step_id INT NOT NULL AUTO_INCREMENT,
+    recipe_id INT NOT NULL,
+    PRIMARY KEY (step_id),
+    FOREIGN KEY (recipe_id) REFERENCES recipe(recipe_id) ON DELETE CASCADE
+ );
