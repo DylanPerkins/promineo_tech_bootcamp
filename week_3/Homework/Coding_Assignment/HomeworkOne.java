@@ -56,7 +56,7 @@ public class HomeworkOne {
 
         // Question 9
         System.out.println("\nQuestion 9's answer begins:");
-        int[] arrayIntTwo = { 3, 9, 23, 64, 2, 8, 28, 93};
+        int[] arrayIntTwo = { 3, 9, 23, 64, 2, 8, 28, 93 };
         boolean question9Answer = methodNineQuestion(arrayIntTwo);
         System.out.println("The answer to question 9 is: " + question9Answer);
 
@@ -81,9 +81,10 @@ public class HomeworkOne {
         System.out.println("\nQuestion 13's answer begins:");
         int[] arrayIntThree = { 82, 44, 67, 52, 120 };
         calculateStandardDeviation(arrayIntThree);
-        // The method I created takes a data set of type int and returns the standard deviation of that data set.
-        // I created this method as a fun little challenge for myself since I'm in love with math!
-
+        // The method I created takes a data set of type int and returns the standard
+        // deviation of that data set.
+        // I created this method as a fun little challenge for myself since I'm in love
+        // with math!
 
     }
 
@@ -141,7 +142,7 @@ public class HomeworkOne {
         }
         if (sum > 100) {
             return true;
-        } 
+        }
         return false;
     }
 
@@ -153,7 +154,7 @@ public class HomeworkOne {
         }
         average = sum / arrayDoubleX.length;
         System.out.println("The average of this array is: " + average);
-    } 
+    }
 
     public static boolean methodElevenQuestion(double[] arrayDoubleX, double[] arrayDoubleY) {
         double sumX = 0;
@@ -170,14 +171,14 @@ public class HomeworkOne {
         averageY = sumY / arrayDoubleY.length;
         if (averageX > averageY) {
             return true;
-        } 
+        }
         return false;
     }
 
     public static boolean willBuyDrink(boolean isHotOutside, double moneyInPocket) {
         if (isHotOutside && moneyInPocket > 10.50) {
             return true;
-        } 
+        }
         return false;
     }
 
@@ -196,16 +197,5 @@ public class HomeworkOne {
         standardDeviation = Math.sqrt(sumOfSquares / arrayIntX.length);
         System.out.println("The standard deviation of this array is: " + standardDeviation);
     }
-        
-
-
-
-
-
-
-
-
-
-
 
 }
