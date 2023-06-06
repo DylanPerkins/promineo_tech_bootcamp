@@ -1,0 +1,42 @@
+Parts of JDBC;
+ - Connection:
+   - Loads the driver
+   - Establishes a TCP connection with the MySQL server 
+ - Statement:
+   - Queries or updates MySQL with SQL statements
+   - Translated from SQL to MySQL dialect
+ - ResultSet:
+   - Contains results of a query
+   - Only used in queries
+
+Challenge of JDBC:
+ - After obtaining a resource, it MUST be closed in a finally block
+ - The close() method call must also be wrapped in a try-catch block
+ - Resources are;
+   - Connections
+   - Statements
+   - ResultSets
+ - If resources are not closed, they will be leaked and the application will eventually crash
+
+Try-with-resources:
+ - The resource is initialized in the try clause itself
+ - No need to write a finally block to close the resource
+ - The complier automatically closes the resource after the try block ends
+ Ex. 
+    try(Connection conn = getConnection()) {
+        startTransaction(conn);
+
+        try(Statement stmt = conn.createStatement()) {
+            try(ResultSet rs = stmt.executeQuery(sql)){
+                // Gather results
+                commitTransaction(conn);
+            }
+        }
+        catch(Exception e) {
+            rollbackTransaction(conn);
+            throw new RuntimeException(e);
+        }
+    } catch (SQLException e) {
+        // Handle the exception
+    }
+

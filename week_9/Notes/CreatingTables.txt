@@ -1,0 +1,6 @@
+The approach:
+ 1. Read the contents of a file into a Java String.
+ 2. Remove comments from the file contents.
+ 3. Replace all whitespace sequences with single spaces.
+ 4. Convert the SQL statement lines into a list.
+ 5. Add all of the lines to a SWL Statement object to be then executed as a batch.

@@ -1,0 +1,68 @@
+What is a transaction?
+ - Contains one or more SQL statements
+ - All of the statements will either succeed or fail, there is no in between
+ - When all of the statements succeed, the transaction is committed
+ - When any of the statements fail, the transaction is rolled back
+
+More on Transactions:
+ - MySQL will put every statement into a transaction by default
+ - By controlling your own transactions, you can have multiple statements within the same transaction.
+   - Multiple queries, inserts and deletes can be done in a consistent manner even if the same rows are being affected at the same time.
+   - The default isolation level protects your transactions against changes made by other transactions.
+
+Transactions = ACID
+ - Atomicity
+ - Consistency
+ - Isolation
+ - Durability
+
+Atomicity:
+ - The transaction will either succeed or fail, there are no partial transactions
+ - Only exception is when you are making tables
+
+Consistency:
+ - All data is consistent all the time.
+ - Data is always valid based on any rules created and applied in the schema
+   - Constraints
+   - Cascades
+   - Triggers
+
+Isolation:
+ - No transaction is affected by any other transaction
+ - Transactions are completely isolated from each other
+ - This means you can read rows from a table even if they are being updated by another process
+
+Durability:
+ - Once a transaction is committed, it will be permanantly stored in the system (Can be removed with another transaction)
+ - Data will not be lost, even if the system crashes immediately after a transaction is committed
+
+Starting a transaction:
+ - Send "START TRANSACTION" to MySQL
+ - There is a method on the connection object for this called: setAutoCommit
+ - Every statement on the transaction must be made over the same connection
+ Ex.
+    Connection conn = DbConnection.getConnection();
+    conn.setAutoCommit(false);
+
+Committing a transaction:
+ - Send "COMMIT" to MySQL
+ - There is a method on the connection object for this called: commit
+ Ex.
+    startTransaction(conn);
+    try {
+        // Do some stuff
+        conn.commit();
+    } catch (Exception e) {
+    }
+
+Rolling back a transaction:
+ - Send "ROLLBACK" to MySQL
+ - There is a method on the connection object for this called: rollback
+ Ex.
+    startTransaction(conn);
+    try {
+        // Do some stuff - Throws an exception
+        commitTransaction(conn);
+    } catch (Exception e) {
+        conn.rollback();
+    }
