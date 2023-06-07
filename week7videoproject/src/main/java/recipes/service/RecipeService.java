@@ -9,6 +9,8 @@ import java.util.List;
 import recipes.dao.RecipeDao;
 import recipes.exception.dbException;
 
+// This class is used to create and populate the tables in the recipes database.
+
 public class RecipeService {
     private static final String SCHEMA_FILE = "recipe_schema.sql";
 
