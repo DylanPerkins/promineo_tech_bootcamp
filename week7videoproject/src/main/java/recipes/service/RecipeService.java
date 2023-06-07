@@ -77,4 +77,9 @@ public class RecipeService {
             throw new dbException(e);
         }
     }
+
+    // public static void main(String[] args) {
+    //     RecipeService recipeService = new RecipeService();
+    //     recipeService.createAndPopulateTables();
+    // }
 }
