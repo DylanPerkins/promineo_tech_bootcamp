@@ -1,0 +1,5 @@
+The Approach:
+ 1. Within the class that has the main method, create a method to print the available operations.
+ 2. Write methods to grab the user's inputs.
+ 3. Add a loop with the "exit menu" and "create tables" method calls.
+ 4. Call the service methods to create the tables.

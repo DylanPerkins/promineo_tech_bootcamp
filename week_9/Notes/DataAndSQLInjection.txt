@@ -1,0 +1,75 @@
+Inserting Data and SQL Injection
+
+Inserting Data:
+ - Data is inserted into a table one row at a time using, INSERT INTO
+   - Example: INSERT INTO table_name (column1, column2, column3, ...)
+              VALUES (value1, value2, value3, ...);
+ - You do not need to specify a primary key column name or value, MySQL will automatically generate a unique primary key value for each row if the primary key column is defined as AUTO_INCREMENT.
+ - The column names and values must match up.
+
+SQL Operations (CRUD):
+ - Create: INSERT INTO
+ - Read: SELECT
+ - Update: UPDATE
+ - Delete: DELETE
+
+Inserting null values:
+ - Null values can be inserted into a table by passing the NULL value to MySQL in the INSERT statement.
+ - Note, the column must be defined as nullable in the table definition.
+   - Example: INSERT INTO table_name (column1, column2, column3, ...)
+              VALUES (value1, NULL, value3, ...);
+
+Foreign Key Values (FK):
+ - You need to insert all foreign values becausew they are not generated automatically.
+
+Multiple Inserts:
+ - Multiple rows can be inserted in one statement by repeating the values.
+ - Note, this does not work in JDBC, including DBeaver.
+
+
+SQL Injection:
+ 1. An attacker enters compromised Data
+ 2. The data is not validated
+ 3. The programmer concatenates the data into a SQL statement
+ 4. The database executes the SQL statement and bad things happen
+
+SQL Injection Example:
+
+ User Input:
+    Enter recipe ID:2; show tables;
+
+ Java Code:
+    String recipeId = "2; show tables;";
+    String sql = "SELECT * FROM recipes " + "WHERE recipe_id = " + recipeId;
+
+ Constructed SQL Statement:
+    SELECT * FROM recipes WHERE recipe_id = 2; show tables;
+
+Caveat:
+ - This attack works in MySQL Command Line Interface (CLI) but not in JDBC.
+ - Does not work in DBeaver unless executed as a batch.
+ - Usually does not work in Java;
+   - JDBC throws an exception if you put multiple statements into a single queury.
+   - You must handle multiple queries intentionally, which is not the norm.
+   - Java is still vulnerable to an SQL injection attack if a single table is accessed.
+
+How to prevent SQL Injection:
+ 1. Validate all user input, for example "2; show tables;" is not an integer.
+ 2. Never build a SQL command by concatenating user input.
+ 3. Use typed parameters with PreparedStatement.
+
+How to use PreparedStatement:
+ String sql = "SELECT * FROM recipes WHERE recipe_id = ?";
+
+ try(PreparedStatement stmt = conn.prepareStatement(sql)) {
+    stmt.setInt(1, recipeId);
+
+    try(ResultSet rs = stmt.executeQuery()) {
+        // process the result set
+    }
+ }
+
+Bottom line:
+ - Use Statement if there is no user input
+ - Use PreparedStatement with parameters if there is user input
+ - Always validate user input
