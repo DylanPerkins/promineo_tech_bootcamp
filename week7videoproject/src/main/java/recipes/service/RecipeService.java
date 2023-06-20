@@ -17,7 +17,6 @@ public class RecipeService {
 
     private RecipeDao recipeDao = new RecipeDao();
 
-
     public void createAndPopulateTables() {
         loadFromFile(SCHEMA_FILE);
         loadFromFile(DATA_FILE);
@@ -30,7 +29,6 @@ public class RecipeService {
         recipeDao.executeBatch(sqlStatements);
     }
 
-
     private List<String> convertSQLFileContentToSQLStatements(String content) {
         content = removeComments(content);
         content = removeEmptyLines(content);
@@ -42,14 +40,17 @@ public class RecipeService {
         List<String> lines = new LinkedList<>();
 
         while (!content.isEmpty()) {
-            int semicolonPosition = content.indexOf(";");
+            int semicolon = content.indexOf(";");
 
-            if (semicolonPosition == -1) {
-                lines.add(content);
-                break;
+            if (semicolon == -1) {
+                if (!content.isBlank()) {
+                    lines.add(content);
+                }
+
+                content = "";
             } else {
-                lines.add(content.substring(0, semicolonPosition + 1));
-                content = content.substring(semicolonPosition + 1);
+                lines.add(content.substring(0, semicolon).trim());
+                content = content.substring(semicolon + 1);
             }
         }
 
@@ -65,10 +66,13 @@ public class RecipeService {
         int commentPosition = 0;
 
         while ((commentPosition = sb.indexOf("--", commentPosition)) != -1) {
-            int endOfLinePosition = sb.indexOf("\n", commentPosition + 1);
-            sb.delete(commentPosition, endOfLinePosition);
+            int endOfLine = sb.indexOf("\n", commentPosition + 1);
 
-            
+            if (endOfLine == -1) {
+                sb.replace(commentPosition, sb.length(), "");
+            } else {
+                sb.replace(commentPosition, endOfLine + 1, "");
+            }
         }
 
         return sb.toString();
@@ -84,7 +88,7 @@ public class RecipeService {
     }
 
     // public static void main(String[] args) {
-    //     RecipeService recipeService = new RecipeService();
-    //     recipeService.createAndPopulateTables();
+    // RecipeService recipeService = new RecipeService();
+    // recipeService.createAndPopulateTables();
     // }
 }
