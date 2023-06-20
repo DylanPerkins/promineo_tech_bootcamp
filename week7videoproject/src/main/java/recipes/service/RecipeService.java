@@ -7,6 +7,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import recipes.dao.RecipeDao;
+import recipes.entity.Recipe;
 import recipes.exception.dbException;
 
 // This class is used to create and populate the tables in the recipes database.
@@ -85,6 +86,10 @@ public class RecipeService {
         } catch (Exception e) {
             throw new dbException(e);
         }
+    }
+
+    public Recipe addRecipe(Recipe recipe) {
+        return recipeDao.insertRecipe(recipe);
     }
 
     // public static void main(String[] args) {

@@ -1,10 +1,12 @@
 package recipes;
 
+import java.time.LocalTime;
 import java.util.List;
 import java.util.Objects;
 import java.util.Scanner;
 
 import recipes.dao.dbConnection;
+import recipes.entity.Recipe;
 import recipes.exception.dbException;
 import recipes.service.RecipeService;
 
@@ -14,7 +16,9 @@ public class Recipes {
     private RecipeService recipeService = new RecipeService();
 
     private List<String> operations = List.of(
-            "1. Create and populate tables");
+            "1. Create and populate tables",
+            "2. Add a recipe"
+            );
 
     public static void main(String[] args) {
         dbConnection.getConnection();
@@ -38,6 +42,9 @@ public class Recipes {
                     case 1:
                         createTables();
                         break;
+                    case 2:
+                        addRecipe();
+                        break;
 
                     default:
                         System.out.println("\nInvalid operation. Please try again.");
@@ -47,6 +54,36 @@ public class Recipes {
                 System.out.println("\nError: " + e.toString() + ". Please try again.");
             }
         }
+    }
+
+    private void addRecipe() {
+        String name = getStringInput("Enter recipe name");
+        String notes = getStringInput("Enter recipe notes");
+        Integer numServings = getIntInput("Enter number of servings");
+        Integer prepMinutes = getIntInput("Enter prep time in minutes");
+        Integer cookMinutes = getIntInput("Enter cook time in minutes");
+
+        LocalTime prepTime = minutesToLocalTime(prepMinutes);
+        LocalTime cookTime = minutesToLocalTime(cookMinutes);
+
+        Recipe recipe = new Recipe();
+
+        recipe.setRecipeName(name);
+        recipe.setNotes(notes);
+        recipe.setNumServings(numServings);
+        recipe.setPrepTime(prepTime);
+        recipe.setCookTime(cookTime);
+
+        Recipe dbRecipe = recipeService.addRecipe(recipe);
+        System.out.println("\nRecipe added: " + dbRecipe.toString());
+    }
+
+    private LocalTime minutesToLocalTime(Integer numMinutes) {
+        int min = Objects.isNull(numMinutes) ? 0 : numMinutes;
+        int hours = min / 60;
+        int minutes = min % 60;
+
+        return LocalTime.of(hours, minutes);
     }
 
     private void createTables() {
