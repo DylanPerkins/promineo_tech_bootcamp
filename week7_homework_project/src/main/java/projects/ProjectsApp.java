@@ -32,7 +32,7 @@ public class ProjectsApp {
 
 				switch (selection) {
 					case -1:
-						done = true;
+						done = exitMenu();
 						break;
 					case 1:
 						createProject();
@@ -43,9 +43,14 @@ public class ProjectsApp {
 				}
 
 			} catch (Exception e) {
-				System.out.println("\nError: " + e.getMessage() + ".\nPlease Try again.");
+				System.out.println("\nError: " + e.getMessage() + ".\nPlease try again.");
 			}
 		}
+	}
+
+	private boolean exitMenu() {
+		System.out.println("\nGoodbye!");
+		return true;
 	}
 
 	private void createProject() {
@@ -86,7 +91,7 @@ public class ProjectsApp {
 	private int obtainUserSelection() {
 		printOperations();
 
-		Integer input = getIntInput("\nPlease select an operation: ");
+		Integer input = getIntInput("\nPlease select an operation");
 
 		return Objects.isNull(input) ? -1 : input;
 	}
