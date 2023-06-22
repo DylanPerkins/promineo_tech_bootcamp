@@ -1,16 +1,9 @@
-/**
- * 
- */
 package projects.entity;
 
 import java.math.BigDecimal;
 import java.util.LinkedList;
 import java.util.List;
 
-/**
- * @author Promineo
- *
- */
 public class Project {
   private Integer projectId;
   private String projectName;
@@ -86,32 +79,32 @@ public class Project {
   @Override
   public String toString() {
     String result = "";
-    
+
     result += "\n   ID=" + projectId;
     result += "\n   name=" + projectName;
     result += "\n   estimatedHours=" + estimatedHours;
     result += "\n   actualHours=" + actualHours;
     result += "\n   difficulty=" + difficulty;
     result += "\n   notes=" + notes;
-    
+
     result += "\n   Materials:";
-    
-    for(Material material : materials) {
+
+    for (Material material : materials) {
       result += "\n      " + material;
     }
-    
+
     result += "\n   Steps:";
-    
-    for(Step step : steps) {
+
+    for (Step step : steps) {
       result += "\n      " + step;
     }
-    
+
     result += "\n   Categories:";
-    
-    for(Category category : categories) {
+
+    for (Category category : categories) {
       result += "\n      " + category;
     }
-    
+
     return result;
   }
 }
