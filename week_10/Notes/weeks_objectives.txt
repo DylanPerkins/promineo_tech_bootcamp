@@ -1,0 +1,33 @@
+Reading Data
+ - The "R" in CRUD
+ - SELECT statement syntax
+   - WHERE clause
+   - ORDER BY
+   - DISTINCT
+   - LIMIT
+   - GROUP BY
+   - HAVING
+
+Reading from Multiple Tables
+ - JOINs
+   - Inner JOIN
+   - Outer left JOIN
+   - Outer right JOIN
+   - Cross JOIN
+ - Subqueries
+   - Getting the value that you need from the value that you have
+   - Example: Getting an ID when given a name
+
+Returning Data
+ - The roles of the data and service layers
+ - Returning single rows using Optional
+ - Returning multiple rows using List
+ - Throwing an exception from an empty Optional
+
+Working on our Video Application
+ - Retrieve and display all recipes
+ - Retrieve and display a selected recipe
+   - Recipe details
+   - Recipe ingredients
+   - Recipe steps
+   - Recipe categories

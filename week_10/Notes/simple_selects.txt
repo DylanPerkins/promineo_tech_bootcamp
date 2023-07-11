@@ -1,0 +1,210 @@
+Reading Data: SELECT
+
+SELECT syntax:
+ - Example:
+    SELECT columns
+    FROM table
+    WHERE constraints
+
+CRUD Recap:
+ - Create: INSERT INTO 
+ - Read: SELECT
+ - Update: UPDATE
+ - Delete: DELETE
+
+Literals in SELECT statements:
+ - Numbers do not have quotes
+ - Everything else is surrounded by single quotes
+ - MySQL usually recognizes double quotes, but this is not always true in all databases
+
+SELECT Specific Columns:
+ - Column names are seperated by commas
+ - Data is returned in the same order as the column names
+ Example:
+    SELECT recipe_id, recipe_name
+    FROM recipe
+    WHERE recipe_id = 1;
+
+SELECT All Columns:
+ - Use * to select all columns
+ - The columns are returned in the order that they were specified in the CREATE TABLE statement
+ Example:
+    SELECT *
+    FROM category
+    WHERE category_id = 1;
+
+Column Aliases:
+ - Use AS to create a column alias
+ - Column aliases are often used to make column names more readable
+ - If the alias contains spaces, it must be surrounded by single quotes. Otherwise, the quotes are optional
+ Example:
+    SELECT prep_time AS 'Time to Prepare'
+    FROM recipe;
+
+No WHERE clause:
+ - If you do not include a WHERE clause, all rows are returned
+ Example:
+    SELECT *
+    FROM recipe;
+
+
+WHERE Syntax:
+ - WHERE is used to filter rows
+ - WHERE is followed by a condition, and only rows that meet the condition are returned
+ Example:
+    SELECT *
+    FROM recipe
+    WHERE recipe_id = 1;
+
+WHERE Relational Operators:
+ - < means less than
+ - > means greater than
+ - <= means less than or equal to
+ - >= means greater than or equal to
+ - = means equal to
+ - != or <> means not equal to
+
+WHERE, AND:
+ - AND is used to combine multiple conditions
+ - AND returns rows where both conditions are true
+ Example:
+    SELECT *
+    FROM recipe
+    WHERE recipe_id = 1 AND recipe_name = 'Pancakes';
+
+WHERE, OR:
+ - OR is also used to combine multiple conditions
+ - OR returns rows where either condition is true
+ Example:
+    SELECT *
+    FROM recipe
+    WHERE recipe_id = 1 OR recipe_name = 'Pancakes';
+
+WHERE, IN:
+ - IN is used to specify multiple possible values for a column
+ - IN returns rows where the column value is equal to any of the values in the list
+ Example:
+    SELECT *
+    FROM recipe
+    WHERE recipe_id IN (1, 2, 3);
+
+WHERE, BETWEEN (inclusive):
+ - BETWEEN is used to specify a range of values
+ - BETWEEN returns rows where the column value is between the two values
+ Example:
+    SELECT *
+    FROM recipe
+    WHERE recipe_id BETWEEN 1 AND 3;
+
+WHERE wildcards:
+ - An underscore (_) can be used to match any single character
+ - A percent sign (%) can be used to match any sequence of zero or more characters
+ - Used with the LIKE keyword
+
+WHERE, LIKE: 
+ - LIKE is used to match a pattern
+ Example:
+    SELECT *
+    FROM recipe
+    WHERE recipe_name LIKE '_e%';
+    ### This will return any recipe that has an e as the second letter in the name
+
+WHERE, IS NULL:
+ - IS NULL is used to match NULL values
+ - IS NULL returns rows where the column value is NULL
+ Example:
+    SELECT *
+    FROM recipe
+    WHERE recipe_name IS NULL;
+
+WHERE, NOT:
+ - NOT is used to negate a condition
+ - NOT returns rows where the condition is false
+ Example:
+    SELECT *
+    FROM recipe
+    WHERE recipe_id NOT IN (1, 2, 3);
+
+Sorting, ORDER BY:
+ - ORDER BY is used to sort the results, in either ascending or descending order
+ - ORDER BY is followed by a column name, and the results are sorted by that column 
+ - By default, ORDER BY sorts in ascending order
+ - To sort in descending order, use DESC and use ASC to sort in ascending order
+ Example:
+    SELECT *
+    FROM recipe
+    ORDER BY recipe_name DESC;
+
+More ORDER BY:
+ - ORDER BY can be used with multiple columns when seperated by commas
+ Example:
+    SELECT *
+    FROM recipe
+    ORDER BY category_id, recipe_name;
+
+DISTINCT:
+ - DISTINCT is followed by a column name, and only unique values for that column are returned
+ Example:
+    SELECT DISTINCT category_id
+    FROM recipe
+    ORDER BY prep_time;
+    ### If there are any duplicate prep_time values, they will not be returned
+
+LIMIT: 
+ - LIMIT is used to specify the maximum number of rows to return
+ - LIMIT is followed by a number, and only that number of rows are returned
+ Example:
+    SELECT *
+    FROM recipe
+    ORDER BY recipe_name
+    LIMIT 3;
+    
+LIMIT with OFFSET:
+ - Specifies the starting row as well as the maximum number of rows to return
+ - OFFSET is followed by a number, and the first number of rows are skipped
+ Example:
+    SELECT *
+    FROM recipe
+    ORDER BY recipe_name
+    LIMIT 3 OFFSET 2;
+    ### This will only return the 3rd, 4th, and 5th rows that would've been returned without the LIMIT and OFFSET
+
+GROUP BY:
+ - GROUP BY is used to group rows that have the same value in a column
+ - GROUP BY is followed by a column name, and rows with the same value in that column are grouped together
+  - count(*) is used to count the number of rows in each group
+ Example:
+    SELECT count(*) AS 'Number of Recipes', prep_time
+    FROM recipe
+    GROUP BY prep_time;
+    ### This will return the number of recipes that have the same prep_time each as a unique row/group
+
+HAVING:
+ - Like the WHERE clause, but works with aggregate functions, like count(*)
+ - HAVING is followed by a condition, and only groups that meet the condition are returned
+ Example:
+    SELECT count(*) AS 'Number of Recipes', prep_time
+    FROM recipe
+    GROUP BY prep_time
+    HAVING count(*) = 1;
+    ### This will return the number of recipes where each group that have similar prep_times equals just 1
+
+More HAVING:
+ - Difference between WHERE and HAVING:
+  - WHERE puts constraint(s) on table columns
+  - HAVING puts constraint(s) on aggregate functions
+ - Aggregate functions combine results from multiple rows into a single value
+   - count(*), sum(), avg(), min(), max()
+
+GROUP BY versus HAVING:
+ - GROUP BY does not need a HAVING clause
+ - HAVING does not need a GROUP BY clause, but the results will not return anything that make sense
+
+Recap!
+ SELECT DISTINCT column(s)
+ FROM table
+ WHERE constraint(s)
+ GROUP BY column
+ HAVING aggregate function
+ ORDER BY column(s)
+ LIMIT num_rows [OFFSET row];
