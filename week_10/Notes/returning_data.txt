@@ -1,0 +1,54 @@
+Java Application:
+ I/O Layer <--> Service Layer <--> DAO Layer
+
+DAO Layer:
+ - Reads and writes data to tables
+ - Does not create exceptions (Instead it passes on exceptions to from the driver)
+ - Data is generally not transfromed
+ - Data is put into DAO classes that model the tables
+ - The DAO returns multiple rows (fetchAll) or single rows (fetchById)
+
+ Multiple Rows:
+ - Returns a list of objects in which each element in the list represents a single row of data
+ - If no rows are found, an empty list is returned
+ - NULL is never returned
+
+ Single Row, Return NULL:
+ - The "old" way of returning a sinlge row is to return data if the row exists and return NULL if the row does not exist
+ - The issue with this approach is that the caller must check for NULL and handle the case where NULL is returned, which may be forgotten
+
+ Single Row, Return Optional:
+ - An Optional is a Java class that replaces NULL as a retun values
+ - The Optional will either contain an Object or it is empty, it will never be NULL
+ - A programmer can ignore a NULL return value, which will cause a NullPointerException
+ - Optional cannot be ignored, it must be handled
+
+Service Layer:
+ - Transforms data
+ - Applies business rules and logic
+ - Validates data
+ - Throws appropiate Exceptions
+ - Works well with Optional to throw application-specific exceptions
+
+ Multiple Rows:
+ - No need to check for NULLs, the returned list will never be NULL
+ - If there are no rows in a list, the list will simply be empty
+
+Input/Output Layer:
+ - Gathers data from the user
+ - Handles exceptions
+ - Processes menu operations
+ - Interacts with the Service Layer
+
+TLDR:
+ - Data Layer
+   - Returns Data (List or Optional)
+   - Passes on Exceptions, does not create them
+ - Service Layer
+   - Transforms Data
+   - Applies Business Rules
+   - Validates Data
+   - Throws Exceptions
+ - Input/Output Layer
+   - Accepts and displays data
+   - Handles Exceptions

@@ -1,0 +1,87 @@
+Table Aliases:
+ SELECT i.ingredient_name
+ FROM ingredient i
+ WHERE i.recipe_id = 4
+
+ - In this case, the table alias is "i" and the table name is "ingredient".
+
+Working with multiple tables
+ - Tables can be "joined" together to form a single result set with data from more than one table
+ - Tables are joined on PK/FK columns 
+ - If the value in the PK column matches a value in the FK column, the rows are joined together
+
+Different Join Types:
+ - MySQL recognizes several different types of joins:
+   - INNER JOIN
+   - OUTER JOIN (LEFT, RIGHT, FULL)
+   - CROSS JOIN
+
+Subqueries:
+ - A subquery is a query within another query; insert, delete, or update statements can also contain subqueries
+ - It is used to get an ID or other type of value that is used by the surrounding query
+ - Subqueries are used to transfrom a value that you have, ("name") into a value that you need ("id")
+
+
+Inner Join:
+ SELECT * 
+ FROM breed b
+ INNER JOIN alt_name an USING (breed_id)
+
+ - This query will return all columns from both tables where the breed_id values match. Essentially it will return all rows in the alt_name table that have a matching breed_id in the breed table. 
+ - Note that the INNER keyword is optional. The query will return the same result if the INNER keyword is omitted.
+
+Inner Join (Variation, more common): 
+ SELECT *
+ FROM breed b, alt_name an
+ WHERE b.breed_id = an.breed_id
+
+ - This query will return the same result as the inner join query above. The difference is that the join condition is specified in the WHERE clause instead of in the FROM clause.
+ 
+Outer Left Join:
+ SELECT *
+ FROM breed b
+ LEFT OUTER JOIN alt_name an USING (breed_id)
+
+ - This query will return all columns from both tables where the breed_id values match. It will also return all rows from the breed table that do not have a matching breed_id in the alt_name table. The columns from the alt_name table will be NULL for these rows.
+ - Note that the LEFT OUTER JOIN is the same as LEFT JOIN. The OUTER keyword is optional.
+
+Outer Right Join:
+ SELECT *
+ FROM alt_name an
+ RIGHT OUTER JOIN breed b USING (breed_id)
+
+ - This query will return all columns from both tables where the breed_id values match. It will also return all rows from the alt_name table that do not have a matching breed_id in the breed table. The columns from the breed table will be NULL for these rows.
+ - Note that the RIGHT OUTER JOIN is the same as RIGHT JOIN. The OUTER keyword is optional.
+
+Another Join Example:
+ SELECT b.breed_id, b.breed_name, c.category_name
+ FROM breed b
+ INNER JOIN breed_category bc USING (breed_id)
+ INNER JOIN category c USING (category_id)
+ ORDER BY b.breed_name, c.category_name
+
+Cross Join:
+ SELECT *
+ FROM breed b
+ CROSS JOIN alt_name an
+ WHERE b.breed_id IN (1, 2)
+ ORDER BY b.breed_id
+
+Subquery Examples:
+ - First we verify that our table has the data we need:
+ SELECT b.breed_name, c.category_name
+ FROM breed b
+ JOIN breed_category bc USING (breed_id)
+ JOIN category c USING (category_id)
+ WHERE b.breed_id = 1
+
+ - Now we delete that data:
+ DELETE FROM breed_category WHERE breed_id = 1
+
+ - Now we use a subquery to insert that data back into the table:
+ INSERT INTO breed_category (breed_id, category_id)
+ VALUES
+ (
+    (SELECT breed_id FROM breed WHERE breed_name = 'American Rabbit'),
+    (SELECT category_id FROM category WHERE category_name = 'Smooth')
+ )

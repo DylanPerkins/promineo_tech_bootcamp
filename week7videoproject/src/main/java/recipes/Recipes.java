@@ -14,11 +14,13 @@ public class Recipes {
 
     private Scanner scanner = new Scanner(System.in);
     private RecipeService recipeService = new RecipeService();
+    private Recipe curRecipe;
 
     private List<String> operations = List.of(
             "1. Create and populate tables",
-            "2. Add a recipe"
-            );
+            "2. Add a recipe",
+            "3. List all recipes",
+            "4. Select a recipe");
 
     public static void main(String[] args) {
         dbConnection.getConnection();
@@ -45,6 +47,12 @@ public class Recipes {
                     case 2:
                         addRecipe();
                         break;
+                    case 3:
+                        listRecipes();
+                        break;
+                    case 4:
+                        selectRecipe();
+                        break;
 
                     default:
                         System.out.println("\nInvalid operation. Please try again.");
@@ -54,6 +62,34 @@ public class Recipes {
                 System.out.println("\nError: " + e.toString() + ". Please try again.");
             }
         }
+    }
+
+    private void selectRecipe() {
+        List<Recipe> recipes = listRecipes();
+
+        Integer recipeId = getIntInput("\nEnter recipe ID");
+
+        curRecipe = null;
+
+        for (Recipe recipe : recipes) {
+            if (recipe.getRecipeId().equals(recipeId)) {
+                curRecipe = recipeService.fetchRecipeById(recipeId);
+                break;
+            }
+        }
+
+        if (Objects.isNull(curRecipe)) {
+            System.out.println("\nRecipe with ID=" + recipeId + " not found");
+        }
+    }
+
+    private List<Recipe> listRecipes() {
+        List<Recipe> recipes = recipeService.fetchRecipes();
+
+        System.out.println("\nRecipes:");
+        recipes.forEach(recipe -> System.out.println("\t" + recipe.getRecipeId() + ": " + recipe.getRecipeName()));
+
+        return recipes;
     }
 
     private void addRecipe() {
@@ -76,6 +112,8 @@ public class Recipes {
 
         Recipe dbRecipe = recipeService.addRecipe(recipe);
         System.out.println("\nRecipe added: " + dbRecipe.toString());
+
+        curRecipe = recipeService.fetchRecipeById(dbRecipe.getRecipeId());
     }
 
     private LocalTime minutesToLocalTime(Integer numMinutes) {
@@ -109,6 +147,12 @@ public class Recipes {
 
         operations.forEach(op -> System.out.println("\t" + op));
 
+        if (Objects.isNull(curRecipe)) {
+            System.out.println("\nCurrent recipe: none");
+        } else {
+            System.out.println("\nCurrent recipe: " + curRecipe);
+        }
+
     }
 
     private Integer getIntInput(String prompt) {
@@ -124,20 +168,6 @@ public class Recipes {
             throw new dbException(input + " is not a valid number");
         }
     }
-
-    // private Double getDoubleInput(String prompt) {
-    //     String input = getStringInput(prompt);
-
-    //     if (Objects.isNull(input)) {
-    //         return null;
-    //     }
-
-    //     try {
-    //         return Double.parseDouble(input);
-    //     } catch (NumberFormatException e) {
-    //         throw new dbException(input + " is not a valid number");
-    //     }
-    // }
 
     private String getStringInput(String prompt) {
         System.out.print(prompt + ": ");

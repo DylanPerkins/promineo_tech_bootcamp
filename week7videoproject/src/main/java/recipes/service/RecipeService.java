@@ -5,6 +5,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import recipes.dao.RecipeDao;
 import recipes.entity.Recipe;
@@ -28,6 +29,11 @@ public class RecipeService {
         List<String> sqlStatements = convertSQLFileContentToSQLStatements(content);
 
         recipeDao.executeBatch(sqlStatements);
+    }
+
+    public Recipe fetchRecipeById(int recipeId) {
+        return recipeDao.fetchRecipeById(recipeId)
+                .orElseThrow(() -> new NoSuchElementException("Recipe with ID=" + recipeId + " not found"));
     }
 
     private List<String> convertSQLFileContentToSQLStatements(String content) {
@@ -92,8 +98,8 @@ public class RecipeService {
         return recipeDao.insertRecipe(recipe);
     }
 
-    // public static void main(String[] args) {
-    // RecipeService recipeService = new RecipeService();
-    // recipeService.createAndPopulateTables();
-    // }
+    public List<Recipe> fetchRecipes() {
+        return recipeDao.fetchAllRecipes();
+    }
+
 }
