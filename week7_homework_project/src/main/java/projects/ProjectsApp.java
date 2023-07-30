@@ -11,10 +11,13 @@ import projects.service.ProjectService;
 
 public class ProjectsApp {
 	private static final ProjectService projectService = new ProjectService();
+	private Project curProject;
 
 	// @formatter:off
 	private List<String> operations = List.of(
-			"1) Add a new project"
+			"1) Add a new project",
+			"2) List all projects",
+			"3) Select a project"
 	);
 	// @formatter:on
 	private Scanner scanner = new Scanner(System.in);
@@ -37,15 +40,38 @@ public class ProjectsApp {
 					case 1:
 						createProject();
 						break;
+					case 2:
+						listProjects();
+						break;
+					case 3:
+						selectProject();
+						break;
 					default:
 						System.out.println("\n" + selection + " is not a valid selection. Please try again.");
 						break;
 				}
 
 			} catch (Exception e) {
-				System.out.println("\nError: " + e.getMessage() + ".\nPlease try again.");
+				System.out.println("\nError: " + e + ".\nPlease try again.");
 			}
 		}
+	}
+
+	private void selectProject() {
+		listProjects();
+		Integer projectId = getIntInput("Enter project id");
+
+		curProject = null;
+
+		curProject = projectService.fetchProjectById(projectId);
+	}
+
+	private void listProjects() {
+		List<Project> projects = projectService.fetchAllProjects();
+
+		System.out.println("\nProjects:");
+		projects.forEach(
+				project -> System.out.println("\t" + project.getProjectId() + ": " + project.getProjectName()));
 	}
 
 	private boolean exitMenu() {
@@ -122,6 +148,13 @@ public class ProjectsApp {
 		System.out.println("Here's what you can do: (Press 'Enter' to quit)");
 
 		operations.forEach(op -> System.out.println("\t" + op));
+
+		if (Objects.isNull(curProject)) {
+			System.out.println("\nNo Selected project found.");
+		} else {
+			System.out.println("\nSelected project: " + curProject);
+		}
+
 	}
 
 }

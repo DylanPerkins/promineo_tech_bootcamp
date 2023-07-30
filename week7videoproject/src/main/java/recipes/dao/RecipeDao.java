@@ -224,14 +224,14 @@ public class RecipeDao extends DaoBase {
         try (Connection conn = dbConnection.getConnection()) {
             startTransaction(conn);
 
-            return fetchAllRecipesPreppedStatements(sql, conn);
+            return fetchAllRecipesResultSetQuery(sql, conn);
 
         } catch (SQLException e) {
             throw new dbException(e);
         }
     }
 
-    private List<Recipe> fetchAllRecipesPreppedStatements(String sql, Connection conn) throws SQLException {
+    private List<Recipe> fetchAllRecipesResultSetQuery(String sql, Connection conn) throws SQLException {
         try (PreparedStatement stmt = conn.prepareStatement(sql)) {
             try (ResultSet rs = stmt.executeQuery()) {
                 List<Recipe> recipes = new LinkedList<>();
