@@ -1,0 +1,92 @@
+## Math Functions ##
+There are more than what is listed below, but these are what we will mostly be using in our project
+
+COUNT:
+ - Counts the sumber of rows returned using the current constraints (WHERE clause)
+
+ SELECT COUNT(i.amount) AS Count
+ FROM ingredient i
+
+
+AVG (Average):
+ - Computes the average of a column across all selected rows
+
+ SELECT AVG(i.amount) AS Average
+ FROM ingredient i
+
+
+SUM:
+ - Computes the sum of a column across all selected rows
+
+ SELECT SUM(i.amount) AS Sum
+ FROM ingredient i
+
+
+MIN:
+ - Computes the minimum value of a column across all selected rows
+
+ SELECT MIN(i.amount) AS Min
+ FROM ingredient i
+
+
+MAX:
+ - Computes the maximum value of a column across all selected rows
+
+ SELECT MAX(i.amount) AS Max
+ FROM ingredient i
+
+
+## String Functions ##
+There are more than what is listed below, but these are what we will mostly be using in our project
+
+CONCAT:
+ - Concatenates two or more strings/column values together
+
+ SELECT DISTINCT CONCAT(i.amount, ' ', u.unit_name_plural) AS Amount
+ FROM ingredient i
+ INNER JOIN unit u USING (unit_id)
+ WHERE u.unit_name_plural LIKE 'ou%'
+
+ This will return a list of all the ingredients and their amounts, but the amounts will be in the format of "amount unit_name_plural" (e.g. "5 ounces", "2 ounces", etc.)
+
+
+UPPER:
+ - Converts and then returns a string to all uppercase
+
+ SELECT UPPER(r.recipe_name) AS 'Name Upper'
+ FROM recipe r
+
+
+LOWER:
+ - Converts and then returns a string to all lowercase
+
+ SELECT LOWER(r.recipe_name) AS 'Name Lower'
+ FROM recipe r
+
+
+## Date/Time Functions ##
+There are more than what is listed below, but these are what we will mostly be using in our project
+
+CURRENT_TIMESTAMP:
+ - Returns the current date and time
+ - Same as NOW()
+
+ SELECT CURRENT_TIMESTAMP AS Now
+
+ Returns: 2023-01-01 00:00:00 (YYYY-MM-DD HH:MM:SS)
+
+
+CURDATE:
+ - Returns the current date
+
+ SELECT CURDATE() AS Today
+
+ Returns: 2023-01-01 (YYYY-MM-DD)
+
+
+CURTIME:
+ - Returns the current time
+
+ SELECT CURTIME() AS Now
+
+ Returns: 00:00:00 (HH:MM:SS)

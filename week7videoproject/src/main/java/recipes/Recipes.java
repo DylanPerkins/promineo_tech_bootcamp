@@ -1,12 +1,16 @@
 package recipes;
 
+import java.math.BigDecimal;
 import java.time.LocalTime;
 import java.util.List;
 import java.util.Objects;
 import java.util.Scanner;
 
 import recipes.dao.dbConnection;
+import recipes.entity.Ingredient;
 import recipes.entity.Recipe;
+import recipes.entity.Step;
+import recipes.entity.Unit;
 import recipes.exception.dbException;
 import recipes.service.RecipeService;
 
@@ -20,7 +24,9 @@ public class Recipes {
             "1. Create and populate tables",
             "2. Add a recipe",
             "3. List all recipes",
-            "4. Select a recipe");
+            "4. Select a recipe",
+            "5. Add an ingredient to the current recipe",
+            "6. Add a step to the current recipe");
 
     public static void main(String[] args) {
         dbConnection.getConnection();
@@ -53,6 +59,12 @@ public class Recipes {
                     case 4:
                         selectRecipe();
                         break;
+                    case 5:
+                        addIngredientToCurrentRecipe();
+                        break;
+                    case 6:
+                        addStepToCurrentRecipe();
+                        break;
 
                     default:
                         System.out.println("\nInvalid operation. Please try again.");
@@ -62,6 +74,59 @@ public class Recipes {
                 System.out.println("\nError: " + e.toString() + ". Please try again.");
             }
         }
+    }
+
+    private void addStepToCurrentRecipe() {
+        if (Objects.isNull(curRecipe)) {
+            System.out.println("\nNo recipe selected, please select a recipe first");
+            return;
+        }
+
+        String stepText = getStringInput("Enter the instruction");
+
+        if (Objects.nonNull(stepText)) {
+            Step step = new Step();
+
+            step.setRecipeId(curRecipe.getRecipeId());
+            step.setStepText(stepText);
+
+            recipeService.addStep(step);
+            curRecipe = recipeService.fetchRecipeById(step.getRecipeId());
+        }
+    }
+
+    private void addIngredientToCurrentRecipe() {
+        if (Objects.isNull(curRecipe)) {
+            System.out.println("\nNo recipe selected, please select a recipe first");
+            return;
+        }
+
+        String name = getStringInput("Enter the ingredient name");
+        String instruction = getStringInput("Enter some instructions, if any");
+        Double inputAmount = getDoubleInput("Enter the amount of the ingredient");
+        List<Unit> units = recipeService.fetchUnits();
+
+        BigDecimal amount = Objects.isNull(inputAmount) ? null : BigDecimal.valueOf(inputAmount).setScale(2);
+
+        System.out.println("\nUnits:");
+
+        units.forEach(unit -> System.out.println("\t" + unit.getUnitId() + ": " + unit.getUnitNameSingular() + " ("
+                + unit.getUnitNamePlural() + ")"));
+
+        Integer unitId = getIntInput("\nEnter the unit ID. (Press 'Enter' for none)");
+
+        Unit unit = new Unit();
+        unit.setUnitId(unitId);
+
+        Ingredient ingredient = new Ingredient();
+        ingredient.setRecipeId(curRecipe.getRecipeId());
+        ingredient.setIngredientName(name);
+        ingredient.setInstruction(instruction);
+        ingredient.setAmount(amount);
+        ingredient.setUnit(unit);
+
+        recipeService.addIngredient(ingredient);
+        curRecipe = recipeService.fetchRecipeById(ingredient.getRecipeId());
     }
 
     private void selectRecipe() {
@@ -174,5 +239,19 @@ public class Recipes {
         String line = scanner.nextLine();
 
         return line.isBlank() ? null : line.trim();
+    }
+
+    private Double getDoubleInput(String string) {
+        String input = getStringInput(string);
+
+        if (Objects.isNull(input)) {
+            return null;
+        }
+
+        try {
+            return Double.parseDouble(input);
+        } catch (NumberFormatException e) {
+            throw new dbException(input + " is not a valid number");
+        }
     }
 }

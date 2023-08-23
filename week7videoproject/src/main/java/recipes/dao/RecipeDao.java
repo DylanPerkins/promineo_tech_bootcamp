@@ -1,5 +1,6 @@
 package recipes.dao;
 
+import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -244,6 +245,109 @@ public class RecipeDao extends DaoBase {
             }
         } catch (Exception e) {
             rollbackTransaction(conn);
+            throw new dbException(e);
+        }
+    }
+
+    public List<Unit> fetchAllUnits() {
+        // @formatter:off
+        String sql = ""
+            + "SELECT * "
+            + "FROM " + UNIT_TABLE + " ORDER BY unit_name_singular";
+        // @formatter:on
+
+        try (Connection conn = dbConnection.getConnection()) {
+            startTransaction(conn);
+
+            return fetchAllUnitsPreppedStatements(sql, conn);
+
+        } catch (SQLException e) {
+            throw new dbException(e);
+        }
+    }
+
+    private List<Unit> fetchAllUnitsPreppedStatements(String sql, Connection conn) throws SQLException {
+        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+            try (ResultSet rs = stmt.executeQuery()) {
+                List<Unit> units = new LinkedList<>();
+
+                while (rs.next()) {
+                    units.add(extract(rs, Unit.class));
+                }
+
+                return units;
+            }
+        } catch (Exception e) {
+            rollbackTransaction(conn);
+            throw new dbException(e);
+        }
+    }
+
+    public void addIngredientToRecipe(Ingredient ingredient) {
+        // @formatter:off
+        String sql = ""
+            + "INSERT INTO " + INGREDIENT_TABLE + " "
+            + "(recipe_id, unit_id, ingredient_name, instruction, ingredient_order, amount) "
+            + "VALUES " 
+            + "(?, ?, ?, ?, ?, ?)";
+        // @formatter:on
+
+        try (Connection conn = dbConnection.getConnection()) {
+            startTransaction(conn);
+
+            try {
+                Integer order = getNextSequenceNumber(conn, ingredient.getRecipeId(), INGREDIENT_TABLE, "recipe_id");
+
+                try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+                    setParameter(stmt, 1, ingredient.getRecipeId(), Integer.class);
+                    setParameter(stmt, 2, ingredient.getUnit().getUnitId(), Integer.class);
+                    setParameter(stmt, 3, ingredient.getIngredientName(), String.class);
+                    setParameter(stmt, 4, ingredient.getInstruction(), String.class);
+                    setParameter(stmt, 5, order, Integer.class);
+                    setParameter(stmt, 6, ingredient.getAmount(), BigDecimal.class);
+
+                    stmt.executeUpdate();
+                    commitTransaction(conn);
+                }
+            } catch (Exception e) {
+                rollbackTransaction(conn);
+                throw new dbException(e);
+            }
+
+        } catch (SQLException e) {
+            throw new dbException(e);
+        }
+    }
+
+    public void addStepToRecipe(Step step) {
+        // @formatter:off
+        String sql = ""
+            + "INSERT INTO " + STEP_TABLE + " "
+            + "(recipe_id, step_order, step_text) "
+            + "VALUES " 
+            + "(?, ?, ?)";
+        // @formatter:on
+
+        try (Connection conn = dbConnection.getConnection()) {
+            startTransaction(conn);
+
+            try {
+                Integer order = getNextSequenceNumber(conn, step.getRecipeId(), STEP_TABLE, "recipe_id");
+
+                try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+                    setParameter(stmt, 1, step.getRecipeId(), Integer.class);
+                    setParameter(stmt, 2, order, Integer.class);
+                    setParameter(stmt, 3, step.getStepText(), String.class);
+
+                    stmt.executeUpdate();
+                    commitTransaction(conn);
+                }
+            } catch (Exception e) {
+                rollbackTransaction(conn);
+                throw new dbException(e);
+            }
+
+        } catch (SQLException e) {
             throw new dbException(e);
         }
     }
