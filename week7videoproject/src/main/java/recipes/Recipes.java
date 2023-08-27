@@ -28,7 +28,8 @@ public class Recipes {
             "4. Select a recipe",
             "5. Add an ingredient to the current recipe",
             "6. Add a step to the current recipe",
-            "7. Add a category to the current recipe");
+            "7. Add a category to the current recipe",
+            "8. Modify step in the current recipe");
 
     public static void main(String[] args) {
         dbConnection.getConnection();
@@ -70,6 +71,9 @@ public class Recipes {
                     case 7:
                         addCategoryToCurrentRecipe();
                         break;
+                    case 8:
+                        modifyStepInCurrentRecipe();
+                        break;
 
                     default:
                         System.out.println("\nInvalid operation. Please try again.");
@@ -79,6 +83,36 @@ public class Recipes {
                 System.out.println("\nError: " + e.toString() + ". Please try again.");
             }
         }
+    }
+
+    private void modifyStepInCurrentRecipe() {
+        if (Objects.isNull(curRecipe)) {
+            System.out.println("\nNo recipe selected, please select a recipe first");
+            return;
+        }
+
+        List<Step> steps = recipeService.fetchSteps(curRecipe.getRecipeId());
+
+        System.out.println("\nSteps for current recipe");
+        steps.forEach(step -> System.out.println("\t" + step));
+
+        Integer stepID = getIntInput("Enter step ID that you want to modify");
+
+        if(Objects.nonNull(stepID)) {
+            String stepText = getStringInput("Enter the new step text");
+
+            if(Objects.nonNull(stepText)) {
+                Step step = new Step();
+
+                step.setStepId(stepID);
+                step.setStepText(stepText);
+
+                recipeService.modifyStep(step);
+                curRecipe = recipeService.fetchRecipeById(curRecipe.getRecipeId());
+            }
+        }
+
+
     }
 
     private void addCategoryToCurrentRecipe() {
@@ -99,7 +133,6 @@ public class Recipes {
             recipeService.addCategoryToRecipe(curRecipe.getRecipeId(), category);
             curRecipe = recipeService.fetchRecipeById(curRecipe.getRecipeId());
         }
-
 
     }
 

@@ -1,0 +1,14 @@
+### UPDATE Syntax ###
+
+UPDATE table_name
+SET column1 = value1, column2 = value2, ...
+WHERE constraint;
+
+# Example #
+
+    INSERT INTO step (recipe_id, step_order, step_text)
+    VALUES (1, 1, 'Preheat oven to 350 degrees');
+
+    UPDATE step
+    SET step_text = 'Preheat oven to 575 degrees'
+    WHERE id = 1;

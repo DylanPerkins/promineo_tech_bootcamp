@@ -126,4 +126,14 @@ public class RecipeService {
         recipeDao.addCategoryToRecipe(recipeId, category);
     }
 
+    public List<Step> fetchSteps(Integer recipeId) {
+        return recipeDao.fetchSteps(recipeId);
+    }
+
+    public void modifyStep(Step step) {
+        if(!recipeDao.modifyStep(step)) {
+            throw new dbException("Step wth ID=" + step.getStepId() + " not found");
+        }
+    }
+
 }

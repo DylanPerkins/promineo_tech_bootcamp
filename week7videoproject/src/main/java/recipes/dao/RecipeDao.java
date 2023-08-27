@@ -390,10 +390,10 @@ public class RecipeDao extends DaoBase {
             + "VALUES (?, " + subQuery + ")";
         // @formatter:on
 
-        try(Connection conn = dbConnection.getConnection()) {
+        try (Connection conn = dbConnection.getConnection()) {
             startTransaction(conn);
 
-            try(PreparedStatement stmt = conn.prepareStatement(sql)) {
+            try (PreparedStatement stmt = conn.prepareStatement(sql)) {
                 setParameter(stmt, 1, recipeId, Integer.class);
                 setParameter(stmt, 2, category, String.class);
 
@@ -404,6 +404,53 @@ public class RecipeDao extends DaoBase {
                 throw new dbException(e);
             }
 
+        } catch (SQLException e) {
+            throw new dbException(e);
+        }
+    }
+
+    public List<Step> fetchSteps(Integer recipeId) {
+        try (Connection conn = dbConnection.getConnection()) {
+            startTransaction(conn);
+
+            try {
+                List<Step> steps = fetchRecipeSteps(recipeId, conn);
+
+                commitTransaction(conn);
+
+                return steps;
+            } catch (Exception e) {
+                rollbackTransaction(conn);
+                throw new dbException(e);
+            }
+        } catch (SQLException e) {
+            throw new dbException(e);
+        }
+    }
+
+    public boolean modifyStep(Step step) {
+        // @formatter:off
+        String sql = ""
+            + "UPDATE " + STEP_TABLE + " "
+            + "SET step_text = ? "
+            + "WHERE step_id = ?";
+        // @formatter:on
+
+        try (Connection conn = dbConnection.getConnection()) {
+            startTransaction(conn);
+
+            try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+                setParameter(stmt, 1, step.getStepText(), String.class);
+                setParameter(stmt, 2, step.getStepId(), Integer.class);
+
+                int rowsAffected = stmt.executeUpdate();
+                commitTransaction(conn);
+
+                return rowsAffected == 1;
+            } catch (Exception e) {
+                rollbackTransaction(conn);
+                throw new dbException(e);
+            }
         } catch (SQLException e) {
             throw new dbException(e);
         }
