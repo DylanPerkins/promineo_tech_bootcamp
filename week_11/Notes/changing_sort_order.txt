@@ -1,0 +1,122 @@
+- Recipe lists are sorted alphabetically
+- This is because the DAO explicitly sorts them this way
+
+Example:
+ SELECT *
+ FROM recipe
+ ORDER BY recipe_name
+
+
+Why change it?
+ - The customer in charge of the project you are working on thinks that it is confusing to see the recipes sorted alphabetically
+ - The customer must always pick a recipe ID, therefore it woould be less confusing if the recipes were sorted by ID
+ - Change: sort the recipes by ID instead of by name
+
+Old:
+ 2. Apple Monsters
+ 4. Chocolate Moose
+ 3. Ice Cubes
+ 1. Kitty Litter Cake
+
+New: 
+ 1. Kitty Litter Cake
+ 2. Apple Monsters
+ 3. Ice Cubes
+ 4. Chocolate Moose
+
+How to change it? (via the Service layer!):
+ - The request is a change in business ResultSet
+ - Business rules are and should be applied in the Service layer
+ - Making a single change in the recipe service layer will affect all calls that retrive the recipe list
+
+How will this work?
+ - If Java "knows" that an object has a certain method, Java can call the method
+ - Java "knows" that an object has a method if the object inherits from a specified interface
+ - The compiler determines whether an object is the right type by looking at its inheritance chain
+
+Inheritance Reminder:
+ - You can delete an abstract method without a body in an interface
+ - Java uses the Comparator interface when sorting
+ - Comparator has a single method called compare
+ - To sort a list, create a class that implements Comparator and then pass an instance to Java
+
+Implementing the Comparator Interface:
+ - If you implement the Comparator interface, you must provide a body for the compare method
+ - You can then pass an instance of that class to a method that expects an instance of Comparator
+ - Java will then call the compare method on that object over and over until each element is in the correct position
+
+Solving the problem:
+ - You can sort the list using Collections.sort or List.sort
+   - Sort the list directly using an anonymous inner class
+   - Sort the list directly using a lambda expression
+ - Sort the list using a Stream 
+
+### Solution 1 ###
+
+Solution 1: Sort the list directly using an anonymous inner class
+ - Provide a body for the interface and then add bodies for all abstract methods
+ - This is called an anonymous inner class because you are creating a class without a name
+ - This class must be referenced immediately after it is created
+
+Solution 1: Creation of the anonymous inner class
+ - Use the `new` operator on the interface to create the object
+ - Then, provide an implementation of all interface methods
+
+ Example:
+
+ new Comparator<Recipe>() {
+    public int compare(Recipe r1, Recipe r2) {
+        ................
+    }
+ }
+
+Solution 1: Sorting with the anonymous inner class
+ 
+ List<Recipe> recipes = recipeDao.fetchAllRecipes();
+
+ recipes.sort(new Comparator<Recipe>() {
+    public int compare(Recipe r1, Recipe r2) {
+        return r1.getRecipeId() - r2.getRecipeId();
+    }
+ });
+
+ return recipes;
+
+Anonymous inner class, analysis:
+ - Anonymous inner classes are a heavyweight solution
+ - This is because the compiler needs to create a seperate .class file for each anonymous inner class
+ - Then each .class file needs to be loaded and parsed
+
+
+### Solution 2 ###
+
+Lambda Expression:
+ - The sorting code from the previous example can be simplified using a lambda expression
+ - We can omit the parameter types becuase the compiler can infer them
+ - And we can omit the return if it is only a single line lambda expression
+ 
+ recipes.sort(
+    (r1, r2) -> r1.getRecipeId() - r2.getRecipeId()
+    );
+
+
+### Solution 3 ###
+
+Streams:
+ - Streams are functional pipelines that have;
+   - A creation method
+   - Zero or more intermediate operations
+   - A termination method
+ - The advantage of a stream is that you can retrive, sort, and return in a single statement
+
+Stream Syntax:
+ - stream() is a Creation method
+ - sorted() is an Intermediate operation
+ - collect() is a Termination method
+
+ Example:
+
+ return recipeDao.fetchAllRecipes()
+    .stream()
+    .sorted((r1, r2) -> r1.getRecipeId() - r2.getRecipeId())
+    .collect(Collectors.toList());

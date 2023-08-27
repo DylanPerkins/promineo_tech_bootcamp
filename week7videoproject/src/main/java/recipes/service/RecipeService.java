@@ -6,6 +6,8 @@ import java.nio.file.Paths;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 import recipes.dao.RecipeDao;
 import recipes.entity.Category;
@@ -103,7 +105,13 @@ public class RecipeService {
     }
 
     public List<Recipe> fetchRecipes() {
-        return recipeDao.fetchAllRecipes();
+        // @formatter:off
+        return recipeDao.fetchAllRecipes()
+            .stream()
+            .sorted((r1, r2) -> r1.getRecipeId() - r2.getRecipeId())
+            .collect(Collectors.toList());
+
+        // @formatter:on
     }
 
     public List<Unit> fetchUnits() {
