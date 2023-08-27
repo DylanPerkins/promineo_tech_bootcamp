@@ -29,7 +29,8 @@ public class Recipes {
             "5. Add an ingredient to the current recipe",
             "6. Add a step to the current recipe",
             "7. Add a category to the current recipe",
-            "8. Modify step in the current recipe");
+            "8. Modify step in the current recipe",
+            "9. Delete a recipe");
 
     public static void main(String[] args) {
         dbConnection.getConnection();
@@ -74,6 +75,9 @@ public class Recipes {
                     case 8:
                         modifyStepInCurrentRecipe();
                         break;
+                    case 9:
+                        deleteRecipe();
+                        break;
 
                     default:
                         System.out.println("\nInvalid operation. Please try again.");
@@ -81,6 +85,22 @@ public class Recipes {
                 }
             } catch (Exception e) {
                 System.out.println("\nError: " + e.toString() + ". Please try again.");
+            }
+        }
+    }
+
+    private void deleteRecipe() {
+        listRecipes();
+
+        Integer recipeId = getIntInput("\nEnter recipe ID to delete");
+
+        if (Objects.nonNull(recipeId)) {
+            recipeService.deleteRecipe(recipeId);
+
+            System.out.println("\nRecipe with ID=" + recipeId + " deleted");
+
+            if (Objects.nonNull(curRecipe) && curRecipe.getRecipeId().equals(recipeId)) {
+                curRecipe = null;
             }
         }
     }
@@ -98,10 +118,10 @@ public class Recipes {
 
         Integer stepID = getIntInput("Enter step ID that you want to modify");
 
-        if(Objects.nonNull(stepID)) {
+        if (Objects.nonNull(stepID)) {
             String stepText = getStringInput("Enter the new step text");
 
-            if(Objects.nonNull(stepText)) {
+            if (Objects.nonNull(stepText)) {
                 Step step = new Step();
 
                 step.setStepId(stepID);
@@ -109,9 +129,10 @@ public class Recipes {
 
                 recipeService.modifyStep(step);
                 curRecipe = recipeService.fetchRecipeById(curRecipe.getRecipeId());
+
+                System.out.println("\nStep modified");
             }
         }
-
 
     }
 
@@ -132,6 +153,8 @@ public class Recipes {
         if (Objects.nonNull(category)) {
             recipeService.addCategoryToRecipe(curRecipe.getRecipeId(), category);
             curRecipe = recipeService.fetchRecipeById(curRecipe.getRecipeId());
+
+            System.out.println("\nCategory added");
         }
 
     }
@@ -152,6 +175,8 @@ public class Recipes {
 
             recipeService.addStep(step);
             curRecipe = recipeService.fetchRecipeById(step.getRecipeId());
+
+            System.out.println("\nStep added");
         }
     }
 
@@ -187,6 +212,8 @@ public class Recipes {
 
         recipeService.addIngredient(ingredient);
         curRecipe = recipeService.fetchRecipeById(ingredient.getRecipeId());
+
+        System.out.println("\nIngredient added");
     }
 
     private void selectRecipe() {

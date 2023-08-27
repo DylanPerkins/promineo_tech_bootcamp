@@ -455,4 +455,30 @@ public class RecipeDao extends DaoBase {
             throw new dbException(e);
         }
     }
+
+    public boolean deleteRecipe(Integer recipeId) {
+        // @formatter:off
+        String sql = ""
+            + "DELETE FROM " + RECIPE_TABLE + " "
+            + "WHERE recipe_id = ?";
+        // @formatter:on
+
+        try (Connection conn = dbConnection.getConnection()) {
+            startTransaction(conn);
+
+            try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+                setParameter(stmt, 1, recipeId, Integer.class);
+
+                int rowsAffected = stmt.executeUpdate();
+                commitTransaction(conn);
+
+                return rowsAffected == 1;
+            } catch (Exception e) {
+                rollbackTransaction(conn);
+                throw new dbException(e);
+            }
+        } catch (SQLException e) {
+            throw new dbException(e);
+        }
+    }
 }

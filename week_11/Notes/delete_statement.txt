@@ -1,0 +1,16 @@
+### DELETE Syntax ###
+
+DELETE FROM table_name
+WHERE constraint;
+
+Deleting Child Rows:
+ - When a recipe is deleted, all of the child rows will be deleted as well.
+   - ingredient
+   - step
+   - recipe_category
+ - This is because of the foreign key constraints that we have set up used ON DELETE CASCADE.
+
+# Example #
+
+    DELETE FROM recipe
+    WHERE recipe_id = 1;
