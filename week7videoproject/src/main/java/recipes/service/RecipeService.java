@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.NoSuchElementException;
 
 import recipes.dao.RecipeDao;
+import recipes.entity.Category;
 import recipes.entity.Ingredient;
 import recipes.entity.Recipe;
 import recipes.entity.Step;
@@ -115,6 +116,14 @@ public class RecipeService {
 
     public void addStep(Step step) {
         recipeDao.addStepToRecipe(step);
+    }
+
+    public List<Category> fetchCategories() {
+        return recipeDao.fetchAllCategories();
+    }
+
+    public void addCategoryToRecipe(Integer recipeId, String category) {
+        recipeDao.addCategoryToRecipe(recipeId, category);
     }
 
 }

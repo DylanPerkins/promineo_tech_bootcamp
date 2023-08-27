@@ -7,6 +7,7 @@ import java.util.Objects;
 import java.util.Scanner;
 
 import recipes.dao.dbConnection;
+import recipes.entity.Category;
 import recipes.entity.Ingredient;
 import recipes.entity.Recipe;
 import recipes.entity.Step;
@@ -26,7 +27,8 @@ public class Recipes {
             "3. List all recipes",
             "4. Select a recipe",
             "5. Add an ingredient to the current recipe",
-            "6. Add a step to the current recipe");
+            "6. Add a step to the current recipe",
+            "7. Add a category to the current recipe");
 
     public static void main(String[] args) {
         dbConnection.getConnection();
@@ -65,6 +67,9 @@ public class Recipes {
                     case 6:
                         addStepToCurrentRecipe();
                         break;
+                    case 7:
+                        addCategoryToCurrentRecipe();
+                        break;
 
                     default:
                         System.out.println("\nInvalid operation. Please try again.");
@@ -74,6 +79,28 @@ public class Recipes {
                 System.out.println("\nError: " + e.toString() + ". Please try again.");
             }
         }
+    }
+
+    private void addCategoryToCurrentRecipe() {
+        if (Objects.isNull(curRecipe)) {
+            System.out.println("\nNo recipe selected, please select a recipe first");
+            return;
+        }
+
+        List<Category> categories = recipeService.fetchCategories();
+
+        System.out.println("\nCategories:");
+
+        categories.forEach(category -> System.out.println("\t" + category.getCategoryName()));
+
+        String category = getStringInput("\nEnter the category name to add");
+
+        if (Objects.nonNull(category)) {
+            recipeService.addCategoryToRecipe(curRecipe.getRecipeId(), category);
+            curRecipe = recipeService.fetchRecipeById(curRecipe.getRecipeId());
+        }
+
+
     }
 
     private void addStepToCurrentRecipe() {

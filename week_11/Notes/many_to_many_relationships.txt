@@ -1,0 +1,36 @@
+### Many to Many Recap ###
+
+A many to many relationship requires a join table. Each main table has a PK (Primary Key) and each join table has two FKs (Foreign Keys). 
+
+Example: 
+
+Recipe Table:
+ - recipe_id (PK)
+ - recipe_name
+
+Category Table:
+ - category_id (PK)
+ - category_name
+
+Recipe_Category Table:
+ - recipe_id (FK)
+ - category_id (FK)
+
+Creating Table (Many to many):
+ 
+ CREATE TABLE recipe_category (
+    recipe_id INT NOT NULL,
+    category_id INT NOT NULL,
+    PRIMARY KEY (recipe_id, category_id),
+    FOREIGN KEY (recipe_id) REFERENCES recipe(recipe_id) ON DELETE CASCADE,
+    FOREIGN KEY (category_id) REFERENCES category(category_id) ON DELETE CASCADE
+ );
+
+
+Implementation for this project:
+ - MySQL will not fill in the FK values when we add a new row to recipe_category
+ - The client will enter:
+   - The recipe id
+   - The category name
+ - The application will then look up the category id
+ - We will use a subquery for this
