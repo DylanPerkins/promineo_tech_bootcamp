@@ -207,4 +207,70 @@ public class ProjectDao extends DaoBase {
             }
         }
     }
+
+    public boolean deleteProjectById(Integer projectId) {
+        // @formatter:off
+        String sql = ""
+        + "DELETE FROM " + PROJECT_TABLE + " "
+        + "WHERE project_id = ?";
+        // @formatter:on
+
+        try (Connection conn = dbConnection.getConnection()) {
+            startTransaction(conn);
+
+            try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+                setParameter(stmt, 1, projectId, Integer.class);
+
+                int rowsAffected = stmt.executeUpdate();
+
+                commitTransaction(conn);
+
+                return rowsAffected == 1;
+            } catch (Exception e) {
+                rollbackTransaction(conn);
+                throw new dbException(e);
+            }
+
+        } catch (SQLException e) {
+            throw new dbException(e);
+        }
+    }
+
+    public boolean modifyProjectDetails(Project project) {
+        // @formatter:off
+        String sql = ""
+        + "UPDATE " + PROJECT_TABLE + " "
+        + "SET project_name = ?, "
+        + "estimated_hours = ?, "
+        + "actual_hours = ?, "
+        + "difficulty = ?, "
+        + "notes = ? "
+        + "WHERE project_id = ?";
+        // @formatter:on
+
+        try (Connection conn = dbConnection.getConnection()) {
+            startTransaction(conn);
+
+            try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+                setParameter(stmt, 1, project.getProjectName(), String.class);
+                setParameter(stmt, 2, project.getEstimatedHours(), BigDecimal.class);
+                setParameter(stmt, 3, project.getActualHours(), BigDecimal.class);
+                setParameter(stmt, 4, project.getDifficulty(), Integer.class);
+                setParameter(stmt, 5, project.getNotes(), String.class);
+                setParameter(stmt, 6, project.getProjectId(), Integer.class);
+
+                int rowsAffected = stmt.executeUpdate();
+
+                commitTransaction(conn);
+
+                return rowsAffected == 1;
+            } catch (Exception e) {
+                rollbackTransaction(conn);
+                throw new dbException(e);
+            }
+
+        } catch (SQLException e) {
+            throw new dbException(e);
+        }
+    }
 }

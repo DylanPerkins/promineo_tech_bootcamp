@@ -6,7 +6,6 @@ import java.nio.file.Paths;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.NoSuchElementException;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 import recipes.dao.RecipeDao;
