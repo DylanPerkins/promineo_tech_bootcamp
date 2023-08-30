@@ -73,7 +73,7 @@ public class ProjectsApp {
         projectService.deleteProject(projectId);
         System.out.println("\nProject with id " + projectId + " has been deleted.");
 
-        if(Objects.nonNull(curProject) && curProject.getProjectId().equals(projectId)) {
+        if (Objects.nonNull(curProject) && curProject.getProjectId().equals(projectId)) {
             curProject = null;
         }
     }
@@ -102,7 +102,7 @@ public class ProjectsApp {
 
         projectService.modifyProjectDetails(project);
 
-        curProject = projectService.fetchProjectById(curProject.getProjectId());        
+        curProject = projectService.fetchProjectById(curProject.getProjectId());
     }
 
     private void selectProject() {

@@ -21,7 +21,6 @@ public class ProjectService {
             .stream()
             .sorted((r1, r2) -> r1.getProjectId() - r2.getProjectId())
             .collect(Collectors.toList());
-
         // @formatter:on
     }
 
@@ -31,13 +30,13 @@ public class ProjectService {
     }
 
     public void deleteProject(Integer projectId) {
-        if(!projectDao.deleteProjectById(projectId)) {
+        if (!projectDao.deleteProjectById(projectId)) {
             throw new dbException("Project with the specified id (" + projectId + ") does not exist.");
         }
     }
 
     public void modifyProjectDetails(Project project) {
-        if(!projectDao.modifyProjectDetails(project)) {
+        if (!projectDao.modifyProjectDetails(project)) {
             throw new dbException("Project with the specified id (" + project.getProjectId() + ") does not exist.");
         }
     }

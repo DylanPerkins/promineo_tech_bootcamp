@@ -18,7 +18,6 @@ import projects.entity.Step;
 import projects.exception.dbException;
 import provided.util.DaoBase;
 
-@SuppressWarnings("unused")
 public class ProjectDao extends DaoBase {
     private static final String CATEGORY_TABLE = "category";
     private static final String MATERIAL_TABLE = "material";
@@ -117,7 +116,7 @@ public class ProjectDao extends DaoBase {
                     }
                 }
 
-                if(Objects.nonNull(project)) {
+                if (Objects.nonNull(project)) {
                     project.getMaterials().addAll(selectMaterialsByProjectId(conn, projectId));
                     project.getCategories().addAll(selectCategoriesByProjectId(conn, projectId));
                     project.getSteps().addAll(selectStepsByProjectId(conn, projectId));
@@ -133,7 +132,7 @@ public class ProjectDao extends DaoBase {
         }
     }
 
-    private Collection<? extends Step> selectStepsByProjectId(Connection conn, Integer projectId) throws SQLException{
+    private Collection<? extends Step> selectStepsByProjectId(Connection conn, Integer projectId) throws SQLException {
         // @formatter:off
         String sql = ""
         + "SELECT s.* "
@@ -158,7 +157,8 @@ public class ProjectDao extends DaoBase {
         }
     }
 
-    private Collection<? extends Category> selectCategoriesByProjectId(Connection conn, Integer projectId) throws SQLException{
+    private Collection<? extends Category> selectCategoriesByProjectId(Connection conn, Integer projectId)
+            throws SQLException {
         // @formatter:off
         String sql = ""
         + "SELECT c.* "
@@ -183,7 +183,8 @@ public class ProjectDao extends DaoBase {
         }
     }
 
-    private Collection<? extends Material> selectMaterialsByProjectId(Connection conn, Integer projectId) throws SQLException{
+    private Collection<? extends Material> selectMaterialsByProjectId(Connection conn, Integer projectId)
+            throws SQLException {
         // @formatter:off
         String sql = ""
         + "SELECT m.* "
