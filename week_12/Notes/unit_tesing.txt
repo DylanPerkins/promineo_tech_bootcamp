@@ -1,0 +1,40 @@
+Why do we test?
+ - To increase the overall quality of our code
+ - Find and fix bugs before they reach production
+ - Verify that the code is working as expected
+
+What do we test?
+ - It depends;
+   - Unit tests test methods and functions
+   - Integration tests test how multiple units work together
+
+When do we test?
+ - Before Coding 
+   - Results-based testing, looking to make sure what you send actually comes back. Reffered to as functional or integration testing
+   - Testing behaviors of services
+ - After/During Coding
+   - Testing the results of methods and functions
+   - Critical algorithms
+   - Unit tests
+
+Rules of testing:
+ - Test as high-level as you can
+   - It is better to test an entire application versus only a group of functions at a time.
+   - It is better to test a group of functions versus only one function.
+ - Test as soon as you can
+   - It is better to test before you code something rather than after you code something.
+   - It is better to test at all versus not testing at all.
+
+Tooling of testing:
+ - Unit test frameworks, like Junit 5
+ - Functional test frameworks, like Spring Boot Test
+ - Mocking frameworks, like Mockito
+ - Assertation libraries, like AssertJ
+
+How is a test laid out?
+ - Specification, the test's name
+ - Should be short, descriptive, and to the point
+ - Architecture
+   - Given, the preconditions of the test
+   - When, the action that is being tested
+   - Then, the expected result of the test
