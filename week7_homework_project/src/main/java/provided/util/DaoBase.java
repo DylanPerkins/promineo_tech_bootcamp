@@ -303,12 +303,9 @@ public abstract class DaoBase {
     }
   }
 
-  /**
+  /*
    * This converts a camel case value (rowInsertTime) to snake case
    * (row_insert_time).
-   * 
-   * @param identifier The name in camel case to convert.
-   * @return The name converted to snake case.
    */
   private String camelCaseToSnakeCase(String identifier) {
     StringBuilder nameBuilder = new StringBuilder();
@@ -324,28 +321,14 @@ public abstract class DaoBase {
     return nameBuilder.toString();
   }
 
-  /**
-   * This class declares the exception throw by the {@link DaoBase} class. It is a
-   * thin wrapper for
-   * {@link RuntimeException}.
-   * 
-   * @author Promineo
-   *
+  /*
+   * This class declares the exception throw by the {@link DaoBase} class.
    */
-  @SuppressWarnings("serial")
   static class DaoException extends RuntimeException {
-
-    /**
-     * @param message
-     * @param cause
-     */
     public DaoException(String message, Throwable cause) {
       super(message, cause);
     }
 
-    /**
-     * @param message
-     */
     public DaoException(String message) {
       super(message);
     }
