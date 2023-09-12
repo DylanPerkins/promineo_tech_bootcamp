@@ -14,7 +14,7 @@ class TestDemoTest {
 	private TestDemo testDemo;
 
 	@BeforeEach
-	void setUp() throws Exception {
+	void setUp() {
 		testDemo = new TestDemo();
 	}
 
