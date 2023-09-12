@@ -4,6 +4,7 @@
 /.sonarlint/
 /bin/
 /.META-INF/
+/target/
 
 # Log file #
 ############
@@ -28,6 +29,8 @@ hs_err_pid*
 *.com
 *.dll
 *.exe
+*.class
+*.classpath
 *.o
 *.so
 *.project
