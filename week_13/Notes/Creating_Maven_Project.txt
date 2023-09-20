@@ -1,0 +1,39 @@
+What is Maven?
+ - Maven is a project build tool
+ - It will be used for dependency management
+
+Creating a Spring Boot Project:
+ - https://start.spring.io/
+ - Build the POM file using the latest version for Spring Boot
+ - Paste this into the POM file in the Maven project
+ - Create the main application class file
+
+Spring Boot Application Class:
+
+ @SpringBootApplication
+ public class PetParkApplication {
+     public static void main(String[] args) {
+         SpringApplication.run(PetParkApplication.class, args);
+     }
+ }
+
+What is @SpringBootApplication?
+ - Enables component scanning
+ - Enables auto configuration
+
+What is component scanning?
+ - Boot will look at every class in the package and sub packages
+ - Determines if Spring should manage the class
+   - Called a Spring Bean
+   - Spring will create an instance of the class
+   - Spring will stash it in an object repository
+   - We can request an instance using @Autowired
+ - We'll write a controller class
+ - Spring's component scan will map HTTP requests to methods that we will also write
+ - We can use annotations to tell Spring which HTTP verb to map to the method
+
+What is Auto-Configuration?
+ - Spring Boot examines the classpath and then application configuration
+ - It sets up functionality (Web Application) based on what it finds
+ - Spring creates a Web Application if it finds the Tomcat dependency
+ - Tomcat is loaded by spring-boot-starter-web
