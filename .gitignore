@@ -1,10 +1,12 @@
 # Files #
 #########
-/.metadata/
-/.sonarlint/
-/bin/
-/.META-INF/
+.metadata/
+.sonarlint/
+bin/
+.META-INF/
 target/
+META-INF/
+.factorypath/
 
 # Log file #
 ############
@@ -68,3 +70,4 @@ ehthumbs.db
 Thumbs.db
 pet-parks/target/classes/META-INF/maven/com.example/pet-parks/pom.properties
 pet-parks/target/classes/META-INF/MANIFEST.MF
+pet-parks/.factorypath
