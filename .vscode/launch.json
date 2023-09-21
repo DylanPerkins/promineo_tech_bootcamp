@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-PetParkApplication<pet-parks>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "pet_park.PetParkApplication",
+            "projectName": "pet-parks",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}
