@@ -1,0 +1,89 @@
+Anatomy of a Spring Boot Application
+ - Controller - Handles incoming requests
+ - Service - Business logic
+ - DAO - Interacts with the database
+
+ - Controller (class) - ParkController.java
+ - Service (class) - ParkService.java
+ - DAO (interface) - ContributorDao.java
+
+Once the Java has been coded;
+ - Use a REST client to send JSON to the running application
+ - We will use Advanced REST Client (ARC) from MuleSoft
+
+JSON vs Java
+ - Must match the Java object
+ JSON:
+ {
+    "contributorNme": "John Smith",
+    "contributorEmail": "john@smith.com"
+ }
+
+ Java:
+  class ContributorData {
+    Long contributorId;
+    String contributorName;
+    String contributorEmail;
+  }
+
+Looking at HTTP:
+ - HTTP is an abbreviation for HyperText Transfer Protocol
+ - HTTP is just text sent over a network
+ - HTTP consists of a request and a response
+
+HTTP Requests:
+ - Request Line
+  - VERB + URI + HTTP VERSION
+  - GET /pet_park HTTP/2.0
+  - POST /pet_park HTTP/2.0
+
+ - Request Headers
+  - Describe the request and allowed response formats
+  - Accept: application/json
+  - Content-Type: application/json
+
+ - Request Body (JSON)
+  - Used for POST and PUT requests
+  - Written as JSON
+  - Also called the request payload
+
+Common HTTP Verbs (CRUD):
+ - POST (Create)
+ - GET (Read)
+ - PUT (Update)
+ - DELETE (Delete)
+
+HTTP Response:
+ - Status Line
+  - HTTP VERSION + STATUS CODE + REASON
+  - HTTP/2.0 200 OK
+  - HTTP/2.0 404 Not Found
+  - HTTP/2.0 409 Conflict
+
+ - Response Headers and Body 
+  - Very similar to request headers and body
+  - Response headers may be different than request headers, but they are still key-value pairs
+  - Body (payload) is usually JSON
+
+Setting up:
+ - We will create Data Transfer Objects (DTOs) for the request and response
+ - Jackson (JSON Generator) freaks out with the recursive nature of entities
+
+ class Contributor {
+    List<PetStore> petStores;
+ }
+
+ class PetStore {
+    Contributor contributor;
+ }
+
+The POST Request:
+ - Use Advanced REST Client (ARC) to send a POST request with a JSON payload to the running service:
+  - http://localhost:8080/pet_park
+ - A POST request will return a 201 status code is successful
+
+Transaction Management:
+ - In a transaction, a group of SQL statements will either all succeed or all fail, no partial successes
+ - Transactions are started by adding @Transactional to a public method in a service class
+ - If an exception is thrown the transaction "rolls back"
+ - If an exception is not thrown the transaction "commits"
