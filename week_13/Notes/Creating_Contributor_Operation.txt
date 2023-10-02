@@ -60,7 +60,7 @@ HTTP Response:
   - HTTP/2.0 404 Not Found
   - HTTP/2.0 409 Conflict
 
- - Response Headers and Body 
+ - Response Headers and Body
   - Very similar to request headers and body
   - Response headers may be different than request headers, but they are still key-value pairs
   - Body (payload) is usually JSON
