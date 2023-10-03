@@ -1,0 +1,15 @@
+HTTP GET Verb:
+ - Used to retrieve information
+ - Does not change the state of the data
+ - Does not contain a JSON body
+ - Send GET to:
+  - /pet_park/contributor at http://localhost:8080
+
+Two Java Methods:
+ - Returns 200 status code by default
+ 
+ @GetMapping("/contributor")
+ public List<Contributor> getAllContributors()
+
+ @GetMapping("/contributor/{id}")
+ public ContributorData getContributorById (@PathVariable Long id)
