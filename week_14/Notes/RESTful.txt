@@ -1,0 +1,6 @@
+A RESTful discussion:
+ - Contributor is the primary resource
+ - A Park Location is a sub-resource
+ - In REST parlance:
+  - /contributor/{contributorId}/park/{parkId}
+  - Where {contributorId} is the primary key value of the contributor row and {parkId} is the primary key value of the pet park row

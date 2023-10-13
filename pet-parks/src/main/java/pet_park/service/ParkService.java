@@ -142,4 +142,17 @@ public class ParkService {
         return petParkDao.findById(petParkId)
                 .orElseThrow(() -> new NoSuchElementException("Pet Park with ID=" + petParkId + " was not found"));
     }
+
+    @Transactional(readOnly = true)
+    public PetParkData retrievePetParkById(Long contributorId, Long parkId) {
+        findContributorById(contributorId);
+
+        PetPark petPark = findPetParkById(parkId);
+
+        if(petPark.getContributor().getContributorId() != contributorId) {
+            throw new IllegalStateException("Pet Park with ID=" + parkId + " does not belong to contributor with ID=" + contributorId);
+        }
+
+        return new PetParkData(petPark);
+    }
 }
