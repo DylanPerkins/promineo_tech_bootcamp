@@ -1,0 +1,32 @@
+The Problem:
+ What happens when we add another contributor with the same email as an existing one?
+ - Currently, we get an unhelpful error message:
+   java.sql.SQLIntgrityConstraintViolationException
+ - We need to parse the exception message to see that it is a duplicate key exception (which is bad)
+
+Why is this a problem?
+ - Spring will return a 500 error code, which is not helpful to the user
+ - The real status should be 409 (Conflict)
+ - We can fix this by throwing a more specific exception and handle it in a global error handler
+
+Solution:
+
+ class ParkService {
+    public saveContributor (...) {
+        if (contributor email exists) {
+            throw new DuplicateKeyException("Email already exists");
+        }
+    }
+ }
+
+ @RestControllerAdvice
+ class GlobalErrorHandler {
+    @ExceptionHandler(DuplicateKeyException)
+    public ... handleErr () {
+    }
+ }
+
+In the code:
+ - Throw DuplicateKeyException if contributor already exists
+ - Throw NoSuchElementException if contributor is not found
+ - Create global error handler to handle these exceptions
