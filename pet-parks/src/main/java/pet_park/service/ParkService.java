@@ -68,8 +68,16 @@ public class ParkService {
     }
 
     // Retrieves a single contributor from the database using an ID
+    @Transactional(readOnly = true)
     public ContributorData retrieveContributorById(Long contributorId) {
         Contributor contributor = findContributorById(contributorId);
         return new ContributorData(contributor);
+    }
+
+    // Deletes a single contributor from the database using an ID
+    @Transactional(readOnly = false)
+    public void deleteContributorById(Long contributorId) {
+        Contributor contributor = findContributorById(contributorId);
+        contributorDao.delete(contributor);
     }
 }
