@@ -1,0 +1,8 @@
+{
+    "petStoreName": "Pet Store",
+    "petStoreAddress": "123 Main Street",
+    "petStoreCity": "Anytown",
+    "petStoreState": "NY",
+    "petStoreZip": 12345,
+    "petStorePhone": "123-456-7890"
+}
