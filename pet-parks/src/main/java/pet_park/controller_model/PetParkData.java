@@ -32,7 +32,7 @@ public class PetParkData {
         contributor = new PetParkContributor(petPark.getContributor());
 
         for (Amenity amenity : petPark.getAmenities()) {
-            amenities.add(amenity.getAmenityName());
+            amenities.add(amenity.getAmenity());
         }
     }
 
