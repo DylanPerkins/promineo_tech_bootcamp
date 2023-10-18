@@ -48,7 +48,7 @@ public class ContributorData {
             geoLocation = petPark.getGeoLocation();
 
             for (Amenity amenity : petPark.getAmenities()) {
-                amenities.add(amenity.getAmenity());
+                amenities.add(amenity.getAmenityName());
             }
         }
     }
