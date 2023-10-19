@@ -22,14 +22,14 @@ public class PetStoreController {
     @Autowired
     PetStoreService petStoreService;
 
-    @PostMapping("/pet_store")
+    @PostMapping
     @ResponseStatus(code = HttpStatus.CREATED)
     public PetStoreData insertPetStore(@RequestBody PetStoreData petStoreData) {
         log.info("Creating pet store: {}", petStoreData);
         return petStoreService.savePetStore(petStoreData);
     }
 
-    @PutMapping("/pet-store/{petStoreId}")
+    @PutMapping("/{petStoreId}")
     public PetStoreData updatePetStore(@PathVariable Long petStoreId, @RequestBody PetStoreData petStoreData) {
         petStoreData.setPetStoreId(petStoreId);
         log.info("Updating pet store {}", petStoreData);

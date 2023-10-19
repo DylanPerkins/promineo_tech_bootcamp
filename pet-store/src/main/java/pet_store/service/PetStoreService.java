@@ -31,6 +31,7 @@ public class PetStoreService {
     // Sub-methods
 
     private void copyPetStoreFields(PetStore petStore, PetStoreData petStoreData) {
+        petStore.setPetStoreId(petStoreData.getPetStoreId());
         petStore.setPetStoreName(petStoreData.getPetStoreName());
         petStore.setPetStoreAddress(petStoreData.getPetStoreAddress());
         petStore.setPetStoreCity(petStoreData.getPetStoreCity());
