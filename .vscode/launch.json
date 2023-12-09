@@ -2,6 +2,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "DogRescueApplication",
+            "request": "launch",
+            "mainClass": "dog_rescue.DogRescueApplication",
+            "projectName": "dog-rescue"
+        },
+        {
+            "type": "java",
             "name": "PetStoreApplication",
             "request": "launch",
             "mainClass": "pet_store.PetStoreApplication",
@@ -14,6 +21,16 @@
             "cwd": "${workspaceFolder}",
             "mainClass": "pet_park.PetParkApplication",
             "projectName": "pet-parks",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-Main<dog-rescue>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "dog_rescue.Main",
+            "projectName": "dog-rescue",
             "args": "",
             "envFile": "${workspaceFolder}/.env"
         }
