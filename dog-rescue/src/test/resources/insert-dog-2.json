@@ -1,0 +1,10 @@
+{
+  "name": "Gracie",
+  "age": 12,
+  "color": "Wheaten",
+  "breeds": [
+    {
+      "name": "Cairn Terrier"
+    }
+  ]
+}
