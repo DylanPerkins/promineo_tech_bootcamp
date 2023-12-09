@@ -1,0 +1,15 @@
+spring:
+  datasource:
+    username: dog_rescue
+    password: dog_rescue
+    url: jdbc:mysql://localhost:3306/dog_rescue
+
+  jpa:
+    hibernate:
+      ddl-auto: none
+    show-sql: true
+    defer-datasource-initialization: true
+
+  sql:
+    init:
+      mode: never

@@ -46,6 +46,6 @@ public class Dog {
         joinColumns = @JoinColumn(name = "dog_id"),
         inverseJoinColumns = @JoinColumn(name = "breed_id")
     )
-    private Set<Breed> breed = new HashSet<>();
+    private Set<Breed> breeds = new HashSet<>();
 
 }
