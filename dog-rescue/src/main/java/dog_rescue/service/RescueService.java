@@ -1,5 +1,7 @@
 package dog_rescue.service;
 
+import java.util.LinkedList;
+import java.util.List;
 import java.util.NoSuchElementException;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +34,20 @@ public class RescueService {
         Location location = findLocationById(locationId);
 
         return new LocationData(location);
+    }
+
+    @Transactional(readOnly = true)
+    public List<LocationData> retrieveAllLocations() {
+        List<Location> locationEntities = locationDao.findAll();
+        List<LocationData> locationDataList = new LinkedList<>();
+
+        for (Location location : locationEntities) {
+            LocationData locationData = new LocationData(location);
+
+            locationDataList.add(locationData);
+        }
+
+        return locationDataList;
     }
 
     // Helper Methods

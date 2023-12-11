@@ -1,5 +1,7 @@
 package dog_rescue.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -34,5 +36,12 @@ public class RescueController {
     public LocationData retrieveLocation(@PathVariable Long locationId) {
         log.info("Getting location: {}", locationId);
         return rescueService.retrieveLocationById(locationId);
+    }
+
+    @GetMapping("/location")
+    @ResponseStatus(HttpStatus.OK)
+    public List<LocationData> retrieveAllLocations() {
+        log.info("Getting all locations");
+        return rescueService.retrieveAllLocations();
     }
 }
