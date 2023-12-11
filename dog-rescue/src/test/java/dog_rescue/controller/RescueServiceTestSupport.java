@@ -1,5 +1,7 @@
 package dog_rescue.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.jdbc.JdbcTestUtils;
@@ -59,5 +61,16 @@ public class RescueServiceTestSupport {
 
     protected LocationData retrieveLocation(Long locationId) {
         return rescueController.retrieveLocation(locationId);
+    }
+
+    protected List<LocationData> insertTwoLocations() {
+        LocationData location1 = insertLocation(buildInsertLocation(1));
+        LocationData location2 = insertLocation(buildInsertLocation(2));
+
+        return List.of(location1, location2);
+    }
+
+    protected List<LocationData> retrieveAllLocations() {
+        return rescueController.retrieveAllLocations();
     }
 }
