@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -24,6 +25,7 @@ public class Dog {
     private Long dogId;
 
     @EqualsAndHashCode.Exclude
+    @Column(name = "dog_name")
     private String name;
 
     @EqualsAndHashCode.Exclude
@@ -41,11 +43,7 @@ public class Dog {
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
     @ManyToMany(cascade = CascadeType.PERSIST)
-    @JoinTable(
-        name = "dog_breed",
-        joinColumns = @JoinColumn(name = "dog_id"),
-        inverseJoinColumns = @JoinColumn(name = "breed_id")
-    )
+    @JoinTable(name = "dog_breed", joinColumns = @JoinColumn(name = "dog_id"), inverseJoinColumns = @JoinColumn(name = "breed_id"))
     private Set<Breed> breeds = new HashSet<>();
 
 }
