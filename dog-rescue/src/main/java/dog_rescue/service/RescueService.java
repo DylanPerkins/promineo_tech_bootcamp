@@ -50,6 +50,13 @@ public class RescueService {
         return locationDataList;
     }
 
+    @Transactional(readOnly = false)
+    public void deleteLocationById(Long locationId) {
+        Location location = findLocationById(locationId);
+
+        locationDao.delete(location);
+    }
+
     // Helper Methods
 
     private Location findLocationById(Long locationId) {
