@@ -34,6 +34,16 @@ public class RescueServiceTestSupport {
         "222-333-4444"
     );
 
+    private LocationData updateAddress1 = new LocationData(
+        1L,
+        "Greatest Dog Rescue",
+        "2431 East Street",
+        "Goodtown",
+        "CA",
+        "26267",
+        "235-153-8423"
+    );
+
     // @formatter:on
 
     @Autowired
@@ -72,5 +82,13 @@ public class RescueServiceTestSupport {
 
     protected List<LocationData> retrieveAllLocations() {
         return rescueController.retrieveAllLocations();
+    }
+
+    protected LocationData updateLocation(LocationData locationData) {
+        return rescueController.updateLocation(locationData.getLocationId(), locationData);
+    }
+
+    protected LocationData buildUpdateLocation() {
+        return updateAddress1;
     }
 }
