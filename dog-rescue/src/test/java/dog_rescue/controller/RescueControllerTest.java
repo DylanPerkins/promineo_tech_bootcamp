@@ -3,7 +3,6 @@ package dog_rescue.controller;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.List;
-
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
@@ -76,6 +75,33 @@ class RescueControllerTest extends RescueServiceTestSupport {
 
         // And: There is one row in the location table
         assertThat(rowsInLocationTable()).isOne();
+    }
+
+    @Test
+    void testDeleteLocationWithDogs() {
+        // Given: A Location with two dogs
+        LocationData location = insertLocation(buildInsertLocation(1));
+        Long locationId = location.getLocationId();
+
+        insertDog(1);
+        insertDog(2);
+
+        assertThat(rowsInLocationTable()).isOne();
+        assertThat(rowsInDogTable()).isEqualTo(2);
+        assertThat(rowsInDogBreedTable()).isEqualTo(4);
+        int breedRows = rowsInBreedTable();
+
+        // When: The location is deleted from the location table
+        deleteLocation(locationId);
+
+        // Then: The location, linked dogs, and linked dog_breeds are deleted from the
+        // location table
+        assertThat(rowsInLocationTable()).isZero();
+        assertThat(rowsInDogTable()).isZero();
+        assertThat(rowsInDogBreedTable()).isZero();
+
+        // And: The number of breed rows has not changed
+        assertThat(rowsInBreedTable()).isEqualTo(breedRows);
     }
 
 }
