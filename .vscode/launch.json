@@ -2,6 +2,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "MainApplication",
+            "request": "launch",
+            "mainClass": "anime_reviews.MainApplication",
+            "projectName": ""
+        },
+        {
+            "type": "java",
             "name": "DogRescueApplication",
             "request": "launch",
             "mainClass": "dog_rescue.DogRescueApplication",
@@ -31,6 +38,16 @@
             "cwd": "${workspaceFolder}",
             "mainClass": "dog_rescue.Main",
             "projectName": "dog-rescue",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-MainApplication<anime-reviews>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "anime_reviews.MainApplication",
+            "projectName": "anime-reviews",
             "args": "",
             "envFile": "${workspaceFolder}/.env"
         }
