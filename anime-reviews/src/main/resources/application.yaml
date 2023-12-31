@@ -1,0 +1,15 @@
+spring:
+  datasource:
+    username: anime-reviews
+    password: anime-reviews
+    url: jdbc:mysql://localhost:3306/anime-reviews
+
+  jpa:
+    hibernate:
+      ddl-auto: none
+    show-sql: true
+    defer-datasource-initialization: true
+
+  sql:
+    init:
+      mode: never
