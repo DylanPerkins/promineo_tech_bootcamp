@@ -25,22 +25,22 @@ public class Users {
     @Column(name = "user_key")
     private String userKey;
 
-    @ManyToOne
-    @JoinColumn(name = "watched_anime")
+    @Column(name = "watched_anime")
     private Anime watchedAnime;
 
-    @ManyToOne
-    @JoinColumn(name = "watching_anime")
+    @Column(name = "watching_anime")
     private Anime watchingAnime;
 
-    @ManyToOne
-    @JoinColumn(name = "want_to_watch")
+    @Column(name = "want_to_watch")
     private Anime wantToWatch;
 
-    @ManyToOne
-    @JoinColumn(name = "wont_watch")
+    @Column(name = "wont_watch")
     private Anime wontWatch;
 
     @Column(name = "reviews")
     private int reviews;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    private Anime anime;
 }

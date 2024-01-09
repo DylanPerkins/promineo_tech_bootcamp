@@ -3,19 +3,19 @@ package anime_reviews.entity;
 import java.util.HashSet;
 import java.util.Set;
 
-import jakarta.persistence.CascadeType;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
+import jakarta.persistence.ManyToMany;
 import lombok.Data;
 
 @Entity
 @Data
-@Table(name = "Anime")
 public class Anime {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,6 +31,7 @@ public class Anime {
     @Column(name = "episode_count")
     private int episodeCount;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = false, mappedBy = "anime")
+    @JdbcTypeCode(SqlTypes.JSON)
+    @ManyToMany(mappedBy = "anime")
     private Set<Tags> tags = new HashSet<>();
 }
