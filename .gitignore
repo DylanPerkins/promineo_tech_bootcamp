@@ -8,6 +8,7 @@ target/
 META-INF/
 .factorypath/
 *.bkp
+*.class
 
 # Log file #
 ############
