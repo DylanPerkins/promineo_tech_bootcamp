@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.http.HttpStatus;
 import anime_reviews.controller.model.AnimeData;
 import anime_reviews.controller.model.TagsData;
+import anime_reviews.controller.model.UsersData;
 import anime_reviews.service.AnimeService;
 import lombok.extern.slf4j.Slf4j;
 
@@ -45,6 +46,7 @@ public class AnimeController {
         return animeService.retrieveAnimeById(animeId);
     }
 
+    // Add a tag to an anime
     @PostMapping("/anime/{animeId}/tag/{tagId}")
     @ResponseStatus(HttpStatus.CREATED)
     public AnimeData addTagToAnime(@PathVariable Long animeId, @PathVariable Long tagId) {
@@ -69,4 +71,54 @@ public class AnimeController {
 
         return animeService.retrieveTagById(tagId);
     }
+
+    @PostMapping("/user")
+    @ResponseStatus(HttpStatus.CREATED)
+    public UsersData createUser(@RequestBody UsersData usersData) {
+        log.info("Creating user: {}", usersData);
+
+        return animeService.saveUser(usersData);
+    }
+
+    @GetMapping("/user/{userId}")
+    @ResponseStatus(HttpStatus.OK)
+    public UsersData retrieveUser(@PathVariable Long userId) {
+        log.info("Getting user: {}", userId);
+
+        return animeService.retrieveUserById(userId);
+    }
+
+    @PostMapping("/user/{userId}/watched/{animeId}")
+    @ResponseStatus(HttpStatus.CREATED)
+    public UsersData addWatchedAnime(@PathVariable Long userId, @PathVariable Long animeId) {
+        log.info("Adding anime {} to user {}'s watched list", animeId, userId);
+
+        return animeService.addWatchedAnime(userId, animeId);
+    }
+
+    @PostMapping("/user/{userId}/watching/{animeId}")
+    @ResponseStatus(HttpStatus.CREATED)
+    public UsersData addWatchingAnime(@PathVariable Long userId, @PathVariable Long animeId) {
+        log.info("Adding anime {} to user {}'s watching list", animeId, userId);
+
+        return animeService.addWatchingAnime(userId, animeId);
+    }
+
+    @PostMapping("/user/{userId}/want-to-watch/{animeId}")
+    @ResponseStatus(HttpStatus.CREATED)
+    public UsersData addWantToWatchAnime(@PathVariable Long userId, @PathVariable Long animeId) {
+        log.info("Adding anime {} to user {}'s want to watch list", animeId, userId);
+
+        return animeService.addWantToWatchAnime(userId, animeId);
+    }
+
+    @PostMapping("/user/{userId}/wont-watch/{animeId}")
+    @ResponseStatus(HttpStatus.CREATED)
+    public UsersData addWontWatchAnime(@PathVariable Long userId, @PathVariable Long animeId) {
+        log.info("Adding anime {} to user {}'s wont watch list", animeId, userId);
+
+        return animeService.addWontWatchAnime(userId, animeId);
+    }
+
+    
 }

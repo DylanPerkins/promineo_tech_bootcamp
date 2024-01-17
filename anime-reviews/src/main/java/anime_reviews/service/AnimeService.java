@@ -10,12 +10,14 @@ import org.springframework.transaction.annotation.Transactional;
 
 import anime_reviews.controller.model.AnimeData;
 import anime_reviews.controller.model.TagsData;
+import anime_reviews.controller.model.UsersData;
 import anime_reviews.dao.AnimeDAO;
 import anime_reviews.dao.AnimeReviewDAO;
 import anime_reviews.dao.TagsDAO;
 import anime_reviews.dao.UserDAO;
 import anime_reviews.entity.Anime;
 import anime_reviews.entity.Tags;
+import anime_reviews.entity.Users;
 
 @Service
 public class AnimeService {
@@ -29,8 +31,8 @@ public class AnimeService {
     // @Autowired
     // private AnimeReviewDAO animeReviewDAO;
 
-    // @Autowired
-    // private UserDAO userDAO;
+    @Autowired
+    private UserDAO userDAO;
 
     @Transactional(readOnly = true)
     public List<AnimeData> retrieveAllAnime() {
@@ -78,7 +80,84 @@ public class AnimeService {
         return new TagsData(tag);
     }
 
+    @Transactional(readOnly = false)
+    public AnimeData addTagToAnime(Long animeId, Long tagId) {
+        Anime anime = findAnimeById(animeId);
+        Tags tag = findTagById(tagId);
+
+        anime.addTag(tag);
+
+        Anime savedAnime = animeDAO.save(anime);
+
+        return new AnimeData(savedAnime);
+    }
+
+    @Transactional(readOnly = false)
+    public UsersData saveUser(UsersData usersData) {
+        Users user = usersData.toUsers();
+
+        Users savedUser = userDAO.save(user);
+
+        return new UsersData(savedUser);
+    }
+
+    @Transactional(readOnly = true)
+    public UsersData retrieveUserById(Long userId) {
+        Users user = findUserById(userId);
+
+        return new UsersData(user);
+    }
+
+    public UsersData addWatchedAnime(Long userId, Long animeId) {
+        Users user = findUserById(userId);
+        Anime anime = findAnimeById(animeId);
+
+        user.addWatchedAnime(anime);
+
+        Users savedUser = userDAO.save(user);
+
+        return new UsersData(savedUser);
+    }
+
+    public UsersData addWatchingAnime(Long userId, Long animeId) {
+        Users user = findUserById(userId);
+        Anime anime = findAnimeById(animeId);
+
+        user.addWatchingAnime(anime);
+
+        Users savedUser = userDAO.save(user);
+
+        return new UsersData(savedUser);
+    }
+
+    public UsersData addWantToWatchAnime(Long userId, Long animeId) {
+        Users user = findUserById(userId);
+        Anime anime = findAnimeById(animeId);
+
+        user.addWantToWatchAnime(anime);
+
+        Users savedUser = userDAO.save(user);
+
+        return new UsersData(savedUser);
+    }
+
+    public UsersData addWontWatchAnime(Long userId, Long animeId) {
+        Users user = findUserById(userId);
+        Anime anime = findAnimeById(animeId);
+
+        user.addWontWatchAnime(anime);
+
+        Users savedUser = userDAO.save(user);
+
+        return new UsersData(savedUser);
+    }
+
     // Helper Methods
+
+    private Users findUserById(Long userId) {
+        return userDAO.findById(userId)
+                .orElseThrow(() -> new NoSuchElementException("User ID=" + userId + " not found"));
+    }
 
     private Anime findAnimeById(Long animeId) {
         return animeDAO.findById(animeId)
@@ -90,14 +169,4 @@ public class AnimeService {
                 .orElseThrow(() -> new NoSuchElementException("Tag ID=" + tagId + " not found"));
     }
 
-    public AnimeData addTagToAnime(Long animeId, Long tagId) {
-        Anime anime = findAnimeById(animeId);
-        Tags tag = findTagById(tagId);
-
-        anime.addTag(tag);
-
-        Anime savedAnime = animeDAO.save(anime);
-
-        return new AnimeData(savedAnime);
-    }
 }

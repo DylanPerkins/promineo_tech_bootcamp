@@ -4,6 +4,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import java.util.List;
 
+import anime_reviews.entity.Anime;
 import anime_reviews.entity.Users;
 
 @Data
@@ -16,6 +17,21 @@ public class UsersData {
     private List<Integer> wantToWatch;
     private List<Integer> wontWatch;
     private AnimeReviewData animeReview;
+
+    public UsersData(Users user) {
+        this.userId = user.getUserId();
+        this.username = user.getUsername();
+        this.watchedAnime = user.getWatchedAnime();
+        this.watchingAnime = user.getWatchingAnime();
+        this.wantToWatch = user.getWantToWatch();
+        this.wontWatch = user.getWontWatch();
+
+        if (user.getAnimeReview() != null) {
+            AnimeReviewData animeReviewData = new AnimeReviewData(user.getAnimeReview());
+
+            this.animeReview = animeReviewData;
+        }
+    }
 
     public UsersData(Long userId, String username, List<Integer> watchedAnime, List<Integer> watchingAnime, List<Integer> wantToWatch, List<Integer> wontWatch, AnimeReviewData animeReview) {
         this.userId = userId;
@@ -53,4 +69,5 @@ public class UsersData {
 
         return user;
     }
+
 }

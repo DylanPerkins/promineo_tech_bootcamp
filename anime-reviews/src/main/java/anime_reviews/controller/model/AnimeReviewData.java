@@ -13,6 +13,14 @@ public class AnimeReviewData {
     private double rating;
     private String reviewText;
 
+    public AnimeReviewData(AnimeReview animeReview) {
+        this.reviewId = animeReview.getReviewId();
+        this.anime = new AnimeData(animeReview.getAnime());
+        this.user = new UsersData(animeReview.getUser());
+        this.rating = animeReview.getRating();
+        this.reviewText = animeReview.getReviewText();
+    }
+
     public AnimeReviewData(Long reviewId, AnimeData anime, UsersData user, double rating, String reviewText) {
         this.reviewId = reviewId;
         this.anime = anime;

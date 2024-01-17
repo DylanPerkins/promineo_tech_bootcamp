@@ -31,6 +31,7 @@ public class Users {
     @Column(name = "username")
     private String username;
 
+    // TODO - change to 
     @Column(name = "watched_anime")
     private List<Integer> watchedAnime;
 
@@ -51,4 +52,24 @@ public class Users {
     @ManyToMany(cascade = CascadeType.PERSIST)
     @JoinTable(name = "anime_users", joinColumns = @JoinColumn(name = "anime_id"), inverseJoinColumns = @JoinColumn(name = "user_id"))
     private Set<Anime> anime = new HashSet<>();
+
+    public void addWatchedAnime(Anime watchedAnime) {
+        anime.add(watchedAnime);
+        watchedAnime.getUsers().add(this);
+    }
+
+    public void addWatchingAnime(Anime watchingAnime) {
+        anime.add(watchingAnime);
+        watchingAnime.getUsers().add(this);
+    }
+
+    public void addWantToWatchAnime(Anime wantToWatchAnime) {
+        anime.add(wantToWatchAnime);
+        wantToWatchAnime.getUsers().add(this);
+    }
+
+    public void addWontWatchAnime(Anime wontWatchAnime) {
+        anime.add(wontWatchAnime);
+        wontWatchAnime.getUsers().add(this);
+    }
 }
