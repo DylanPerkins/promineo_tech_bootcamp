@@ -23,11 +23,14 @@ public class AnimeData {
         this.animationStudio = anime.getAnimationStudio();
         this.episodeCount = anime.getEpisodeCount();
 
-        for (Tags tag : anime.getTags()) {
-            TagsData tagData = new TagsData(tag);
+        if (anime.getTags() != null) {
+            for (Tags tag : anime.getTags()) {
+                TagsData tagData = new TagsData(tag);
 
-            this.tags.add(tagData);
+                this.tags.add(tagData);
+            }
         }
+
     }
 
     public AnimeData(Long animeId, String title, String animationStudio, Integer episodeCount) {
@@ -45,10 +48,12 @@ public class AnimeData {
         anime.setAnimationStudio(this.animationStudio);
         anime.setEpisodeCount(this.episodeCount);
 
-        for (TagsData tagData : this.tags) {
-            Tags tag = tagData.toTags();
+        if (this.tags != null) {
+            for (TagsData tagData : this.tags) {
+                Tags tag = tagData.toTags();
 
-            anime.getTags().add(tag);
+                anime.getTags().add(tag);
+            }
         }
 
         return anime;

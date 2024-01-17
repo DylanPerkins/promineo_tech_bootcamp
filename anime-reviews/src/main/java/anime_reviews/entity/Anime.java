@@ -48,4 +48,9 @@ public class Anime {
     @ManyToMany(cascade = CascadeType.PERSIST, targetEntity = Tags.class)
     @JoinTable(name = "anime_tags", joinColumns = @JoinColumn(name = "anime_id"), inverseJoinColumns = @JoinColumn(name = "tag_id"))
     private Set<Tags> tags;
+
+    public void addTag(Tags tag) {
+        tags.add(tag);
+        tag.getAnime().add(this);
+    }
 }

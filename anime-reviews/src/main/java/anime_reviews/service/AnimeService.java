@@ -2,6 +2,7 @@ package anime_reviews.service;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -46,13 +47,13 @@ public class AnimeService {
     }
 
     @Transactional(readOnly = false)
-	public AnimeData saveAnime(AnimeData animeData) {
-		Anime anime = animeData.toAnime();
+    public AnimeData saveAnime(AnimeData animeData) {
+        Anime anime = animeData.toAnime();
 
         Anime savedAnime = animeDAO.save(anime);
 
         return new AnimeData(savedAnime);
-	}
+    }
 
     @Transactional(readOnly = false)
     public TagsData saveTag(TagsData tagsData) {
@@ -61,5 +62,42 @@ public class AnimeService {
         Tags savedTag = tagsDAO.save(tag);
 
         return new TagsData(savedTag);
+    }
+
+    @Transactional(readOnly = true)
+    public AnimeData retrieveAnimeById(Long animeId) {
+        Anime anime = findAnimeById(animeId);
+
+        return new AnimeData(anime);
+    }
+
+    @Transactional(readOnly = true)
+    public TagsData retrieveTagById(Long tagId) {
+        Tags tag = findTagById(tagId);
+
+        return new TagsData(tag);
+    }
+
+    // Helper Methods
+
+    private Anime findAnimeById(Long animeId) {
+        return animeDAO.findById(animeId)
+                .orElseThrow(() -> new NoSuchElementException("Anime ID=" + animeId + " not found"));
+    }
+
+    private Tags findTagById(Long tagId) {
+        return tagsDAO.findById(tagId)
+                .orElseThrow(() -> new NoSuchElementException("Tag ID=" + tagId + " not found"));
+    }
+
+    public AnimeData addTagToAnime(Long animeId, Long tagId) {
+        Anime anime = findAnimeById(animeId);
+        Tags tag = findTagById(tagId);
+
+        anime.addTag(tag);
+
+        Anime savedAnime = animeDAO.save(anime);
+
+        return new AnimeData(savedAnime);
     }
 }
