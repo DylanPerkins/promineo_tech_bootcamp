@@ -31,7 +31,7 @@ public class Anime {
     private String animationStudio;
 
     @Column(name = "episode_count")
-    private int episodeCount;
+    private Integer episodeCount;
 
     @EqualsAndHashCode.Exclude
     @ToString.Exclude

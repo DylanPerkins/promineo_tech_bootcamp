@@ -1,7 +1,11 @@
 package anime_reviews.controller.model;
 
 import anime_reviews.entity.Tags;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@Data
+@NoArgsConstructor
 public class TagsData {
     private Long tagId;
     private String tagName;
@@ -24,5 +28,4 @@ public class TagsData {
 
         return tag;
     }
-
 }

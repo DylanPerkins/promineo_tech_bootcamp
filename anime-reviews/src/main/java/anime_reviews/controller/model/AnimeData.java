@@ -24,22 +24,35 @@ public class AnimeData {
         this.episodeCount = anime.getEpisodeCount();
 
         for (Tags tag : anime.getTags()) {
-            this.tags.add(new TagsData(tag.getTagId(), tag.getTagName()));
+            TagsData tagData = new TagsData(tag);
+
+            this.tags.add(tagData);
         }
+    }
+
+    public AnimeData(Long animeId, String title, String animationStudio, Integer episodeCount) {
+        this.animeId = animeId;
+        this.title = title;
+        this.animationStudio = animationStudio;
+        this.episodeCount = episodeCount;
     }
 
     public Anime toAnime() {
         Anime anime = new Anime();
 
-        anime.setAnimeId(animeId);
-        anime.setTitle(title);
-        anime.setAnimationStudio(animationStudio);
-        anime.setEpisodeCount(episodeCount);
+        anime.setAnimeId(this.animeId);
+        anime.setTitle(this.title);
+        anime.setAnimationStudio(this.animationStudio);
+        anime.setEpisodeCount(this.episodeCount);
 
-        for (TagsData tagData : tags) {
-            anime.getTags().add(tagData.toTags());
+        for (TagsData tagData : this.tags) {
+            Tags tag = tagData.toTags();
+
+            anime.getTags().add(tag);
         }
 
         return anime;
     }
+
+
 }

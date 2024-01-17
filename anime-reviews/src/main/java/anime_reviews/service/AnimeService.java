@@ -8,10 +8,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import anime_reviews.controller.model.AnimeData;
+import anime_reviews.controller.model.TagsData;
 import anime_reviews.dao.AnimeDAO;
 import anime_reviews.dao.AnimeReviewDAO;
+import anime_reviews.dao.TagsDAO;
 import anime_reviews.dao.UserDAO;
 import anime_reviews.entity.Anime;
+import anime_reviews.entity.Tags;
 
 @Service
 public class AnimeService {
@@ -20,10 +23,13 @@ public class AnimeService {
     private AnimeDAO animeDAO;
 
     @Autowired
-    private AnimeReviewDAO animeReviewDAO;
+    private TagsDAO tagsDAO;
 
-    @Autowired
-    private UserDAO userDAO;
+    // @Autowired
+    // private AnimeReviewDAO animeReviewDAO;
+
+    // @Autowired
+    // private UserDAO userDAO;
 
     @Transactional(readOnly = true)
     public List<AnimeData> retrieveAllAnime() {
@@ -47,4 +53,13 @@ public class AnimeService {
 
         return new AnimeData(savedAnime);
 	}
+
+    @Transactional(readOnly = false)
+    public TagsData saveTag(TagsData tagsData) {
+        Tags tag = tagsData.toTags();
+
+        Tags savedTag = tagsDAO.save(tag);
+
+        return new TagsData(savedTag);
+    }
 }
