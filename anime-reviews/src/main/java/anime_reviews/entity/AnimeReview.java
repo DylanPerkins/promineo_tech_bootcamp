@@ -20,7 +20,7 @@ public class AnimeReview {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "review_id")
-    private int reviewId;
+    private Long reviewId;
 
     @EqualsAndHashCode.Exclude
     @ToString.Exclude

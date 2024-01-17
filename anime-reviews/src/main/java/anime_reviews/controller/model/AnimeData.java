@@ -54,5 +54,4 @@ public class AnimeData {
         return anime;
     }
 
-
 }
