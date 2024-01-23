@@ -1,5 +1,6 @@
 package anime_reviews.entity;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -31,45 +32,40 @@ public class Users {
     @Column(name = "username")
     private String username;
 
-    // TODO - change to 
-    @Column(name = "watched_anime")
-    private List<Integer> watchedAnime;
+    @Column(name = "watched_anime", columnDefinition = "SET")
+    private Set<Long> watchedAnime;
 
-    @Column(name = "watching_anime")
-    private List<Integer> watchingAnime;
+    @Column(name = "watching_anime", columnDefinition = "SET")
+    private Set<Long> watchingAnime;
 
-    @Column(name = "want_to_watch")
-    private List<Integer> wantToWatch;
+    @Column(name = "want_to_watch", columnDefinition = "SET")
+    private Set<Long> wantToWatch;
 
-    @Column(name = "wont_watch")
-    private List<Integer> wontWatch;
+    @Column(name = "wont_watch", columnDefinition = "SET")
+    private Set<Long> wontWatch;
 
-    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "user", cascade = CascadeType.REMOVE)
     private AnimeReview animeReview;
 
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
-    @ManyToMany(cascade = CascadeType.PERSIST)
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "anime_users", joinColumns = @JoinColumn(name = "anime_id"), inverseJoinColumns = @JoinColumn(name = "user_id"))
     private Set<Anime> anime = new HashSet<>();
 
-    public void addWatchedAnime(Anime watchedAnime) {
-        anime.add(watchedAnime);
-        watchedAnime.getUsers().add(this);
+    public void addWatchedAnime(Long watchedAnime) {
+        this.watchedAnime.add(watchedAnime);
     }
 
-    public void addWatchingAnime(Anime watchingAnime) {
-        anime.add(watchingAnime);
-        watchingAnime.getUsers().add(this);
+    public void addWatchingAnime(Long watchingAnime) {
+        this.watchingAnime.add(watchingAnime);
     }
 
-    public void addWantToWatchAnime(Anime wantToWatchAnime) {
-        anime.add(wantToWatchAnime);
-        wantToWatchAnime.getUsers().add(this);
+    public void addWantToWatchAnime(Long wantToWatchAnime) {
+        this.wantToWatch.add(wantToWatchAnime);
     }
 
-    public void addWontWatchAnime(Anime wontWatchAnime) {
-        anime.add(wontWatchAnime);
-        wontWatchAnime.getUsers().add(this);
+    public void addWontWatchAnime(Long wontWatchAnime) {
+        this.wontWatch.add(wontWatchAnime);
     }
 }

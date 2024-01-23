@@ -1,5 +1,6 @@
 package anime_reviews.entity;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import jakarta.persistence.CascadeType;
@@ -41,13 +42,13 @@ public class Anime {
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
     @ManyToMany(mappedBy = "anime")
-    private Set<Users> users;
+    private Set<Users> users = new HashSet<>();
 
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
     @ManyToMany(cascade = CascadeType.PERSIST, targetEntity = Tags.class)
     @JoinTable(name = "anime_tags", joinColumns = @JoinColumn(name = "anime_id"), inverseJoinColumns = @JoinColumn(name = "tag_id"))
-    private Set<Tags> tags;
+    private Set<Tags> tags = new HashSet<>();
 
     public void addTag(Tags tag) {
         tags.add(tag);

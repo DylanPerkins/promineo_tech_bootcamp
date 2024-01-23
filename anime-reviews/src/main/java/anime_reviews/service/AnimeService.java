@@ -1,5 +1,7 @@
 package anime_reviews.service;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -109,10 +111,21 @@ public class AnimeService {
     }
 
     public UsersData addWatchedAnime(Long userId, Long animeId) {
-        Users user = findUserById(userId);
-        Anime anime = findAnimeById(animeId);
+        if (userId == null || animeId == null) {
+            throw new IllegalArgumentException("User ID and Anime ID must not be null");
+        }
 
-        user.addWatchedAnime(anime);
+        Users user = findUserById(userId);
+
+        if (user == null) {
+            throw new NoSuchElementException("User ID=" + userId + " not found");
+        }
+
+        if (user.getWatchedAnime() == null) {
+            user.setWatchedAnime(new HashSet<>());
+        }
+
+        user.addWatchedAnime(animeId);
 
         Users savedUser = userDAO.save(user);
 
@@ -120,10 +133,21 @@ public class AnimeService {
     }
 
     public UsersData addWatchingAnime(Long userId, Long animeId) {
-        Users user = findUserById(userId);
-        Anime anime = findAnimeById(animeId);
+        if (userId == null || animeId == null) {
+            throw new IllegalArgumentException("User ID and Anime ID must not be null");
+        }
 
-        user.addWatchingAnime(anime);
+        Users user = findUserById(userId);
+
+        if (user == null) {
+            throw new NoSuchElementException("User ID=" + userId + " not found");
+        }
+
+        if (user.getWatchingAnime() == null) {
+            user.setWatchingAnime(new HashSet<>());
+        }
+
+        user.addWatchingAnime(animeId);
 
         Users savedUser = userDAO.save(user);
 
@@ -131,10 +155,21 @@ public class AnimeService {
     }
 
     public UsersData addWantToWatchAnime(Long userId, Long animeId) {
-        Users user = findUserById(userId);
-        Anime anime = findAnimeById(animeId);
+        if (userId == null || animeId == null) {
+            throw new IllegalArgumentException("User ID and Anime ID must not be null");
+        }
 
-        user.addWantToWatchAnime(anime);
+        Users user = findUserById(userId);
+
+        if (user == null) {
+            throw new NoSuchElementException("User ID=" + userId + " not found");
+        }
+
+        if (user.getWantToWatch() == null) {
+            user.setWantToWatch(new HashSet<>());
+        }
+
+        user.addWantToWatchAnime(animeId);
 
         Users savedUser = userDAO.save(user);
 
@@ -142,10 +177,21 @@ public class AnimeService {
     }
 
     public UsersData addWontWatchAnime(Long userId, Long animeId) {
-        Users user = findUserById(userId);
-        Anime anime = findAnimeById(animeId);
+        if (userId == null || animeId == null) {
+            throw new IllegalArgumentException("User ID and Anime ID must not be null");
+        }
 
-        user.addWontWatchAnime(anime);
+        Users user = findUserById(userId);
+
+        if (user == null) {
+            throw new NoSuchElementException("User ID=" + userId + " not found");
+        }
+
+        if (user.getWontWatch() == null) {
+            user.setWontWatch(new HashSet<>());
+        }
+
+        user.addWontWatchAnime(animeId);
 
         Users savedUser = userDAO.save(user);
 

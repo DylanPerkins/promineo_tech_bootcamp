@@ -3,8 +3,8 @@ package anime_reviews.controller.model;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import java.util.List;
+import java.util.Set;
 
-import anime_reviews.entity.Anime;
 import anime_reviews.entity.Users;
 
 @Data
@@ -12,10 +12,10 @@ import anime_reviews.entity.Users;
 public class UsersData {
     private Long userId;
     private String username;
-    private List<Integer> watchedAnime;
-    private List<Integer> watchingAnime;
-    private List<Integer> wantToWatch;
-    private List<Integer> wontWatch;
+    private Set<Long> watchedAnime;
+    private Set<Long> watchingAnime;
+    private Set<Long> wantToWatch;
+    private Set<Long> wontWatch;
     private AnimeReviewData animeReview;
 
     public UsersData(Users user) {
@@ -33,7 +33,8 @@ public class UsersData {
         }
     }
 
-    public UsersData(Long userId, String username, List<Integer> watchedAnime, List<Integer> watchingAnime, List<Integer> wantToWatch, List<Integer> wontWatch, AnimeReviewData animeReview) {
+    public UsersData(Long userId, String username, Set<Long> watchedAnime, Set<Long> watchingAnime,
+            Set<Long> wantToWatch, Set<Long> wontWatch, AnimeReviewData animeReview) {
         this.userId = userId;
         this.username = username;
         this.watchedAnime = watchedAnime;
@@ -43,7 +44,8 @@ public class UsersData {
         this.animeReview = animeReview;
     }
 
-    public UsersData(Long userId, String username, List<Integer> watchedAnime, List<Integer> watchingAnime, List<Integer> wantToWatch, List<Integer> wontWatch) {
+    public UsersData(Long userId, String username, Set<Long> watchedAnime, Set<Long> watchingAnime,
+            Set<Long> wantToWatch, Set<Long> wontWatch) {
         this.userId = userId;
         this.username = username;
         this.watchedAnime = watchedAnime;
