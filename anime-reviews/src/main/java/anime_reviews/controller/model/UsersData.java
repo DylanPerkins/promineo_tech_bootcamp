@@ -2,7 +2,7 @@ package anime_reviews.controller.model;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import java.util.List;
+
 import java.util.Set;
 
 import anime_reviews.entity.Users;
