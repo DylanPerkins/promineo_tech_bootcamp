@@ -1,13 +1,13 @@
 package anime_reviews.entity;
 
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
+import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -32,17 +32,21 @@ public class Users {
     @Column(name = "username")
     private String username;
 
-    @Column(name = "watched_anime", columnDefinition = "SET")
-    private Set<Long> watchedAnime;
+    @ElementCollection(fetch = FetchType.EAGER)
+    @Column(name = "watched_anime")
+    private Set<Long> watchedAnime = new HashSet<>();
 
-    @Column(name = "watching_anime", columnDefinition = "SET")
-    private Set<Long> watchingAnime;
+    @ElementCollection(fetch = FetchType.EAGER)
+    @Column(name = "watching_anime")
+    private Set<Long> watchingAnime = new HashSet<>();
 
-    @Column(name = "want_to_watch", columnDefinition = "SET")
-    private Set<Long> wantToWatch;
+    @ElementCollection(fetch = FetchType.EAGER)
+    @Column(name = "want_to_watch")
+    private Set<Long> wantToWatch = new HashSet<>();
 
-    @Column(name = "wont_watch", columnDefinition = "SET")
-    private Set<Long> wontWatch;
+    @ElementCollection(fetch = FetchType.EAGER)
+    @Column(name = "wont_watch")
+    private Set<Long> wontWatch = new HashSet<>();
 
     @OneToOne(mappedBy = "user", cascade = CascadeType.REMOVE)
     private AnimeReview animeReview;
@@ -53,19 +57,20 @@ public class Users {
     @JoinTable(name = "anime_users", joinColumns = @JoinColumn(name = "anime_id"), inverseJoinColumns = @JoinColumn(name = "user_id"))
     private Set<Anime> anime = new HashSet<>();
 
-    public void addWatchedAnime(Long watchedAnime) {
-        this.watchedAnime.add(watchedAnime);
+    public void addWatchedAnime(Long animeId) {
+        watchedAnime.add(animeId);
     }
 
-    public void addWatchingAnime(Long watchingAnime) {
-        this.watchingAnime.add(watchingAnime);
+    public void addWatchingAnime(Long animeId) {
+        watchingAnime.add(animeId);
     }
 
-    public void addWantToWatchAnime(Long wantToWatchAnime) {
-        this.wantToWatch.add(wantToWatchAnime);
+    public void addWantToWatchAnime(Long animeId) {
+        wantToWatch.add(animeId);
     }
 
-    public void addWontWatchAnime(Long wontWatchAnime) {
-        this.wontWatch.add(wontWatchAnime);
+    public void addWontWatchAnime(Long animeId) {
+        wontWatch.add(animeId);
     }
+
 }
