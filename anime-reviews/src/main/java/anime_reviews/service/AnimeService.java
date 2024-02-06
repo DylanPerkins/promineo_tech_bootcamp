@@ -105,9 +105,15 @@ public class AnimeService {
     public UsersData retrieveUserById(Long userId) {
         Users user = findUserById(userId);
 
-        return new UsersData(user);
+        UsersData usersData = new UsersData(user.getUserId(), user.getUsername(), user.getWatchedAnime(),
+                user.getWatchingAnime(), user.getWantToWatch(), user.getWontWatch());
+
+        usersData.removeNullValues();
+
+        return usersData;
     }
 
+    @Transactional(readOnly = false)
     public UsersData addWatchedAnime(Long userId, Long animeId) {
         if (userId == null || animeId == null) {
             throw new IllegalArgumentException("User ID and Anime ID must not be null");
@@ -130,6 +136,7 @@ public class AnimeService {
         return new UsersData(savedUser);
     }
 
+    @Transactional(readOnly = false)
     public UsersData addWatchingAnime(Long userId, Long animeId) {
         if (userId == null || animeId == null) {
             throw new IllegalArgumentException("User ID and Anime ID must not be null");
@@ -152,6 +159,7 @@ public class AnimeService {
         return new UsersData(savedUser);
     }
 
+    @Transactional(readOnly = false)
     public UsersData addWantToWatchAnime(Long userId, Long animeId) {
         if (userId == null || animeId == null) {
             throw new IllegalArgumentException("User ID and Anime ID must not be null");
@@ -174,6 +182,7 @@ public class AnimeService {
         return new UsersData(savedUser);
     }
 
+    @Transactional(readOnly = false)
     public UsersData addWontWatchAnime(Long userId, Long animeId) {
         if (userId == null || animeId == null) {
             throw new IllegalArgumentException("User ID and Anime ID must not be null");
@@ -196,6 +205,34 @@ public class AnimeService {
         return new UsersData(savedUser);
     }
 
+    @Transactional(readOnly = false)
+    public void removeWatchingAnimeByID(Long userId, Long animeId) {
+        Users user = findUserById(userId);
+
+        user.removeWatchingAnime(animeId);
+    }
+
+    @Transactional(readOnly = false)
+    public void removeWatchedAnimeByID(Long userId, Long animeId) {
+        Users user = findUserById(userId);
+
+        user.removeWatchedAnime(animeId);
+    }
+
+    @Transactional(readOnly = false)
+    public void removeWantToWatchAnimeByID(Long userId, Long animeId) {
+        Users user = findUserById(userId);
+
+        user.removeWantToWatchAnime(animeId);
+    }
+
+    @Transactional(readOnly = false)
+    public void removeWontWatchAnimeByID(Long userId, Long animeId) {
+        Users user = findUserById(userId);
+
+        user.removeWontWatchAnime(animeId);
+    }
+
     // Helper Methods
 
     private Users findUserById(Long userId) {
@@ -211,6 +248,20 @@ public class AnimeService {
     private Tags findTagById(Long tagId) {
         return tagsDAO.findById(tagId)
                 .orElseThrow(() -> new NoSuchElementException("Tag ID=" + tagId + " not found"));
+    }
+
+    @Transactional(readOnly = true)
+    public UsersData retri(Long userId) {
+        Users user = findUserById(userId);
+
+        // Create a new UsersData object with non-null values only
+        UsersData usersData = new UsersData(user.getUserId(), user.getUsername(), user.getWatchedAnime(), null, null,
+                null);
+
+        // Remove null values from the UsersData object
+        usersData.removeNullValues();
+
+        return usersData;
     }
 
 }

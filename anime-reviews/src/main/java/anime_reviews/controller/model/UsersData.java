@@ -26,6 +26,9 @@ public class UsersData {
         this.wantToWatch = user.getWantToWatch();
         this.wontWatch = user.getWontWatch();
 
+        // Null checking
+        removeNullValues();
+
         if (user.getAnimeReview() != null) {
             AnimeReviewData animeReviewData = new AnimeReviewData(user.getAnimeReview());
 
@@ -70,6 +73,24 @@ public class UsersData {
         user.setWontWatch(this.wontWatch);
 
         return user;
+    }
+
+    public void removeNullValues() {
+        if (this.watchedAnime == null) {
+            this.watchedAnime = Set.of();
+        }
+
+        if (this.watchingAnime == null) {
+            this.watchingAnime = Set.of();
+        }
+
+        if (this.wantToWatch == null) {
+            this.wantToWatch = Set.of();
+        }
+
+        if (this.wontWatch == null) {
+            this.wontWatch = Set.of();
+        }
     }
 
 }
