@@ -29,10 +29,8 @@ public class UsersData {
         // Null checking
         removeNullValues();
 
-        if (user.getAnimeReview() != null) {
-            AnimeReviewData animeReviewData = new AnimeReviewData(user.getAnimeReview());
-
-            this.animeReview = animeReviewData;
+        if (user.getAnimeReviews() != null && !user.getAnimeReviews().isEmpty()) {
+            this.animeReview = new AnimeReviewData(user.getAnimeReviews().get(0));
         }
     }
 

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.http.HttpStatus;
 import anime_reviews.controller.model.AnimeData;
+import anime_reviews.controller.model.AnimeReviewData;
 import anime_reviews.controller.model.TagsData;
 import anime_reviews.controller.model.UsersData;
 import anime_reviews.service.AnimeService;
@@ -176,4 +177,30 @@ public class AnimeController {
         return Map.of("message", "Anime ID deleted successfully from the user's wont watch list");
     }
 
+    // Create a new review
+    @PostMapping("user/{userId}/anime/{animeId}/review")
+    @ResponseStatus(HttpStatus.CREATED)
+    public AnimeReviewData createReview(@PathVariable Long userId, @PathVariable Long animeId, @RequestBody AnimeReviewData animeReviewData) {
+        log.info("Creating review: {}", animeReviewData);
+
+        return animeService.saveReview(userId, animeId, animeReviewData);
+    }
+
+    // // Get all reviews from a user
+    // @GetMapping("/user/{userId}/review")
+    // @ResponseStatus(HttpStatus.OK)
+    // public UsersData retrieveReview(@PathVariable Long userId) {
+    //     log.info("Getting reviews: {}", userId);
+
+    //     return animeService.retrieveAllReviews(userId);
+    // }
+
+    // // Get a specific review from a user
+    // @GetMapping("/user/{userId}/review/{reviewId}")
+    // @ResponseStatus(HttpStatus.OK)
+    // public UsersData retrieveReviewById(@PathVariable Long userId, @PathVariable Long reviewId) {
+    //     log.info("Getting review: {}", reviewId);
+
+    //     return animeService.retrieveReviewById(userId, reviewId);
+    // }
 }

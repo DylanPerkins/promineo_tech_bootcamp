@@ -1,6 +1,8 @@
 package anime_reviews.controller.model;
 
+import anime_reviews.entity.Anime;
 import anime_reviews.entity.AnimeReview;
+import anime_reviews.entity.Users;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -36,13 +38,13 @@ public class AnimeReviewData {
         this.user = user;
     }
 
-    public AnimeReview toAnimeReview() {
+    public AnimeReview toAnimeReview(Users user, Anime anime) {
         AnimeReview animeReview = new AnimeReview();
 
         animeReview.setReviewId(this.reviewId);
+        animeReview.setAnime(anime);
+        animeReview.setUser(user);
         animeReview.setRating(this.rating);
-        animeReview.setAnime(this.anime.toAnime());
-        animeReview.setUser(this.user.toUsers());
         animeReview.setReviewText(this.reviewText);
 
         return animeReview;

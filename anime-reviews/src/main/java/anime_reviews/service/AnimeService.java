@@ -10,12 +10,15 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import anime_reviews.controller.model.AnimeData;
+import anime_reviews.controller.model.AnimeReviewData;
 import anime_reviews.controller.model.TagsData;
 import anime_reviews.controller.model.UsersData;
 import anime_reviews.dao.AnimeDAO;
+import anime_reviews.dao.AnimeReviewDAO;
 import anime_reviews.dao.TagsDAO;
 import anime_reviews.dao.UserDAO;
 import anime_reviews.entity.Anime;
+import anime_reviews.entity.AnimeReview;
 import anime_reviews.entity.Tags;
 import anime_reviews.entity.Users;
 
@@ -28,8 +31,8 @@ public class AnimeService {
     @Autowired
     private TagsDAO tagsDAO;
 
-    // @Autowired
-    // private AnimeReviewDAO animeReviewDAO;
+    @Autowired
+    private AnimeReviewDAO animeReviewDAO;
 
     @Autowired
     private UserDAO userDAO;
@@ -66,6 +69,27 @@ public class AnimeService {
         return new TagsData(savedTag);
     }
 
+    @Transactional(readOnly = false)
+    public UsersData saveUser(UsersData usersData) {
+        Users user = usersData.toUsers();
+
+        Users savedUser = userDAO.save(user);
+
+        return new UsersData(savedUser);
+    }
+
+    @Transactional(readOnly = false)
+    public AnimeReviewData saveReview(Long userId, Long animeId, AnimeReviewData animeReviewData) {
+        Users user = findUserById(userId);
+        Anime anime = findAnimeById(animeId);
+
+        AnimeReview animeReview = animeReviewData.toAnimeReview(user, anime);
+
+        AnimeReview savedAnimeReview = animeReviewDAO.save(animeReview);
+
+        return new AnimeReviewData(savedAnimeReview);
+    }
+
     @Transactional(readOnly = true)
     public AnimeData retrieveAnimeById(Long animeId) {
         Anime anime = findAnimeById(animeId);
@@ -90,15 +114,6 @@ public class AnimeService {
         Anime savedAnime = animeDAO.save(anime);
 
         return new AnimeData(savedAnime);
-    }
-
-    @Transactional(readOnly = false)
-    public UsersData saveUser(UsersData usersData) {
-        Users user = usersData.toUsers();
-
-        Users savedUser = userDAO.save(user);
-
-        return new UsersData(savedUser);
     }
 
     @Transactional(readOnly = true)
@@ -248,20 +263,6 @@ public class AnimeService {
     private Tags findTagById(Long tagId) {
         return tagsDAO.findById(tagId)
                 .orElseThrow(() -> new NoSuchElementException("Tag ID=" + tagId + " not found"));
-    }
-
-    @Transactional(readOnly = true)
-    public UsersData retri(Long userId) {
-        Users user = findUserById(userId);
-
-        // Create a new UsersData object with non-null values only
-        UsersData usersData = new UsersData(user.getUserId(), user.getUsername(), user.getWatchedAnime(), null, null,
-                null);
-
-        // Remove null values from the UsersData object
-        usersData.removeNullValues();
-
-        return usersData;
     }
 
 }
