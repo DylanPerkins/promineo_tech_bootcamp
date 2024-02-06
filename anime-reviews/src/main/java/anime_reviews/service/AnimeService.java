@@ -1,6 +1,5 @@
 package anime_reviews.service;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
@@ -14,7 +13,6 @@ import anime_reviews.controller.model.AnimeData;
 import anime_reviews.controller.model.TagsData;
 import anime_reviews.controller.model.UsersData;
 import anime_reviews.dao.AnimeDAO;
-import anime_reviews.dao.AnimeReviewDAO;
 import anime_reviews.dao.TagsDAO;
 import anime_reviews.dao.UserDAO;
 import anime_reviews.entity.Anime;
