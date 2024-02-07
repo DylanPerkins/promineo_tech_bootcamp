@@ -176,7 +176,7 @@ public class AnimeController {
 
     // Remove an anime from user's watched list
     @DeleteMapping("/user/{userId}/watched/{animeId}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @ResponseStatus(HttpStatus.OK)
     public Map<String, String> removeWatchedAnime(@PathVariable Long userId, @PathVariable Long animeId) {
         log.info("Removing anime {} from user {}'s watched list", animeId, userId);
         animeService.removeWatchedAnimeByID(userId, animeId);
@@ -186,7 +186,7 @@ public class AnimeController {
 
     // Remove an anime from user's watching list
     @DeleteMapping("/user/{userId}/watching/{animeId}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @ResponseStatus(HttpStatus.OK)
     public Map<String, String> removeWatchingAnime(@PathVariable Long userId, @PathVariable Long animeId) {
         log.info("Removing anime {} from user {}'s watching list", animeId, userId);
         animeService.removeWatchingAnimeByID(userId, animeId);
@@ -196,7 +196,7 @@ public class AnimeController {
 
     // Remove an anime from user's want to watch list
     @DeleteMapping("/user/{userId}/want-to-watch/{animeId}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @ResponseStatus(HttpStatus.OK)
     public Map<String, String> removeWantToWatchAnime(@PathVariable Long userId, @PathVariable Long animeId) {
         log.info("Removing anime {} from user {}'s want to watch list", animeId, userId);
         animeService.removeWantToWatchAnimeByID(userId, animeId);
@@ -206,7 +206,7 @@ public class AnimeController {
 
     // Remove an anime from user's wont watch list
     @DeleteMapping("/user/{userId}/wont-watch/{animeId}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @ResponseStatus(HttpStatus.OK)
     public Map<String, String> removeWontWatchAnime(@PathVariable Long userId, @PathVariable Long animeId) {
         log.info("Removing anime {} from user {}'s wont watch list", animeId, userId);
         animeService.removeWontWatchAnimeByID(userId, animeId);
@@ -242,7 +242,7 @@ public class AnimeController {
 
     // Delete a review by ID
     @DeleteMapping("user/{userId}/anime/{animeId}/review/{reviewId}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @ResponseStatus(HttpStatus.OK)
     public Map<String, String> deleteReview(@PathVariable Long userId, @PathVariable Long animeId,
             @PathVariable Long reviewId) {
         log.info("Deleting review: {}", reviewId);

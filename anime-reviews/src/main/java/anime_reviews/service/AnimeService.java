@@ -225,6 +225,8 @@ public class AnimeService {
         Users user = findUserById(userId);
 
         user.getWatchingAnime().remove(animeId);
+
+        userDAO.save(user);
     }
 
     @Transactional(readOnly = false)
