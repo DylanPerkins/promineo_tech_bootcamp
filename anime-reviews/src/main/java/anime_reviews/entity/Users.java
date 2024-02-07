@@ -59,38 +59,4 @@ public class Users {
     @JoinTable(name = "anime_users", joinColumns = @JoinColumn(name = "anime_id"), inverseJoinColumns = @JoinColumn(name = "user_id"))
     private Set<Anime> anime = new HashSet<>();
 
-    public void addWatchedAnime(Long animeId) {
-        watchedAnime.add(animeId);
-    }
-
-    public void addWatchingAnime(Long animeId) {
-        System.out.println("Adding anime " + animeId + " to watching list");
-
-        watchingAnime.add(animeId);
-    }
-
-    public void addWantToWatchAnime(Long animeId) {
-        wantToWatch.add(animeId);
-    }
-
-    public void addWontWatchAnime(Long animeId) {
-        wontWatch.add(animeId);
-    }
-
-    public void removeWatchingAnime(Long animeId) {
-        watchingAnime.remove(animeId);
-    }
-
-    public void removeWatchedAnime(Long animeId) {
-        watchedAnime.remove(animeId);
-    }
-
-    public void removeWantToWatchAnime(Long animeId) {
-        wantToWatch.remove(animeId);
-    }
-
-    public void removeWontWatchAnime(Long animeId) {
-        wontWatch.remove(animeId);
-    }
-
 }

@@ -144,7 +144,7 @@ public class AnimeService {
             user.setWatchedAnime(new HashSet<>());
         }
 
-        user.addWatchedAnime(animeId);
+        user.getWatchedAnime().add(animeId);
 
         Users savedUser = userDAO.save(user);
 
@@ -167,7 +167,7 @@ public class AnimeService {
             user.setWatchingAnime(new HashSet<>());
         }
 
-        user.addWatchingAnime(animeId);
+        user.getWatchingAnime().add(animeId);
 
         Users savedUser = userDAO.save(user);
 
@@ -190,7 +190,7 @@ public class AnimeService {
             user.setWantToWatch(new HashSet<>());
         }
 
-        user.addWantToWatchAnime(animeId);
+        user.getWantToWatch().add(animeId);
 
         Users savedUser = userDAO.save(user);
 
@@ -213,7 +213,7 @@ public class AnimeService {
             user.setWontWatch(new HashSet<>());
         }
 
-        user.addWontWatchAnime(animeId);
+        user.getWontWatch().add(animeId);
 
         Users savedUser = userDAO.save(user);
 
@@ -224,28 +224,28 @@ public class AnimeService {
     public void removeWatchingAnimeByID(Long userId, Long animeId) {
         Users user = findUserById(userId);
 
-        user.removeWatchingAnime(animeId);
+        user.getWatchingAnime().remove(animeId);
     }
 
     @Transactional(readOnly = false)
     public void removeWatchedAnimeByID(Long userId, Long animeId) {
         Users user = findUserById(userId);
 
-        user.removeWatchedAnime(animeId);
+        user.getWatchedAnime().remove(animeId);
     }
 
     @Transactional(readOnly = false)
     public void removeWantToWatchAnimeByID(Long userId, Long animeId) {
         Users user = findUserById(userId);
 
-        user.removeWantToWatchAnime(animeId);
+        user.getWantToWatch().remove(animeId);
     }
 
     @Transactional(readOnly = false)
     public void removeWontWatchAnimeByID(Long userId, Long animeId) {
         Users user = findUserById(userId);
 
-        user.removeWontWatchAnime(animeId);
+        user.getWontWatch().remove(animeId);
     }
 
     // Helper Methods
