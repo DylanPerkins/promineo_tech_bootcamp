@@ -3,8 +3,10 @@ package anime_reviews.controller.model;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.HashSet;
 import java.util.Set;
 
+import anime_reviews.entity.AnimeReview;
 import anime_reviews.entity.Users;
 
 @Data
@@ -16,7 +18,7 @@ public class UsersData {
     private Set<Long> watchingAnime;
     private Set<Long> wantToWatch;
     private Set<Long> wontWatch;
-    private AnimeReviewData animeReview;
+    private Set<AnimeReviewData> animeReviews = new HashSet<>();
 
     public UsersData(Users user) {
         this.userId = user.getUserId();
@@ -29,20 +31,13 @@ public class UsersData {
         // Null checking
         removeNullValues();
 
-        if (user.getAnimeReviews() != null && !user.getAnimeReviews().isEmpty()) {
-            this.animeReview = new AnimeReviewData(user.getAnimeReviews().get(0));
-        }
-    }
+        if (user.getAnimeReviews() != null) {
+            for (AnimeReview review : user.getAnimeReviews()) {
+                AnimeReviewData reviewData = new AnimeReviewData(review);
 
-    public UsersData(Long userId, String username, Set<Long> watchedAnime, Set<Long> watchingAnime,
-            Set<Long> wantToWatch, Set<Long> wontWatch, AnimeReviewData animeReview) {
-        this.userId = userId;
-        this.username = username;
-        this.watchedAnime = watchedAnime;
-        this.watchingAnime = watchingAnime;
-        this.wantToWatch = wantToWatch;
-        this.wontWatch = wontWatch;
-        this.animeReview = animeReview;
+                this.animeReviews.add(reviewData);
+            }
+        }
     }
 
     public UsersData(Long userId, String username, Set<Long> watchedAnime, Set<Long> watchingAnime,
@@ -70,6 +65,14 @@ public class UsersData {
         user.setWantToWatch(this.wantToWatch);
         user.setWontWatch(this.wontWatch);
 
+        if (this.animeReviews != null) {
+            for (AnimeReviewData reviewData : this.animeReviews) {
+                AnimeReview review = reviewData.toAnimeReview(user, null);
+
+                user.getAnimeReviews().add(review);
+            }
+        }
+
         return user;
     }
 
@@ -88,6 +91,23 @@ public class UsersData {
 
         if (this.wontWatch == null) {
             this.wontWatch = Set.of();
+        }
+    }
+
+    public UsersData(Long userId2, String username2, Set<Long> watchedAnime2, Set<Long> watchingAnime2,
+            Set<Long> wantToWatch2, Set<Long> wontWatch2, Set<AnimeReview> animeReviews2) {
+        this.userId = userId2;
+        this.username = username2;
+        this.watchedAnime = watchedAnime2;
+        this.watchingAnime = watchingAnime2;
+        this.wantToWatch = wantToWatch2;
+        this.wontWatch = wontWatch2;
+
+        if (animeReviews2 != null) {
+            for (AnimeReview review : animeReviews2) {
+                AnimeReviewData reviewData = new AnimeReviewData(review);
+                this.animeReviews.add(reviewData);
+            }
         }
     }
 

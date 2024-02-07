@@ -121,7 +121,7 @@ public class AnimeService {
         Users user = findUserById(userId);
 
         UsersData usersData = new UsersData(user.getUserId(), user.getUsername(), user.getWatchedAnime(),
-                user.getWatchingAnime(), user.getWantToWatch(), user.getWontWatch());
+                user.getWatchingAnime(), user.getWantToWatch(), user.getWontWatch(), user.getAnimeReviews());
 
         usersData.removeNullValues();
 
@@ -263,6 +263,22 @@ public class AnimeService {
     private Tags findTagById(Long tagId) {
         return tagsDAO.findById(tagId)
                 .orElseThrow(() -> new NoSuchElementException("Tag ID=" + tagId + " not found"));
+    }
+
+    public void deleteReviewById(Long userId, Long animeId, Long reviewId) {
+        Users user = findUserById(userId);
+        Anime anime = findAnimeById(animeId);
+
+        AnimeReview review = animeReviewDAO.findById(reviewId)
+                .orElseThrow(() -> new NoSuchElementException("Review ID=" + reviewId + " not found"));
+
+        if (!review.getUser().getUserId().equals(user.getUserId())
+                && !review.getAnime().getAnimeId().equals(anime.getAnimeId())) {
+            throw new IllegalArgumentException("Review ID=" + reviewId + " does not belong to User ID=" + userId
+                    + " and Anime ID=" + animeId);
+        }
+
+        animeReviewDAO.delete(review);
     }
 
 }

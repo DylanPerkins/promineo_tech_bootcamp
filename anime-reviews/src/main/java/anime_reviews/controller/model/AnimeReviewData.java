@@ -10,32 +10,32 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class AnimeReviewData {
     private Long reviewId;
-    private AnimeData anime;
-    private UsersData user;
+    private Long animeId;
+    private Long userId;
     private double rating;
     private String reviewText;
 
     public AnimeReviewData(AnimeReview animeReview) {
         this.reviewId = animeReview.getReviewId();
-        this.anime = new AnimeData(animeReview.getAnime());
-        this.user = new UsersData(animeReview.getUser());
+        this.animeId = animeReview.getAnime().getAnimeId();
+        this.userId = animeReview.getUser().getUserId();
         this.rating = animeReview.getRating();
         this.reviewText = animeReview.getReviewText();
     }
 
-    public AnimeReviewData(Long reviewId, AnimeData anime, UsersData user, double rating, String reviewText) {
+    public AnimeReviewData(Long reviewId, Long anime, Long user, double rating, String reviewText) {
         this.reviewId = reviewId;
-        this.anime = anime;
-        this.user = user;
+        this.animeId = anime;
+        this.userId = user;
         this.rating = rating;
         this.reviewText = reviewText;
     }
 
-    public AnimeReviewData(Long reviewId, double rating, AnimeData anime, UsersData user) {
+    public AnimeReviewData(Long reviewId, double rating, Long anime, Long user) {
         this.reviewId = reviewId;
         this.rating = rating;
-        this.anime = anime;
-        this.user = user;
+        this.animeId = anime;
+        this.userId = user;
     }
 
     public AnimeReview toAnimeReview(Users user, Anime anime) {

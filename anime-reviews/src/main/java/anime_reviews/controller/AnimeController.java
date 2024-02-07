@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -30,14 +31,27 @@ public class AnimeController {
 
     // Create a new anime
     @PostMapping("/anime")
+    @ResponseStatus(HttpStatus.CREATED)
     public AnimeData createAnime(@RequestBody AnimeData animeData) {
         log.info("Creating anime: {}", animeData);
 
         return animeService.saveAnime(animeData);
     }
 
+    // Update an anime
+    @PutMapping("/anime/{animeId}")
+    @ResponseStatus(HttpStatus.OK)
+    public AnimeData updateAnime(@PathVariable Long animeId, @RequestBody AnimeData animeData) {
+        animeData.setAnimeId(animeId);
+
+        log.info("Updating anime: {}", animeData);
+
+        return animeService.saveAnime(animeData);
+    }
+
     // Get all anime and associated tags (if any)
     @GetMapping("/anime")
+    @ResponseStatus(HttpStatus.OK)
     public List<AnimeData> getAllAnime() {
         log.info("Getting all anime info");
 
@@ -46,19 +60,11 @@ public class AnimeController {
 
     // Get a specific anime and associated tags (if any)
     @GetMapping("/anime/{animeId}")
+    @ResponseStatus(HttpStatus.OK)
     public AnimeData retrieveAnime(@PathVariable Long animeId) {
         log.info("Getting anime: {}", animeId);
 
         return animeService.retrieveAnimeById(animeId);
-    }
-
-    // Add a tag to an anime
-    @PostMapping("/anime/{animeId}/tag/{tagId}")
-    @ResponseStatus(HttpStatus.CREATED)
-    public AnimeData addTagToAnime(@PathVariable Long animeId, @PathVariable Long tagId) {
-        log.info("Adding tag {} to anime {}", tagId, animeId);
-
-        return animeService.addTagToAnime(animeId, tagId);
     }
 
     // Create a new tag
@@ -66,6 +72,17 @@ public class AnimeController {
     @ResponseStatus(HttpStatus.CREATED)
     public TagsData createTag(@RequestBody TagsData tagsData) {
         log.info("Creating tag: {}", tagsData);
+
+        return animeService.saveTag(tagsData);
+    }
+
+    // Update a tag
+    @PutMapping("/tag/{tagId}")
+    @ResponseStatus(HttpStatus.OK)
+    public TagsData updateTag(@PathVariable Long tagId, @RequestBody TagsData tagsData) {
+        tagsData.setTagId(tagId);
+
+        log.info("Updating tag: {}", tagsData);
 
         return animeService.saveTag(tagsData);
     }
@@ -79,11 +96,31 @@ public class AnimeController {
         return animeService.retrieveTagById(tagId);
     }
 
+    // Add a tag to an anime
+    @PostMapping("/anime/{animeId}/tag/{tagId}")
+    @ResponseStatus(HttpStatus.CREATED)
+    public AnimeData addTagToAnime(@PathVariable Long animeId, @PathVariable Long tagId) {
+        log.info("Adding tag {} to anime {}", tagId, animeId);
+
+        return animeService.addTagToAnime(animeId, tagId);
+    }
+
     // Create a new user
     @PostMapping("/user")
     @ResponseStatus(HttpStatus.CREATED)
     public UsersData createUser(@RequestBody UsersData usersData) {
         log.info("Creating user: {}", usersData);
+
+        return animeService.saveUser(usersData);
+    }
+
+    // Update a user's info
+    @PutMapping("/user/{userId}")
+    @ResponseStatus(HttpStatus.OK)
+    public UsersData updateUser(@PathVariable Long userId, @RequestBody UsersData usersData) {
+        usersData.setUserId(userId);
+
+        log.info("Updating user: {}", usersData);
 
         return animeService.saveUser(usersData);
     }
@@ -177,30 +214,59 @@ public class AnimeController {
         return Map.of("message", "Anime ID deleted successfully from the user's wont watch list");
     }
 
+    // The following 4 HTTP Requests revolve around animeReviews
+
     // Create a new review
     @PostMapping("user/{userId}/anime/{animeId}/review")
     @ResponseStatus(HttpStatus.CREATED)
-    public AnimeReviewData createReview(@PathVariable Long userId, @PathVariable Long animeId, @RequestBody AnimeReviewData animeReviewData) {
+    public AnimeReviewData createReview(@PathVariable Long userId, @PathVariable Long animeId,
+            @RequestBody AnimeReviewData animeReviewData) {
         log.info("Creating review: {}", animeReviewData);
 
         return animeService.saveReview(userId, animeId, animeReviewData);
+    }
+
+    // Update a review
+    @PutMapping("user/{userId}/anime/{animeId}/review/{reviewId}")
+    @ResponseStatus(HttpStatus.OK)
+    public AnimeReviewData updateReview(@PathVariable Long userId, @PathVariable Long animeId,
+            @PathVariable Long reviewId, @RequestBody AnimeReviewData animeReviewData) {
+        animeReviewData.setReviewId(reviewId);
+        animeReviewData.setUserId(userId);
+        animeReviewData.setAnimeId(animeId);
+
+        log.info("Updating review: {}", animeReviewData);
+
+        return animeService.saveReview(userId, animeId, animeReviewData);
+    }
+
+    // Delete a review by ID
+    @DeleteMapping("user/{userId}/anime/{animeId}/review/{reviewId}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public Map<String, String> deleteReview(@PathVariable Long userId, @PathVariable Long animeId,
+            @PathVariable Long reviewId) {
+        log.info("Deleting review: {}", reviewId);
+        animeService.deleteReviewById(userId, animeId, reviewId);
+
+        return Map.of("message", "Review ID deleted successfully");
     }
 
     // // Get all reviews from a user
     // @GetMapping("/user/{userId}/review")
     // @ResponseStatus(HttpStatus.OK)
     // public UsersData retrieveReview(@PathVariable Long userId) {
-    //     log.info("Getting reviews: {}", userId);
+    // log.info("Getting reviews: {}", userId);
 
-    //     return animeService.retrieveAllReviews(userId);
+    // return animeService.retrieveAllReviewsFromUser(userId);
     // }
 
     // // Get a specific review from a user
     // @GetMapping("/user/{userId}/review/{reviewId}")
     // @ResponseStatus(HttpStatus.OK)
-    // public UsersData retrieveReviewById(@PathVariable Long userId, @PathVariable Long reviewId) {
-    //     log.info("Getting review: {}", reviewId);
+    // public UsersData retrieveReviewById(@PathVariable Long userId, @PathVariable
+    // Long reviewId) {
+    // log.info("Getting review: {}", reviewId);
 
-    //     return animeService.retrieveReviewById(userId, reviewId);
+    // return animeService.retrieveReviewById(userId, reviewId);
     // }
 }

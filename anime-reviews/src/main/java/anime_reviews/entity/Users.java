@@ -1,8 +1,6 @@
 package anime_reviews.entity;
 
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import jakarta.persistence.CascadeType;
@@ -53,7 +51,7 @@ public class Users {
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private List<AnimeReview> animeReviews = new ArrayList<>();
+    private Set<AnimeReview> animeReviews = new HashSet<>();
 
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
