@@ -234,6 +234,8 @@ public class AnimeService {
         Users user = findUserById(userId);
 
         user.getWatchedAnime().remove(animeId);
+        
+        userDAO.save(user);
     }
 
     @Transactional(readOnly = false)
@@ -241,6 +243,8 @@ public class AnimeService {
         Users user = findUserById(userId);
 
         user.getWantToWatch().remove(animeId);
+        
+        userDAO.save(user);
     }
 
     @Transactional(readOnly = false)
@@ -248,6 +252,8 @@ public class AnimeService {
         Users user = findUserById(userId);
 
         user.getWontWatch().remove(animeId);
+        
+        userDAO.save(user);
     }
 
     // Helper Methods
